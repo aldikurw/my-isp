@@ -1,0 +1,318 @@
+<div class="page-heading">
+    <h3>Voucher</h3>
+</div>
+
+<div class="page-content">
+    <div class="row">
+        <div class="col-6 col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body px-3 py-4-5">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="stats-icon green">
+                                <i class="iconly-boldArrow---Down-Circle"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h6 class="text-muted font-semibold">Pemasukan</h6>
+                            <h6 class="font-extrabold mb-0">Rp 900.000</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body px-3 py-4-5">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="stats-icon blue">
+                                <i class="iconly-boldUser"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h6 class="text-muted font-semibold">Reseller</h6>
+                            <h6 class="font-extrabold mb-0">5</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body px-3 py-4-5">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="stats-icon purple">
+                                <i class="iconly-boldActivity"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h6 class="text-muted font-semibold">Total Transaksi</h6>
+                            <h6 class="font-extrabold mb-0">3</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body px-3 py-4-5">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="stats-icon red">
+                                <i class="iconly-boldShield-Fail"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h6 class="text-muted font-semibold">Target Kurang</h6>
+                            <h6 class="font-extrabold mb-0">1</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="transaksi-tab" data-bs-toggle="tab" href="#transaksi" role="tab" aria-controls="transaksi" aria-selected="true">Transaksi</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="reseller-tab" data-bs-toggle="tab" href="#reseller" role="tab" aria-controls="reseller" aria-selected="false">Reseller</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="paket-tab" data-bs-toggle="tab" href="#paket" role="tab" aria-controls="paket" aria-selected="false">Paket</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <!-- Menu Transaksi -->
+                        <div class="tab-pane fade show active" id="transaksi" role="tabpanel" aria-labelledby="transaksi-tab">
+                            <form class="row justify-content-between" id="transaksiFilter">
+                                <div class="col-auto">
+                                    <div class="form-floating">
+                                        <input type="button" value="Tambah" class="btn btn-primary">
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="cariInvoice" placeholder="Cari">
+                                        <label for="cariInvoice">Cari</label>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <table id="invoiceTable" class="table table-hover position-relative" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Waktu</th>
+                                        <th>Nama</th>
+                                        <th>Alamat</th>
+                                        <th>Jumlah</th>
+                                        <th>Opsi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1 minute ago</td>
+                                        <td>Risa</td>
+                                        <td>Sugihwaras</td>
+                                        <td>Rp 50.000</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
+                                            <button class="btn btn-sm btn-light-warning">Ubah</button>
+                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>53 minutes ago</td>
+                                        <td>Anton</td>
+                                        <td>Sugihwaras</td>
+                                        <td>Rp 100.000 (Bonus)</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
+                                            <button class="btn btn-sm btn-light-warning">Ubah</button>
+                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2 hours ago</td>
+                                        <td>Anton</td>
+                                        <td>Sugihwaras</td>
+                                        <td>Rp 50.000</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
+                                            <button class="btn btn-sm btn-light-warning">Ubah</button>
+                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 hour ago</td>
+                                        <td>Ahmad</td>
+                                        <td>Sugihwaras</td>
+                                        <td>Rp 150.000 (Bonus)</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
+                                            <button class="btn btn-sm btn-light-warning">Ubah</button>
+                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Menu Reseller -->
+                        <div class="tab-pane fade" id="reseller" role="tabpanel" aria-labelledby="reseller-tab">
+                            <form class="row justify-content-between" id="resellerFilter">
+                                <div class="col-auto">
+                                    <div class="form-floating">
+                                        <input type="button" value="Tambah" class="btn btn-primary">
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="cariReseller" placeholder="Cari">
+                                        <label for="cariReseller">Cari</label>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <table id="resellerTable" class="table table-hover position-relative" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>Alamat</th>
+                                        <th>IP Router</th>
+                                        <th>Trx Bulan Ini</th>
+                                        <th>Opsi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Risa</td>
+                                        <td>Sugihwaras</td>
+                                        <td>10.10.1.12</td>
+                                        <td>Rp 150.000</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
+                                            <button class="btn btn-sm btn-light-warning">Ubah</button>
+                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Anton</td>
+                                        <td>Sugihwaras</td>
+                                        <td>10.10.1.23</td>
+                                        <td>Rp 50.000</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
+                                            <button class="btn btn-sm btn-light-warning">Ubah</button>
+                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ahmad</td>
+                                        <td>Sugihwaras</td>
+                                        <td>10.10.1.27</td>
+                                        <td>Rp 250.000</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
+                                            <button class="btn btn-sm btn-light-warning">Ubah</button>
+                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Menu Paket -->
+                        <div class="tab-pane fade" id="paket" role="tabpanel" aria-labelledby="paket-tab">
+                            <button type="button" class="btn btn-primary">Tambah</button>
+
+                            <table id="paketTable" class="table table-hover position-relative" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>Durasi</th>
+                                        <th>Kecepatan</th>
+                                        <th>Harga Beli</th>
+                                        <th>Harga Jual</th>
+                                        <th>Opsi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Bronze</td>
+                                        <td>12h</td>
+                                        <td>1500k/1500k</td>
+                                        <td>Rp 1.500</td>
+                                        <td>Rp 2.000</td>
+
+                                        <td>
+                                            <button class="btn btn-sm btn-light-warning">Ubah</button>
+                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Silver</td>
+                                        <td>7d</td>
+                                        <td>1500k/1500k</td>
+                                        <td>Rp 15.000</td>
+                                        <td>Rp 20.000</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-warning">Ubah</button>
+                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Gold</td>
+                                        <td>30d</td>
+                                        <td>1500k/1500k</td>
+                                        <td>Rp 40.000</td>
+                                        <td>Rp 50.000</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-warning">Ubah</button>
+                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script defer>
+    document.addEventListener("DOMContentLoaded", evt => {
+        const invoiceTable = $('#invoiceTable').DataTable({
+            lengthChange: false,
+            dom: "tipr"
+        })
+
+        $('#cariInvoice').on('keyup', function() {
+            invoiceTable.search(this.value).draw();
+        })
+
+        const resellerTable = $('#resellerTable').DataTable({
+            lengthChange: false,
+            dom: "tipr"
+        })
+
+        $('#cariPelanggan').on('keyup', function() {
+            resellerTable.search(this.value).draw();
+        })
+
+        const paketTable = $('#paketTable').DataTable({
+            lengthChange: false,
+            dom: "tipr"
+        })
+    })
+</script>

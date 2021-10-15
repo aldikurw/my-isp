@@ -1,0 +1,312 @@
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    #map {
+        width: 100%;
+        height: 450px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    #locatePosition {
+        display: flex;
+        padding: 0;
+        border-radius: 50%;
+        position: absolute;
+        right: 2.5rem;
+        bottom: 3rem;
+        z-index: 999;
+        width: 35px;
+        height: 35px;
+        display: none;
+    }
+
+    .customUl {
+        list-style: none;
+    }
+
+    .customUl li::before {
+
+        content: "\2022";
+        font-weight: bold;
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
+    }
+
+    .customUl li {
+        margin-right: 2em;
+    }
+
+    .customUl li:nth-child(1) {
+        color: #28a745;
+    }
+
+    .customUl li:nth-child(2) {
+        color: #dc3545;
+    }
+
+    .customUl li:nth-child(3) {
+        color: #007bff;
+    }
+
+    .marker {
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+    }
+
+    .marker-red {
+        background-image: url('../assets/images/marker-red.png');
+    }
+
+    .marker-green {
+        background-image: url('../assets/images/marker-green.png');
+    }
+
+    .marker-blue {
+        background-image: url('../assets/images/marker-blue.png');
+    }
+
+    .mapboxgl-popup {
+        max-width: 200px;
+    }
+
+    .mapboxgl-popup-content {
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+    }
+</style>
+
+<div class="page-heading">
+    <h3>Cakupan Area</h3>
+</div>
+
+<div class="page-content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="peta-tab" data-bs-toggle="tab" href="#peta" role="tab"
+                                aria-controls="peta" aria-selected="true">Peta</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="daftar-area-tab" data-bs-toggle="tab" href="#daftar-area" role="tab"
+                                aria-controls="daftar-area" aria-selected="false">Daftar Area</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <!-- Tab peta -->
+                        <div class="tab-pane fade show active" id="peta" role="tabpanel" aria-labelledby="peta-tab">
+                            <ul class="customUl">
+                                <li>Pelanggan Home Lunas</li>
+                                <li>Pelanggan Home Belum Lunas</li>
+                                <li>Reseller Hotspot Voucher</li>
+                            </ul>
+                            <div class="position-relative">
+                                <div id="map"></div>
+                                <button type="button" class="btn btn-primary" id="locatePosition">
+                                    <i class="bi bi-record-circle m-auto"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Tab Daftar Area -->
+                        <div class="tab-pane fade" id="daftar-area" role="tabpanel" aria-labelledby="daftar-area-tab">
+                            <button class="btn btn-primary">Tambah</button>
+                            <table id="psbTable" class="table table-hover position-relative" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Alamat</th>
+                                        <th>Jumlah Pelanggan Home</th>
+                                        <th>Jumlah Reseller Hotspot Voucher</th>
+                                        <th>Opsi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Sugihwaras</td>
+                                        <td>5</td>
+                                        <td>3</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-warning">Ubah</button>
+                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Gajah</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-warning">Ubah</button>
+                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const geojson = {
+            type: 'FeatureCollection',
+            features: [{
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: [112.254119, -7.638849]
+                },
+                properties: {
+                    nama: 'Andre',
+                    paket: 'Home',
+                    statusPembayaran: 'Lunas'
+                }
+            },
+            {
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: [112.254758, -7.638562]
+                },
+                properties: {
+                    nama: 'Febri',
+                    paket: 'Home',
+                    statusPembayaran: 'Belum'
+                }
+            },
+            {
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: [112.254340, -7.636467]
+                },
+                properties: {
+                    nama: 'Indra',
+                    paket: 'Voucher'
+                }
+            },
+            {
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: [112.256089, -7.638211]
+                },
+                properties: {
+                    nama: 'Jihan',
+                    paket: 'Home',
+                    statusPembayaran: 'Lunas'
+                }
+            },
+            {
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: [112.255574, -7.637137]
+                },
+                properties: {
+                    nama: 'Kiki',
+                    paket: 'Home',
+                    statusPembayaran: 'Lunas'
+                }
+            },
+            {
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: [112.256583, -7.637594]
+                },
+                properties: {
+                    nama: 'Syahrul',
+                    paket: 'Home',
+                    statusPembayaran: 'Lunas'
+                }
+            },
+            {
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: [112.255510, -7.639455]
+                },
+                properties: {
+                    nama: 'Syahrul',
+                    paket: 'Home',
+                    statusPembayaran: 'Lunas'
+                }
+            },
+            ]
+        };
+
+</script>
+
+<script>
+    (() => {
+        loadScript("https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js")
+            .then(initPage)
+    })()
+
+    function initPage() {
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYWxkaWt1cnciLCJhIjoiY2t1ZTRkZm9jMDh4bjJwbnZvZTZ6OG93MiJ9.c6lXJbri6dbYO0p0t8u8Rw';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [112.253302, -7.640462],
+            zoom: 15
+        });
+        
+        for (const {
+            geometry,
+            properties
+        } of geojson.features) {
+            // create a HTML element for each feature
+            const el = document.createElement('div');
+            el.classList.add('marker');
+
+            switch (properties.paket) {
+                case 'Home':
+                    if (properties.statusPembayaran === "Lunas") {
+                        el.classList.add('marker-green');
+                    } else {
+                        el.classList.add('marker-red');
+                    }
+                    break
+                case 'Voucher':
+                    el.classList.add('marker-blue');
+                    break;
+            }
+
+            // make a marker for each feature and add to the map
+            new mapboxgl.Marker(el).setLngLat(geometry.coordinates).addTo(map);
+
+            new mapboxgl.Marker(el)
+                .setLngLat(geometry.coordinates)
+                .setPopup(
+                    new mapboxgl.Popup({
+                        offset: 25
+                    }) // add popups
+                    .setHTML(`
+                        <h6 class="mb-1 mx-2">${properties.nama}</h6>
+                        <div class="avatar avatar-md mb-1">
+                            <img src="../assets/images/faces/1.jpg">
+                        </div>
+                        <div>${properties.paket}</div>
+                    `)
+                )
+                .addTo(map);
+        }
+    }
+</script>

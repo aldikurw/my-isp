@@ -1,0 +1,248 @@
+<div class="page-heading">
+    <h3>Tiket</h3>
+</div>
+
+<div class="page-content">
+    <div class="row">
+        <div class="col-6">
+            <h5 class="card-title">Permintaan Sambungan Baru</h5>
+            <div class="row">
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body px-3 py-4-5">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="iconly-boldTime-Circle"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h6 class="text-muted font-semibold">Diproses</h6>
+                                    <h6 class="font-extrabold mb-0">1</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body px-3 py-4-5">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="iconly-boldDiscovery"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h6 class="text-muted font-semibold">Belum Survey</h6>
+                                    <h6 class="font-extrabold mb-0">1</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <h5 class="card-title">Gangguan</h5>
+            <div class="row">
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body px-3 py-4-5">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon red">
+                                        <i class="iconly-boldDanger"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h6 class="text-muted font-semibold">Internet Mati</h6>
+                                    <h6 class="font-extrabold mb-0">1</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body px-3 py-4-5">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon red">
+                                        <i class="iconly-boldMore-Circle"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h6 class="text-muted font-semibold">Lainnya</h6>
+                                    <h6 class="font-extrabold mb-0">2</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="psb-tab" data-bs-toggle="tab" href="#psb" role="tab" aria-controls="psb" aria-selected="true">PSB</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="gangguan-tab" data-bs-toggle="tab" href="#gangguan" role="tab" aria-controls="gangguan" aria-selected="false">Gangguan</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <!-- Tab PSB -->
+                        <div class="tab-pane fade show active" id="psb" role="tabpanel" aria-labelledby="psb-tab">
+                            <div class="d-flex">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="cariPSB" placeholder="Cari">
+                                    <label for="cariPSB">Cari</label>
+                                </div>
+                            </div>
+
+                            <table id="psbTable" class="table table-hover position-relative" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Waktu</th>
+                                        <th>Nama</th>
+                                        <th>Alamat</th>
+                                        <th>Jenis Layanan</th>
+                                        <th>Status</th>
+                                        <th>Opsi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1 minute ago</td>
+                                        <td>Risa</td>
+                                        <td>Sugihwaras</td>
+                                        <td>Home 2Mbps</td>
+                                        <td>Terpasang</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>53 minutes ago</td>
+                                        <td>Anton</td>
+                                        <td>Sugihwaras</td>
+                                        <td>Home 4Mbps</td>
+                                        <td>Diproses</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-success">Terima</button>
+                                            <button class="btn btn-sm btn-light-danger">Tolak</button>
+                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 hour ago</td>
+                                        <td>Ahmad</td>
+                                        <td>Sugihwaras</td>
+                                        <td>Home 4Mbps</td>
+                                        <td>Belum survey</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-success">Terima</button>
+                                            <button class="btn btn-sm btn-light-primary">Proses</button>
+                                            <button class="btn btn-sm btn-light-danger">Tolak</button>
+                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Tab Gangguan -->
+                        <div class="tab-pane fade" id="gangguan" role="tabpanel" aria-labelledby="gangguan-tab">
+                            <div class="d-flex">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="cariGangguan" placeholder="Cari">
+                                    <label for="cariGangguan">Cari</label>
+                                </div>
+                            </div>
+
+                            <table id="gangguanTable" class="table table-hover position-relative" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Waktu</th>
+                                        <th>Nama</th>
+                                        <th>Alamat</th>
+                                        <th>Jenis Gangguan</th>
+                                        <th>Status</th>
+                                        <th>Opsi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1 hour ago</td>
+                                        <td>Sugeng</td>
+                                        <td>Sugihwaras</td>
+                                        <td>Internet Mati</td>
+                                        <td>Diproses</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-success">Selesai</button>
+                                            <button class="btn btn-sm btn-light-danger">Batal</button>
+                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3 hours ago</td>
+                                        <td>Febri</td>
+                                        <td>Sugihwaras</td>
+                                        <td>Internet Lemot</td>
+                                        <td>Pending</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-success">Selesai</button>
+                                            <button class="btn btn-sm btn-light-primary">Proses</button>
+                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3 hours ago</td>
+                                        <td>Rizal</td>
+                                        <td>Sugihwaras</td>
+                                        <td>Router/Adaptor Mati</td>
+                                        <td>Selesai</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-danger">Batal</button>
+                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", evt => {
+        const psbTable = $('#psbTable').DataTable({
+            lengthChange: false,
+            dom: "tipr"
+        })
+
+        $('#cariPSB').on('keyup', function() {
+            psbTable.search(this.value).draw();
+        })
+
+        const gangguanTable = $('#gangguanTable').DataTable({
+            lengthChange: false,
+            dom: "tipr"
+        })
+
+        $('#cariGangguan').on('keyup', function() {
+            gangguanTable.search(this.value).draw();
+        })
+    })
+</script>

@@ -1,0 +1,357 @@
+<div class="page-heading">
+    <h3>Home Wifi</h3>
+</div>
+
+<div class="page-content">
+    <div class="row">
+        <div class="col-6 col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body px-3 py-4-5">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="stats-icon green">
+                                <i class="iconly-boldArrow---Down-Circle"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h6 class="text-muted font-semibold">Pemasukan</h6>
+                            <h6 class="font-extrabold mb-0">Rp 900.000</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body px-3 py-4-5">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="stats-icon blue">
+                                <i class="iconly-boldShield-Done"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h6 class="text-muted font-semibold">Lunas</h6>
+                            <h6 class="font-extrabold mb-0">5</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body px-3 py-4-5">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="stats-icon purple">
+                                <i class="iconly-boldShield-Fail"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h6 class="text-muted font-semibold">Belum Lunas</h6>
+                            <h6 class="font-extrabold mb-0">3</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body px-3 py-4-5">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="stats-icon red">
+                                <i class="iconly-boldLock"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h6 class="text-muted font-semibold">Suspended</h6>
+                            <h6 class="font-extrabold mb-0">1</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="invoice-tab" data-bs-toggle="tab" href="#invoice" role="tab" aria-controls="invoice" aria-selected="true">Invoice</a>
+                        </li>
+                        <!-- <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="verifikasi-pembayaran-tab" data-bs-toggle="tab" href="#verifikasi-pembayaran" role="tab" aria-controls="verifikasi-pembayaran" aria-selected="false">Verifikasi Pembayaran <span class="badge rounded-pill bg-primary">3</span></a>
+                        </li> -->
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="pelanggan-tab" data-bs-toggle="tab" href="#pelanggan" role="tab" aria-controls="pelanggan" aria-selected="false">Pelanggan</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="paket-tab" data-bs-toggle="tab" href="#paket" role="tab" aria-controls="paket" aria-selected="false">Paket</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="invoice" role="tabpanel" aria-labelledby="invoice-tab">
+                            <div class="row justify-content-between">
+                                <div class="col-12 col-lg-auto mb-2">
+                                    <div class="row">
+                                        <div class="col-12 col-lg-auto mb-2">
+                                            <select class="form-select">
+                                                <option value="2021" selected>2021</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-12 col-lg-auto mb-2">
+                                            <select class="form-select">
+                                                <option value="8">Agustus</option>
+                                                <option value="9" selected>September</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-12 col-lg-auto mb-2">
+                                            <select class="form-select">
+                                                <option value="" selected disabled hidden>Status Pembayaran</option>
+                                                <option value="Lunas">Lunas</option>
+                                                <option value="Belum Lunas">Belum Lunas</option>
+                                                <option value="Belum Lunas">Suspended</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-auto mb-2">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="cariInvoice" placeholder="Cari">
+                                        <label for="cariInvoice">Cari</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <table id="invoiceTable" class="table table-hover position-relative" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>Alamat</th>
+                                        <th>Paket</th>
+                                        <th>Status</th>
+                                        <th>Tanggal Bayar</th>
+                                        <th>Opsi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Ade</td>
+                                        <td>Sugihwaras</td>
+                                        <td>2Mb</td>
+                                        <td>Suspended</td>
+                                        <td>-</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-success">Bayar</button>
+                                            <button class="btn btn-sm btn-light-secondary">Cetak</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nanang</td>
+                                        <td>Sugihwaras</td>
+                                        <td>2Mb</td>
+                                        <td>Lunas</td>
+                                        <td>1 day ago</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-danger">Batal</button>
+                                            <button class="btn btn-sm btn-light-secondary">Cetak</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Intan</td>
+                                        <td>Sugihwaras</td>
+                                        <td>2Mb</td>
+                                        <td>Lunas</td>
+                                        <td>3 days ago</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-danger">Batal</button>
+                                            <button class="btn btn-sm btn-light-secondary">Cetak</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hendrik</td>
+                                        <td>Sugihwaras</td>
+                                        <td>2Mb</td>
+                                        <td>Belum Lunas</td>
+                                        <td>-</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-success">Bayar</button>
+                                            <button class="btn btn-sm btn-light-secondary">Cetak</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Yanuar</td>
+                                        <td>Sugihwaras</td>
+                                        <td>2Mb</td>
+                                        <td>Lunas</td>
+                                        <td>1 week ago</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-danger">Batal</button>
+                                            <button class="btn btn-sm btn-light-secondary">Cetak</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- <div class="tab-pane fade" id="verifikasi-pembayaran" role="tabpanel" aria-labelledby="verifikasi-pembayaran-tab">
+                        </div> -->
+                        <div class="tab-pane fade" id="pelanggan" role="tabpanel" aria-labelledby="pelanggan-tab">
+                            <div class="row justify-content-between">
+                                <div class="col-auto">
+                                    <div class="form-floating">
+                                        <input type="button" value="Tambah" class="btn btn-primary">
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="cariPelanggan" placeholder="Cari">
+                                        <label for="cariPelanggan">Cari</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <table id="pelangganTable" class="table table-hover position-relative" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>Alamat</th>
+                                        <th>Paket</th>
+                                        <th>Koneksi</th>
+                                        <th>Opsi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Ade</td>
+                                        <td>Sugihwaras</td>
+                                        <td>2Mb</td>
+                                        <td>10.10.0.16</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
+                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nanang</td>
+                                        <td>Sugihwaras</td>
+                                        <td>2Mb</td>
+                                        <td>10.10.0.34</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
+                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Intan</td>
+                                        <td>Sugihwaras</td>
+                                        <td>2Mb</td>
+                                        <td>10.10.0.27</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
+                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hendrik</td>
+                                        <td>Sugihwaras</td>
+                                        <td>2Mb</td>
+                                        <td>hendrik@gmdp.net.id</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
+                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Yanuar</td>
+                                        <td>Sugihwaras</td>
+                                        <td>2Mb</td>
+                                        <td>yanuar@gmdp.net.id</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
+                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane fade" id="paket" role="tabpanel" aria-labelledby="paket-tab">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="button" value="Tambah" class="btn btn-primary">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <table id="paketTable" class="table table-hover position-relative" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>Kecepatan</th>
+                                        <th>Harga</th>
+                                        <th>Opsi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Basic</td>
+                                        <td>2Mb/2Mb</td>
+                                        <td>Rp 125.000</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-warning">Ubah</button>
+                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Plus</td>
+                                        <td>4Mb/4Mb</td>
+                                        <td>Rp 175.000</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-light-warning">Ubah</button>
+                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script defer>
+    document.addEventListener("DOMContentLoaded", evt => {
+        const invoiceTable = $('#invoiceTable').DataTable({
+            lengthChange: false,
+            dom: "tipr"
+        })
+
+        $('#cariInvoice').on('keyup', function() {
+            invoiceTable.search(this.value).draw();
+        })
+
+        const pelangganTable = $('#pelangganTable').DataTable({
+            lengthChange: false,
+            dom: "tipr"
+        })
+
+        $('#cariPelanggan').on('keyup', function() {
+            pelangganTable.search(this.value).draw();
+        })
+
+        const paketTable = $('#paketTable').DataTable({
+            lengthChange: false,
+            dom: "tipr"
+        })
+
+        $('#cariPaket').on('keyup', function() {
+            paketTable.search(this.value).draw();
+        })
+    })
+</script>

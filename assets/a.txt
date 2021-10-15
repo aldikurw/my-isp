@@ -1,0 +1,63 @@
+<!-- <ul class="submenu ">
+    <li class="submenu-item ">
+        <a href="extra-component-avatar.html">Pelanggan</a>
+    </li>
+    <li class="submenu-item ">
+        <a href="extra-component-sweetalert.html">Daftar Paket</a>
+    </li>
+    <li class="submenu-item ">
+        <a href="extra-component-sweetalert.html">Invoice</a>
+    </li>
+    </ul> -->
+
+    <!-- <ul class="submenu ">
+    <li class="submenu-item ">
+        <a href="extra-component-avatar.html">Reseller</a>
+    </li>
+    <li class="submenu-item ">
+        <a href="extra-component-sweetalert.html">Paket Voucher</a>
+    </li>
+    <li class="submenu-item ">
+        <a href="extra-component-avatar.html">Transaksi</a>
+    </li>
+</ul> -->
+
+
+<!-- <script>
+    loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyDYHwtXKueXVYHFgmgwwJ5NfZWTJJ4K5tU&callback=initMap&v=weekly&channel=2")
+    
+    function initMap() {
+        const position = { lat: -7.640462, lng: 112.253302 };
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 15,
+            center: position,
+        });
+        const infowindow = new google.maps.InfoWindow({
+            content: `
+            <div id="content">
+                <div id="siteNotice"></div>
+                <h3 id="firstHeading" class="firstHeading">Uluru</h3>
+                <div id="bodyContent">
+                    <p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'
+                    https://en.wikipedia.org/w/index.php?title=Uluru</a> 
+                    (last visited June 22, 2009).</p>
+                </div>
+            </div>
+        `,
+        });
+        const marker = new google.maps.Marker({
+            position: position,
+            map,
+            title: "Uluru (Ayers Rock)",
+        });
+
+        marker.addListener("click", () => {
+            infowindow.open({
+                anchor: marker,
+                map,
+                shouldFocus: false,
+            });
+        });
+    }
+    
+</script> -->

@@ -1,0 +1,131 @@
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<div class="page-heading">
+    <h3>Catatan Keuangan</h3>
+</div>
+
+<div class="page-content">
+    <div class="row">
+        <div class="col-6 col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 d-flex">
+                            <div class="stats-icon my-auto blue">
+                                <i class="iconly-boldTime-Circle"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <h6 class="text-muted font-semibold">Periode</h6>
+                            <input type="text" name="periode" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-body px-3 py-4-5">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="stats-icon green">
+                                <i class="iconly-boldArrow---Down-Circle"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h6 class="text-muted font-semibold">Pemasukan</h6>
+                            <h6 class="font-extrabold mb-0">Rp 600.000 (1)</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-body px-3 py-4-5">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="stats-icon red">
+                                <i class="iconly-boldArrow---Up-Circle"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h6 class="text-muted font-semibold">Pengeluaran</h6>
+                            <h6 class="font-extrabold mb-0">Rp 1.670.000 (2)</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <button class="btn btn-primary">Tambah</button>
+                    <table id="catatanKeuanganTable" class="table table-hover position-relative" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Deskripsi</th>
+                                <th>Jenis</th>
+                                <th>Jumlah</th>
+                                <th>Waktu Input</th>
+                                <th>Opsi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10-05-2021</td>
+                                <td>Beli mikrotik rb941</td>
+                                <td>Pengeluaran</td>
+                                <td>Rp 350.000</td>
+                                <td>2 minutes ago</td>
+                                <td>
+                                    <button class="btn btn-sm btn-light-warning">Ubah</button>
+                                    <button class="btn btn-sm btn-light-danger">Hapus</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>10-05-2021</td>
+                                <td>Jual sxtsq 5hpnd</td>
+                                <td>Pemasukan</td>
+                                <td>Rp 600.000</td>
+                                <td>1 day ago</td>
+                                <td>
+                                    <button class="btn btn-sm btn-light-warning">Ubah</button>
+                                    <button class="btn btn-sm btn-light-danger">Hapus</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>10-05-2021</td>
+                                <td>Bayar tagihan metro 20Mbps</td>
+                                <td>Pengeluaran</td>
+                                <td>Rb 1.320.000</td>
+                                <td>26 minutes ago</td>
+                                <td>
+                                    <button class="btn btn-sm btn-light-warning">Ubah</button>
+                                    <button class="btn btn-sm btn-light-danger">Hapus</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    loadScript("https://cdn.jsdelivr.net/momentjs/latest/moment.min.js")
+    loadScript("https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js").then(() => {
+        const catatanKeuanganTable = $('#catatanKeuanganTable').DataTable({
+            lengthChange: false,
+            dom: "tipr"
+        })
+
+        $('input[name="periode"]').daterangepicker();
+    })
+</script>

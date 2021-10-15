@@ -1,0 +1,150 @@
+<link rel="stylesheet" href="../assets/vendors/apexcharts/apexcharts.css">
+<style>
+    #chart-pemasukan-dan-pengeluaran {
+        height: 350px;
+    }
+</style>
+
+<div class="page-heading">
+    <h3>Dashboard</h3>
+</div>
+
+<div class="page-content">
+    <div class="row">
+        <div class="col-6 col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-body px-3 py-4-5">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="stats-icon blue">
+                                <i class="iconly-boldHome"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h6 class="text-muted font-semibold">Home Wifi
+                                <span class="spansub">Lunas/Belum</span>
+                            </h6>
+                            <h6 class="font-extrabold mb-0">53/23</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-body px-3 py-4-5">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="stats-icon purple">
+                                <i class="iconly-boldTicket"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h6 class="text-muted font-semibold">Pemasukan Voucher
+                                <span class="spansub">Bulan ini</span>
+                            </h6>
+                            <h6 class="font-extrabold mb-0">Rp 183.000</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-body px-3 py-4-5">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="stats-icon red">
+                                <i class="iconly-boldBookmark"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h6 class="text-muted font-semibold">Tiket
+                                <span class="spansub">PSB/Gangguan</span>
+                            </h6>
+                            <h6 class="font-extrabold mb-0">5/2</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Pemasukan dan Pengeluaran
+                        <span class="spansub">7 hari terakhir</span>
+                    </h3>
+                    <div id="chart-pemasukan-dan-pengeluaran"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="wkwk"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+    (() => {
+        var options = {
+            series: [{
+                name: 'Pemasukan',
+                data: [31000, 40000, 28000, 51000, 42000, 109000, 100000]
+            }, {
+                name: 'Pengeluaran',
+                data: [11000, 32000, 45000, 32000, 34000, 52000, 41000]
+            }],
+            colors: ['#00E396', '#FF4560'],
+            chart: {
+                type: 'area',
+                height: '350px',
+                zoom: {
+                    enabled: false
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'smooth'
+            },
+            xaxis: {
+                type: 'datetime',
+                categories: ["2018-09-19", "2018-09-20", "2018-09-21", "2018-09-22", "2018-09-23", "2018-09-24", "2018-09-25"]
+            },
+            tooltip: {
+                x: {
+                    format: 'dd/MM/yy HH:mm'
+                },
+            }
+        };
+
+        loadScript("../assets/vendors/apexcharts/apexcharts.js")
+            .then(() => {
+                var chart = new ApexCharts(document.querySelector("#chart-pemasukan-dan-pengeluaran"), options);
+                chart.render();
+            })
+    })()
+</script>
