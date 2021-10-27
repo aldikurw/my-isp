@@ -369,9 +369,9 @@ function loadScript(scriptUrl) {
 
 function loadAllScripts(scripts, callback) {
   scripts = scripts.map(e => {
-    return {url: e, loaded: false}
+    return { url: e, loaded: false }
   });
-  
+
   scripts.forEach(v => {
     loadScript(v.url).then(() => {
       v.loaded = true;
@@ -382,4 +382,23 @@ function loadAllScripts(scripts, callback) {
   })
 }
 
-const server = "http://localhost/my-isp/";
+const server = "http://d45229f2f92565.lhr.domains/my-isp/";
+
+function showToast(success, message) {
+  let backgroundColor;
+  if (success) {
+    backgroundColor = "linear-gradient(135deg, #73a5ff, #5477f5)";
+  } else {
+    backgroundColor = "linear-gradient(to right, rgb(255, 95, 109), rgb(255, 195, 113))";
+  }
+  
+  Toastify({
+    text: message,
+    duration: 3000,
+    close: true,
+    gravity: "top",
+    position: "right",
+    backgroundColor: backgroundColor,
+    stopOnFocus: true,
+  }).showToast();
+}

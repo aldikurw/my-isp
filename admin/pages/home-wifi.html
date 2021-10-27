@@ -514,6 +514,11 @@
             modal.show();
         }
 
+        function hideModal() {
+            modal.hide();
+            form.reset();
+        }
+
         // Paket
         fetch(server + "api/home-wifi/paket-home-wifi.php")
             .then(response => response.json())
@@ -591,6 +596,8 @@
 
             form.bulan_awal_penagihan.value = "";
             cekBulanAwalPenagihan();
+
+            marker.remove();
         };
 
         // Filepond foto ktp
@@ -614,20 +621,18 @@
             center: [112.253302, -7.640462],
             zoom: 15
         });
-        markers;
+        let marker;
 
         map.on("click", e => {
-            if (markers) {
-                markers.remove();
+            if (marker) {
+                marker.remove();
             }
             const coordinate = e.lngLat;
-            const marker = new mapboxgl.Marker()
+            marker = new mapboxgl.Marker()
                 .setLngLat(coordinate)
                 .addTo(map);
             form.lng.value = coordinate.lng;
             form.lat.value = coordinate.lat;
-
-            markers = marker;
         });
 
         map.on('idle', function () {
@@ -650,11 +655,17 @@
             })
                 .then(response => response.json())
                 .then(result => {
-                    
+                    const length = fotoKtp.getFiles().length;
+                    if (length > 0) {
+                        fotoKtp.processFiles();
+                    }
+                    showToast(result.success, result.message);
+                    if (result.success) {
+                        hideModal();
+                    }
                 });
         }
     }
-    let fl;
 </script>
 
 <script>

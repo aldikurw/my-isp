@@ -10,7 +10,8 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         "nama" => $data->nama,
         "jenis_kelamin" => $data->jenis_kelamin,
         "id_alamat" => $data->alamat,
-        "jenis_pemasangan" => $data->jenis_pemasangan
+        "jenis_pemasangan" => $data->jenis_pemasangan,
+        "url_foto_ktp" => ""
     ];
 
     if (!empty(trim($data->nik))) {
