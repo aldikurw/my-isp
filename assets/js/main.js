@@ -382,7 +382,7 @@ function loadAllScripts(scripts, callback) {
   })
 }
 
-const server = "http://d45229f2f92565.lhr.domains/my-isp/";
+const server = "http://localhost/my-isp/";
 
 function showToast(success, message) {
   let backgroundColor;

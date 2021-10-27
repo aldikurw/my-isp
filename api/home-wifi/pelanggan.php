@@ -10,8 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         "nama" => $data->nama,
         "jenis_kelamin" => $data->jenis_kelamin,
         "id_alamat" => $data->alamat,
-        "jenis_pemasangan" => $data->jenis_pemasangan,
-        "url_foto_ktp" => ""
+        "jenis_pemasangan" => $data->jenis_pemasangan
     ];
 
     if (!empty(trim($data->nik))) {
@@ -40,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     $db->insert("pelanggan", $values);
     $id_pelanggan = $db->id();
     
+    $response["data"] = ["id_pelanggan" => $id_pelanggan];
     $response["success"] = true;
     $response["message"] = "Berhasil menambahkan pelanggan";
     

@@ -464,6 +464,7 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <button class="btn btn-secondary" id="btn-reset-pelanggan">Reset</button>
                 <button class="btn btn-success" id="btn-submit-pelanggan">Simpan</button>
             </div>
         </div>
@@ -597,7 +598,10 @@
             form.bulan_awal_penagihan.value = "";
             cekBulanAwalPenagihan();
 
-            marker.remove();
+            if (marker) {
+                marker.remove();
+            }
+            fotoKtp.removeFile(0);
         };
 
         // Filepond foto ktp
@@ -639,6 +643,10 @@
             map.resize();
         });
 
+        document.getElementById("btn-reset-pelanggan").onclick = () => {
+            form.reset();
+        }
+
         document.getElementById("btn-submit-pelanggan").onclick = () => {
             form.btn_submit.click();
         }
@@ -657,11 +665,18 @@
                 .then(result => {
                     const length = fotoKtp.getFiles().length;
                     if (length > 0) {
-                        fotoKtp.processFiles();
-                    }
-                    showToast(result.success, result.message);
-                    if (result.success) {
-                        hideModal();
+                        fotoKtp.getFile(0).setMetadata("id_pelanggan", result.data.id_pelanggan);
+                        fotoKtp.processFiles().then(file => {
+                            showToast(result.success, result.message);
+                            if (result.success) {
+                                hideModal();
+                            }
+                        });
+                    } else {
+                        showToast(result.success, result.message);
+                        if (result.success) {
+                            hideModal();
+                        }
                     }
                 });
         }
