@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Oct 27, 2021 at 09:22 AM
+-- Generation Time: Oct 27, 2021 at 04:10 PM
 -- Server version: 5.7.35
 -- PHP Version: 7.4.23
 
@@ -31,7 +31,7 @@ CREATE TABLE `akun_home_wifi` (
   `id_akun_home_wifi` int(11) NOT NULL,
   `id_pelanggan` int(11) NOT NULL,
   `id_paket_home_wifi` int(11) NOT NULL,
-  `jenis_koneksi` enum('IP Static','PPPOE') NOT NULL,
+  `jenis_koneksi` enum('IP static','PPPOE') NOT NULL,
   `ip_static` varchar(15) DEFAULT NULL,
   `username_pppoe` varchar(100) DEFAULT NULL,
   `password_pppoe` varchar(100) DEFAULT NULL,
@@ -243,6 +243,30 @@ CREATE TABLE `transaksi_voucher_detail` (
   `total_pembelian` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `view_pelanggan_home`
+-- (See below for the actual view)
+--
+CREATE TABLE `view_pelanggan_home` (
+`id_pelanggan` int(11)
+,`id_akun_home_wifi` int(11)
+,`nama` varchar(100)
+,`alamat` varchar(100)
+,`kecepatan` varchar(100)
+,`koneksi` varchar(100)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `view_pelanggan_home`
+--
+DROP TABLE IF EXISTS `view_pelanggan_home`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `view_pelanggan_home`  AS SELECT `plg`.`id_pelanggan` AS `id_pelanggan`, `akn`.`id_akun_home_wifi` AS `id_akun_home_wifi`, `plg`.`nama` AS `nama`, `alm`.`nama` AS `alamat`, `pkt`.`kecepatan` AS `kecepatan`, if((`akn`.`jenis_koneksi` = 'IP static'),`akn`.`ip_static`,`akn`.`username_pppoe`) AS `koneksi` FROM (((`akun_home_wifi` `akn` join `pelanggan` `plg` on((`akn`.`id_pelanggan` = `plg`.`id_pelanggan`))) join `paket_home_wifi` `pkt` on((`pkt`.`id_paket_home_wifi` = `akn`.`id_paket_home_wifi`))) join `alamat` `alm` on((`alm`.`id_alamat` = `plg`.`id_alamat`))) ;
+
 --
 -- Indexes for dumped tables
 --
@@ -253,7 +277,7 @@ CREATE TABLE `transaksi_voucher_detail` (
 ALTER TABLE `akun_home_wifi`
   ADD PRIMARY KEY (`id_akun_home_wifi`),
   ADD KEY `id_paket_wifihome` (`id_paket_home_wifi`),
-  ADD KEY `id_pelanggan` (`id_pelanggan`);
+  ADD KEY `akun_home_wifi_ibfk_2` (`id_pelanggan`);
 
 --
 -- Indexes for table `akun_hotspot_voucher`
@@ -346,7 +370,7 @@ ALTER TABLE `transaksi_voucher_detail`
 -- AUTO_INCREMENT for table `akun_home_wifi`
 --
 ALTER TABLE `akun_home_wifi`
-  MODIFY `id_akun_home_wifi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_akun_home_wifi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `akun_hotspot_voucher`
@@ -394,7 +418,7 @@ ALTER TABLE `paket_voucher`
 -- AUTO_INCREMENT for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `transaksi_voucher_detail`
@@ -411,7 +435,7 @@ ALTER TABLE `transaksi_voucher_detail`
 --
 ALTER TABLE `akun_home_wifi`
   ADD CONSTRAINT `akun_home_wifi_ibfk_1` FOREIGN KEY (`id_paket_home_wifi`) REFERENCES `paket_home_wifi` (`id_paket_home_wifi`),
-  ADD CONSTRAINT `akun_home_wifi_ibfk_2` FOREIGN KEY (`id_pelanggan`) REFERENCES `pelanggan` (`id_pelanggan`);
+  ADD CONSTRAINT `akun_home_wifi_ibfk_2` FOREIGN KEY (`id_pelanggan`) REFERENCES `pelanggan` (`id_pelanggan`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `akun_hotspot_voucher`

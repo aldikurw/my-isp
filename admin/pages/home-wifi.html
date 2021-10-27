@@ -422,83 +422,6 @@
             document.querySelector(".sidebar-item.active a").click();
         }
 
-        // Init datatables pelanggan
-        function initDatatablesPelanggan() {
-            const options = {
-                dom: "tipr",
-                lengthChange: false,
-                columnDefs: [{
-                    targets: [0, 1],
-                    visible: false
-                },
-                {
-                    targets: -1,
-                    responsivePriority: 1,
-                    data: null,
-                    width: "20%",
-                    render: function (data, type, row, meta) {
-                        return `
-                            <button class="btn btn-sm btn-light-success btn-invoice" data-id-akun-home-wifi="${row[0]}">Invoice</button>
-                            <button class="btn btn-sm btn-light-secondary btn-detail" data-id-akun-home-wifi="${row[0]}">Detail</button>
-                            <button class="btn btn-sm btn-light-danger btn-hapus" data-id-nama="${row[2]}" data-id-pelanggan="${row[1]}">Hapus</button>
-                        `;
-                    }
-                }
-                ]
-            }
-            const table = createDataTable(
-                "table-pelanggan",
-                server + "api/home-wifi/datatables-pelanggan.php",
-                options
-            );
-            
-            function initOptionButton() {
-                const btnRemove = document.querySelectorAll('#table-pelanggan .btn-hapus');
-                Array.from(btnRemove).forEach(el => {
-                    el.onclick = evt => {
-                        const id = evt.currentTarget.getAttribute("data-id-pelanggan");
-                        const nama = evt.currentTarget.getAttribute("data-id-nama");
-                        Swal.fire({
-                            title: 'Hapus ' + nama,
-                            showCancelButton: true,
-                            confirmButtonText: 'Hapus',
-                            cancelButtonText: 'Batal',
-                            showLoaderOnConfirm: true,
-                            preConfirm: (login) => {
-                                return fetch(server + "api/home-wifi/pelanggan.php?id_pelanggan=" + id, {
-                                    method: "DELETE",
-                                    headers: {
-                                        "ContentType": "application/json;charset=utf-8"
-                                    }
-                                })
-                                    .then(response => {
-                                        if (!response.ok) {
-                                            throw new Error(response.statusText)
-                                        }
-                                        return response.json()
-                                    })
-                                    .then(result => {
-                                        showToast(result.success, result.message);
-                                        refreshPage();
-                                    })
-                                    .catch(error => {
-                                        console.error(error);
-                                    })
-                            },
-                            allowOutsideClick: () => !Swal.isLoading()
-                        })
-                    };
-                });
-            }
-
-            table.on('draw', initOptionButton);
-            
-            initOptionButton();
-            $('#search-pelanggan').on('keyup', function () {
-                table.search(this.value).draw();
-            });
-        }
-
         function initDataTables() {
             // DataTable
             const tablePaket = $('#paketTable').DataTable({
@@ -515,8 +438,8 @@
             })
         }
 
-        // Init form pelanggan
-        function initFormPelanggan() {
+        function initPelanggan() {
+            // Init form pelanggan
             const form = document.forms["form-pelanggan"];
             const modal = new bootstrap.Modal(document.getElementById('modal-pelanggan'));
 
@@ -525,12 +448,52 @@
             };
 
             let method;
-            function showModal(m, id) {
+            let url;
+            function showModal(m, id_akun_home_wifi) {
+                form.reset();
                 method = m;
+                url = server + "api/home-wifi/pelanggan.php";
+
                 if (m == "POST") {
                     document.getElementById("modal-title-pelanggan").textContent = "Tambah Pelanggan";
+                    document.getElementById("btn-submit-pelanggan").textContent = "Simpan";
                 } else {
                     document.getElementById("modal-title-pelanggan").textContent = "Detail Pelanggan";
+                    document.getElementById("btn-submit-pelanggan").textContent = "Simpan perubahan";
+
+                    url += `?id_akun_home_wifi=${id_akun_home_wifi}`;
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(result => {
+                            const data = result.data[0];
+                            form.nama.value = data.nama;
+                            form.paket.value = data.id_paket_home_wifi;
+                            form.jenis_koneksi.value = data.jenis_koneksi;
+                            form.ip_static.value = data.ip_static;
+                            form.username_pppoe.value = data.username_pppoe;
+                            form.password_pppoe.value = data.password_pppoe;
+                            form.nik.value = data.nik;
+                            form.jenis_kelamin.value = data.jenis_kelamin;
+                            form.kontak.value = data.kontak;
+                            form.alamat.value = data.id_alamat;
+                            form.jenis_pemasangan.value = data.jenis_pemasangan;
+                            form.tanggal_pemasangan.value = data.tanggal_pemasangan;
+                            form.lng.value = data.lng;
+                            form.lat.value = data.lat;
+                            cekJenisKoneksi();
+                            if (data.lng != "" && data.lat != "" && data.lng != null && data.lat != null) {
+                                const coordinate = { lng: data.lng, lat: data.lat };
+                                marker = new mapboxgl.Marker()
+                                    .setLngLat(coordinate)
+                                    .addTo(map);
+                                map.flyTo({
+                                    center: coordinate
+                                });
+                            }
+                            if (data.url_foto_ktp !== "" && data.url_foto_ktp !== null) {
+                                fotoKtp.addFile("../assets/images/foto-ktp/" + data.url_foto_ktp);
+                            }
+                        });
                 }
                 modal.show();
             }
@@ -677,7 +640,13 @@
                 let data = Object.fromEntries(formData);
                 data = JSON.stringify(data);
 
-                fetch(server + "api/home-wifi/pelanggan.php", {
+                if (method == "POST") {
+
+                } else {
+
+                }
+
+                fetch(url, {
                     method: method,
                     body: data
                 })
@@ -702,6 +671,95 @@
                         }
                     });
             }
+
+            // Init datatable pelanggan
+            const options = {
+                dom: "tipr",
+                lengthChange: false,
+                columnDefs: [{
+                    targets: [0, 1],
+                    visible: false
+                },
+                {
+                    targets: -1,
+                    responsivePriority: 1,
+                    data: null,
+                    width: "20%",
+                    render: function (data, type, row, meta) {
+                        return `
+                            <button class="btn btn-sm btn-light-success btn-invoice" data-id-akun-home-wifi="${row[1]}">Invoice</button>
+                            <button class="btn btn-sm btn-light-secondary btn-detail" data-id-akun-home-wifi="${row[1]}">Detail</button>
+                            <button class="btn btn-sm btn-light-danger btn-hapus" data-id-nama="${row[2]}" data-id-pelanggan="${row[0]}">Hapus</button>
+                        `;
+                    }
+                }
+                ]
+            }
+            const table = createDataTable(
+                "table-pelanggan",
+                server + "api/home-wifi/datatables-pelanggan.php",
+                options
+            );
+
+            function initOptionButton() {
+                const btnRemove = document.querySelectorAll('#table-pelanggan .btn-hapus');
+                Array.from(btnRemove).forEach(el => {
+                    el.onclick = evt => {
+                        const id = evt.currentTarget.getAttribute("data-id-pelanggan");
+                        const nama = evt.currentTarget.getAttribute("data-id-nama");
+                        Swal.fire({
+                            title: 'Hapus ' + nama,
+                            showCancelButton: true,
+                            confirmButtonText: 'Hapus',
+                            cancelButtonText: 'Batal',
+                            showLoaderOnConfirm: true,
+                            preConfirm: (login) => {
+                                return fetch(server + "api/home-wifi/pelanggan.php?id_pelanggan=" + id, {
+                                    method: "DELETE",
+                                    headers: {
+                                        "ContentType": "application/json;charset=utf-8"
+                                    }
+                                })
+                                    .then(response => {
+                                        if (!response.ok) {
+                                            throw new Error(response.statusText)
+                                        }
+                                        return response.json()
+                                    })
+                                    .then(result => {
+                                        showToast(result.success, result.message);
+                                        refreshPage();
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    })
+                            },
+                            allowOutsideClick: () => !Swal.isLoading()
+                        })
+                    };
+                });
+
+                const btnDetail = document.querySelectorAll('#table-pelanggan .btn-detail');
+                Array.from(btnDetail).forEach(el => {
+                    el.onclick = evt => {
+                        showModal("PUT", evt.currentTarget.getAttribute("data-id-akun-home-wifi"));
+                    };
+                });
+
+                const btnDetail = document.querySelectorAll('#table-pelanggan .btn-invoice');
+                Array.from(btnDetail).forEach(el => {
+                    el.onclick = evt => {
+                        
+                    };
+                });
+            }
+
+            table.on('draw', initOptionButton);
+
+            initOptionButton();
+            $('#search-pelanggan').on('keyup', function () {
+                table.search(this.value).draw();
+            });
         }
 
         const scripts = [
@@ -731,8 +789,9 @@
             mapboxgl.accessToken = 'pk.eyJ1IjoiYWxkaWt1cnciLCJhIjoiY2t1ZTRkZm9jMDh4bjJwbnZvZTZ6OG93MiJ9.c6lXJbri6dbYO0p0t8u8Rw';
 
 
-            initDatatablesPelanggan();
-            initFormPelanggan();
+            initPelanggan();
+            // initDatatablesPelanggan();
+            // initFormPelanggan();
         }
     })()
 </script>
