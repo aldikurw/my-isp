@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         "jenis_koneksi" => $data->jenis_koneksi
     ];
 
-    if ($data->jenis_koneksi == "IP Static") {
+    if ($data->jenis_koneksi == "IP static") {
         $values["ip_static"] = $data->ip_static;
     } else {
         $values["username_pppoe"] = $data->username_pppoe;

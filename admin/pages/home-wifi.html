@@ -212,6 +212,8 @@
                             <table id="table-pelanggan" class="table table-hover position-relative" style="width:100%">
                                 <thead>
                                     <tr>
+                                        <th>id_pelanggan</th>
+                                        <th>id_akun_home_wifi</th>
                                         <th>Nama</th>
                                         <th>Alamat</th>
                                         <th>Paket</th>
@@ -219,63 +221,6 @@
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Ade</td>
-                                        <td>Sugihwaras</td>
-                                        <td>2Mb</td>
-                                        <td>10.10.0.16</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light-success">Invoice</button>
-                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
-                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Nanang</td>
-                                        <td>Sugihwaras</td>
-                                        <td>2Mb</td>
-                                        <td>10.10.0.34</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light-success">Invoice</button>
-                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
-                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Intan</td>
-                                        <td>Sugihwaras</td>
-                                        <td>2Mb</td>
-                                        <td>10.10.0.27</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light-success">Invoice</button>
-                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
-                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Hendrik</td>
-                                        <td>Sugihwaras</td>
-                                        <td>2Mb</td>
-                                        <td>hendrik@gmdp.net.id</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light-success">Invoice</button>
-                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
-                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Yanuar</td>
-                                        <td>Sugihwaras</td>
-                                        <td>2Mb</td>
-                                        <td>yanuar@gmdp.net.id</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light-success">Invoice</button>
-                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
-                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
                             </table>
                         </div>
 
@@ -355,7 +300,7 @@
                             <select class="form-select" name="jenis_koneksi" required>
                                 <option value="" selected disabled hidden>Pilih</option>
                                 <option value="PPPOE">PPPOE</option>
-                                <option value="IP Static">IP static</option>
+                                <option value="IP static">IP static</option>
                             </select>
                             <label for="jenis_koneksi">Jenis koneksi<sup class="text-danger">*</sup></label>
                         </div>
@@ -374,7 +319,7 @@
                     </div>
                     <div class="col-12 col-lg-4 mb-3 d-none">
                         <div class="form-floating">
-                            <input type="text" class="form-control" name="ip_static" placeholder="IP Static">
+                            <input type="text" class="form-control" name="ip_static" placeholder="IP static">
                             <label for="ip_static">IP static<sup class="text-danger">*</sup></label>
                         </div>
                     </div>
@@ -449,16 +394,16 @@
                             <label for="bulan_awal_penagihan">Bulan awal penagihan</label>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <label>Foto KTP</label>
-                        <input type="file" class="filepond" name="foto_ktp" data-max-file-size="3MB">
-
-                    </div>
                     <div class="col-12 position-relative">
                         <label>Pin alamat</label>
                         <input type="hidden" name="lng">
                         <input type="hidden" name="lat">
                         <div class="map" id="tambah-pelanggan-map"></div>
+                    </div>
+                    <div class="col-12">
+                        <label>Foto KTP</label>
+                        <input type="file" class="filepond" name="foto_ktp" data-max-file-size="3MB">
+
                     </div>
                     <input type="submit" name="btn_submit" class="d-none">
                 </form>
@@ -472,219 +417,293 @@
 </div>
 
 <script>
-    function initDataTables() {
-        // DataTable
-        const tableInvoice = $('#table-invoice').DataTable({
-            lengthChange: false,
-            dom: "tipr"
-        })
-        $('#search-invoice').on('keyup', function () {
-            tableInvoice.search(this.value).draw();
-        })
+    (() => {
+        function refreshPage() {
+            document.querySelector(".sidebar-item.active a").click();
+        }
 
-        const tablePelanggan = $('#table-pelanggan').DataTable({
-            lengthChange: false,
-            dom: "tipr"
-        })
-        $('#search-pelanggan').on('keyup', function () {
-            tablePelanggan.search(this.value).draw();
-        })
-
-        const tablePaket = $('#paketTable').DataTable({
-            lengthChange: false,
-            dom: "tipr"
-        })
-    }
-
-    function initFormPelanggan() {
-        const form = document.forms["form-pelanggan"];
-        const modal = new bootstrap.Modal(document.getElementById('modal-pelanggan'));
-
-        document.getElementById("button-tambah-pelanggan").onclick = evt => {
-            showModal("POST");
-        };
-
-        let method;
-        function showModal(m, id) {
-            method = m;
-            if (m == "POST") {
-                document.getElementById("modal-title-pelanggan").textContent = "Tambah Pelanggan";
-            } else {
-                document.getElementById("modal-title-pelanggan").textContent = "Detail Pelanggan";
+        // Init datatables pelanggan
+        function initDatatablesPelanggan() {
+            const options = {
+                dom: "tipr",
+                lengthChange: false,
+                columnDefs: [{
+                    targets: [0, 1],
+                    visible: false
+                },
+                {
+                    targets: -1,
+                    responsivePriority: 1,
+                    data: null,
+                    width: "20%",
+                    render: function (data, type, row, meta) {
+                        return `
+                            <button class="btn btn-sm btn-light-success btn-invoice" data-id-akun-home-wifi="${row[0]}">Invoice</button>
+                            <button class="btn btn-sm btn-light-secondary btn-detail" data-id-akun-home-wifi="${row[0]}">Detail</button>
+                            <button class="btn btn-sm btn-light-danger btn-hapus" data-id-nama="${row[2]}" data-id-pelanggan="${row[1]}">Hapus</button>
+                        `;
+                    }
+                }
+                ]
             }
-            modal.show();
-        }
+            const table = createDataTable(
+                "table-pelanggan",
+                server + "api/home-wifi/datatables-pelanggan.php",
+                options
+            );
+            
+            function initOptionButton() {
+                const btnRemove = document.querySelectorAll('#table-pelanggan .btn-hapus');
+                Array.from(btnRemove).forEach(el => {
+                    el.onclick = evt => {
+                        const id = evt.currentTarget.getAttribute("data-id-pelanggan");
+                        const nama = evt.currentTarget.getAttribute("data-id-nama");
+                        Swal.fire({
+                            title: 'Hapus ' + nama,
+                            showCancelButton: true,
+                            confirmButtonText: 'Hapus',
+                            cancelButtonText: 'Batal',
+                            showLoaderOnConfirm: true,
+                            preConfirm: (login) => {
+                                return fetch(server + "api/home-wifi/pelanggan.php?id_pelanggan=" + id, {
+                                    method: "DELETE",
+                                    headers: {
+                                        "ContentType": "application/json;charset=utf-8"
+                                    }
+                                })
+                                    .then(response => {
+                                        if (!response.ok) {
+                                            throw new Error(response.statusText)
+                                        }
+                                        return response.json()
+                                    })
+                                    .then(result => {
+                                        showToast(result.success, result.message);
+                                        refreshPage();
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    })
+                            },
+                            allowOutsideClick: () => !Swal.isLoading()
+                        })
+                    };
+                });
+            }
 
-        function hideModal() {
-            modal.hide();
-            form.reset();
-        }
-
-        // Paket
-        fetch(server + "api/home-wifi/paket-home-wifi.php")
-            .then(response => response.json())
-            .then(result => {
-                result.data.forEach(el => {
-                    const option = document.createElement("option");
-                    option.value = el.id_paket_home_wifi;
-                    option.textContent = el.nama + " (" + el.kecepatan + ")";
-                    form.paket.appendChild(option);
-                })
+            table.on('draw', initOptionButton);
+            
+            initOptionButton();
+            $('#search-pelanggan').on('keyup', function () {
+                table.search(this.value).draw();
             });
-
-        //Jenis Koneksi
-        form.jenis_koneksi.onchange = cekJenisKoneksi;
-        function cekJenisKoneksi() {
-            form.ip_static.closest(".col-12").classList.add("d-none");
-            form.username_pppoe.closest(".col-12").classList.add("d-none");
-            form.password_pppoe.closest(".col-12").classList.add("d-none");
-            form.ip_static.required = false;
-            form.username_pppoe.required = false;
-            form.password_pppoe.required = false;
-
-            if (form.jenis_koneksi.value == "IP Static") {
-                form.ip_static.closest(".col-12").classList.remove("d-none");
-                form.ip_static.required = true;
-            } else if (form.jenis_koneksi.value == "PPPOE") {
-                form.username_pppoe.closest(".col-12").classList.remove("d-none");
-                form.password_pppoe.closest(".col-12").classList.remove("d-none");
-                form.username_pppoe.required = true;
-                form.password_pppoe.required = true;
-            }
         }
 
-        //Alamat
-        fetch(server + "api/home-wifi/alamat.php")
-            .then(response => response.json())
-            .then(result => {
-                result.data.forEach(el => {
-                    const option = document.createElement("option");
-                    option.value = el.id_alamat;
-                    option.textContent = el.nama;
-                    form.alamat.appendChild(option);
-                })
-            });
-
-        form.alamat.onchange = cekAlamat;
-        function cekAlamat() {
-            form.alamat_baru.closest(".col-12").classList.add("d-none");
-            form.alamat_baru.required = false;
-
-            if (form.alamat.value == "_buat_baru") {
-                form.alamat_baru.closest(".col-12").classList.remove("d-none");
-                form.alamat_baru.required = true;
-            }
-        }
-
-        // Bulan awal penagihan
-        form.bulan_awal_penagihan.onchange = cekBulanAwalPenagihan;
-        function cekBulanAwalPenagihan() {
-            form.tanggal_pemasangan.closest(".col-12").querySelector("label").innerHTML = "Tanggal pemasangan";
-            form.tanggal_pemasangan.required = false;
-
-            if (form.bulan_awal_penagihan.value == "Sesuai tanggal pemasangan") {
-                form.tanggal_pemasangan.closest(".col-12").querySelector("label").innerHTML = `Tanggal pemasangan<sup class="text-danger">*</sup>`;
-                form.tanggal_pemasangan.required = true;
-            }
-        }
-
-        form.onreset = evt => {
-            form.jenis_koneksi.value = "";
-            cekJenisKoneksi();
-
-            form.alamat.value = "";
-            cekAlamat();
-
-            form.bulan_awal_penagihan.value = "";
-            cekBulanAwalPenagihan();
-
-            if (marker) {
-                marker.remove();
-            }
-            fotoKtp.removeFile(0);
-        };
-
-        // Filepond foto ktp
-        fotoKtp = FilePond.create(form.foto_ktp, {
-            acceptedFileTypes: ['image/*'],
-            required: false,
-            instantUpload: false,
-            allowRevert: false,
-            allowProcess: false,
-            labelIdle: "Drag & Drop your files or Browse",
-            maxParallelUploads: 1,
-            server: {
-                process: server + "api/home-wifi/upload-foto-ktp.php"
-            },
-        });
-
-        // Mapbox pin alamat
-        map = new mapboxgl.Map({
-            container: 'tambah-pelanggan-map',
-            style: 'mapbox://styles/mapbox/streets-v11',
-            center: [112.253302, -7.640462],
-            zoom: 15
-        });
-        let marker;
-
-        map.on("click", e => {
-            if (marker) {
-                marker.remove();
-            }
-            const coordinate = e.lngLat;
-            marker = new mapboxgl.Marker()
-                .setLngLat(coordinate)
-                .addTo(map);
-            form.lng.value = coordinate.lng;
-            form.lat.value = coordinate.lat;
-        });
-
-        map.on('idle', function () {
-            map.resize();
-        });
-
-        document.getElementById("btn-reset-pelanggan").onclick = () => {
-            form.reset();
-        }
-
-        document.getElementById("btn-submit-pelanggan").onclick = () => {
-            form.btn_submit.click();
-        }
-
-        form.onsubmit = evt => {
-            evt.preventDefault();
-            const formData = new FormData(form);
-            let data = Object.fromEntries(formData);
-            data = JSON.stringify(data);
-
-            fetch(server + "api/home-wifi/pelanggan.php", {
-                method: method,
-                body: data
+        function initDataTables() {
+            // DataTable
+            const tablePaket = $('#paketTable').DataTable({
+                lengthChange: false,
+                dom: "tipr"
             })
+
+            const tableInvoice = $('#table-invoice').DataTable({
+                lengthChange: false,
+                dom: "tipr"
+            })
+            $('#search-invoice').on('keyup', function () {
+                tableInvoice.search(this.value).draw();
+            })
+        }
+
+        // Init form pelanggan
+        function initFormPelanggan() {
+            const form = document.forms["form-pelanggan"];
+            const modal = new bootstrap.Modal(document.getElementById('modal-pelanggan'));
+
+            document.getElementById("button-tambah-pelanggan").onclick = evt => {
+                showModal("POST");
+            };
+
+            let method;
+            function showModal(m, id) {
+                method = m;
+                if (m == "POST") {
+                    document.getElementById("modal-title-pelanggan").textContent = "Tambah Pelanggan";
+                } else {
+                    document.getElementById("modal-title-pelanggan").textContent = "Detail Pelanggan";
+                }
+                modal.show();
+            }
+
+            function hideModal() {
+                modal.hide();
+                form.reset();
+            }
+
+            // Paket
+            fetch(server + "api/home-wifi/paket-home-wifi.php")
                 .then(response => response.json())
                 .then(result => {
-                    const length = fotoKtp.getFiles().length;
-                    if (length > 0) {
-                        fotoKtp.getFile(0).setMetadata("id_pelanggan", result.data.id_pelanggan);
-                        fotoKtp.processFiles().then(file => {
+                    result.data.forEach(el => {
+                        const option = document.createElement("option");
+                        option.value = el.id_paket_home_wifi;
+                        option.textContent = el.nama + " (" + el.kecepatan + ")";
+                        form.paket.appendChild(option);
+                    })
+                });
+
+            //Jenis Koneksi
+            form.jenis_koneksi.onchange = cekJenisKoneksi;
+            function cekJenisKoneksi() {
+                form.ip_static.closest(".col-12").classList.add("d-none");
+                form.username_pppoe.closest(".col-12").classList.add("d-none");
+                form.password_pppoe.closest(".col-12").classList.add("d-none");
+                form.ip_static.required = false;
+                form.username_pppoe.required = false;
+                form.password_pppoe.required = false;
+
+                if (form.jenis_koneksi.value == "IP static") {
+                    form.ip_static.closest(".col-12").classList.remove("d-none");
+                    form.ip_static.required = true;
+                } else if (form.jenis_koneksi.value == "PPPOE") {
+                    form.username_pppoe.closest(".col-12").classList.remove("d-none");
+                    form.password_pppoe.closest(".col-12").classList.remove("d-none");
+                    form.username_pppoe.required = true;
+                    form.password_pppoe.required = true;
+                }
+            }
+
+            //Alamat
+            fetch(server + "api/home-wifi/alamat.php")
+                .then(response => response.json())
+                .then(result => {
+                    result.data.forEach(el => {
+                        const option = document.createElement("option");
+                        option.value = el.id_alamat;
+                        option.textContent = el.nama;
+                        form.alamat.appendChild(option);
+                    })
+                });
+
+            form.alamat.onchange = cekAlamat;
+            function cekAlamat() {
+                form.alamat_baru.closest(".col-12").classList.add("d-none");
+                form.alamat_baru.required = false;
+
+                if (form.alamat.value == "_buat_baru") {
+                    form.alamat_baru.closest(".col-12").classList.remove("d-none");
+                    form.alamat_baru.required = true;
+                }
+            }
+
+            // Bulan awal penagihan
+            form.bulan_awal_penagihan.onchange = cekBulanAwalPenagihan;
+            function cekBulanAwalPenagihan() {
+                form.tanggal_pemasangan.closest(".col-12").querySelector("label").innerHTML = "Tanggal pemasangan";
+                form.tanggal_pemasangan.required = false;
+
+                if (form.bulan_awal_penagihan.value == "Sesuai tanggal pemasangan") {
+                    form.tanggal_pemasangan.closest(".col-12").querySelector("label").innerHTML = `Tanggal pemasangan<sup class="text-danger">*</sup>`;
+                    form.tanggal_pemasangan.required = true;
+                }
+            }
+
+            form.onreset = evt => {
+                form.jenis_koneksi.value = "";
+                cekJenisKoneksi();
+
+                form.alamat.value = "";
+                cekAlamat();
+
+                form.bulan_awal_penagihan.value = "";
+                cekBulanAwalPenagihan();
+
+                if (marker) {
+                    marker.remove();
+                }
+                fotoKtp.removeFile(0);
+            };
+
+            // Filepond foto ktp
+            fotoKtp = FilePond.create(form.foto_ktp, {
+                acceptedFileTypes: ['image/*'],
+                required: false,
+                instantUpload: false,
+                allowRevert: false,
+                allowProcess: false,
+                labelIdle: "Drag & Drop your files or Browse",
+                maxParallelUploads: 1,
+                server: {
+                    process: server + "api/home-wifi/upload-foto-ktp.php"
+                },
+            });
+
+            // Mapbox pin alamat
+            map = new mapboxgl.Map({
+                container: 'tambah-pelanggan-map',
+                style: 'mapbox://styles/mapbox/streets-v11',
+                center: [112.253302, -7.640462],
+                zoom: 15
+            });
+            let marker;
+
+            map.on("click", e => {
+                if (marker) {
+                    marker.remove();
+                }
+                const coordinate = e.lngLat;
+                marker = new mapboxgl.Marker()
+                    .setLngLat(coordinate)
+                    .addTo(map);
+                form.lng.value = coordinate.lng;
+                form.lat.value = coordinate.lat;
+            });
+
+            map.on('idle', function () {
+                map.resize();
+            });
+
+            document.getElementById("btn-reset-pelanggan").onclick = () => {
+                form.reset();
+            }
+
+            document.getElementById("btn-submit-pelanggan").onclick = () => {
+                form.btn_submit.click();
+            }
+
+            form.onsubmit = evt => {
+                evt.preventDefault();
+                const formData = new FormData(form);
+                let data = Object.fromEntries(formData);
+                data = JSON.stringify(data);
+
+                fetch(server + "api/home-wifi/pelanggan.php", {
+                    method: method,
+                    body: data
+                })
+                    .then(response => response.json())
+                    .then(result => {
+                        const length = fotoKtp.getFiles().length;
+                        if (length > 0) {
+                            fotoKtp.getFile(0).setMetadata("id_pelanggan", result.data.id_pelanggan);
+                            fotoKtp.processFiles().then(file => {
+                                showToast(result.success, result.message);
+                                if (result.success) {
+                                    hideModal();
+                                }
+                                refreshPage();
+                            });
+                        } else {
                             showToast(result.success, result.message);
                             if (result.success) {
                                 hideModal();
                             }
-                        });
-                    } else {
-                        showToast(result.success, result.message);
-                        if (result.success) {
-                            hideModal();
+                            refreshPage();
                         }
-                    }
-                });
+                    });
+            }
         }
-    }
-</script>
 
-<script>
-    (() => {
         const scripts = [
             "../assets/vendors/filepond/filepond.min.js",
             "../assets/vendors/filepond/plugin/image-preview/filepond-plugin-image-preview.min.js",
@@ -712,7 +731,7 @@
             mapboxgl.accessToken = 'pk.eyJ1IjoiYWxkaWt1cnciLCJhIjoiY2t1ZTRkZm9jMDh4bjJwbnZvZTZ6OG93MiJ9.c6lXJbri6dbYO0p0t8u8Rw';
 
 
-            initDataTables();
+            initDatatablesPelanggan();
             initFormPelanggan();
         }
     })()
