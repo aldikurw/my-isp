@@ -8,7 +8,7 @@ use Medoo\Medoo;
 $config["host"] = "mysql";
 $config["username"] = "root";
 $config["password"] = "root";
-$config["db"] = "isp";
+$config["db"] = "my-isp";
 
 
 $db = new Medoo([
@@ -32,3 +32,6 @@ if (!in_array(date("Y"), array_column($list_tahun, "tahun"))) {
         "tahun" => date("Y")
     ]);
 }
+
+$response["success"] = false;
+$response["message"] = "Error";

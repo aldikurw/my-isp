@@ -267,34 +267,34 @@ function createDataTable(id, url, opt, btnFunc) {
   //
   // DataTables initialisation
   //
-    let options = {
-      "ordering": false,
-      "responsive": true,
-      "processing": true,
-      "serverSide": true,
-      "ajax": $.fn.dataTable.pipeline({
-        url: url,
-        pages: 5 // number of pages to cache
+  let options = {
+    "ordering": false,
+    "responsive": true,
+    "processing": true,
+    "serverSide": true,
+    "ajax": $.fn.dataTable.pipeline({
+      url: url,
+      pages: 5 // number of pages to cache
+    })
+  }
+
+  if (typeof opt != undefined) {
+    for (let key in opt) {
+      options[key] = opt[key]
+    }
+  }
+
+  table = $(`#${id}`).DataTable(options);
+
+  if (typeof btnFunc != undefined) {
+    for (let key in btnFunc) {
+      $(`#${id} tbody`).on('click', `#${key}`, function () {
+        var cell = table.cell(this.parentNode);
+        var data = table.row(cell.index().row).data()
+        btnFunc[key](data);
       })
     }
-
-    if (typeof opt != undefined) {
-      for (let key in opt) {
-        options[key] = opt[key]
-      }
-    }
-
-    table = $(`#${id}`).DataTable(options);
-
-    if (typeof btnFunc != undefined) {
-      for (let key in btnFunc) {
-        $(`#${id} tbody`).on('click', `#${key}`, function() {
-          var cell = table.cell(this.parentNode);
-          var data = table.row(cell.index().row).data()
-          btnFunc[key](data);
-        })
-      }
-    }
+  }
   return table;
 }
 
@@ -310,11 +310,11 @@ const router = async () => {
   Array.from(document.querySelectorAll(".sidebar-item"))
     .forEach(e => e.classList.remove("active"))
 
-  let qs = location.search !== "" ?  location.search : "?dashboard"
+  let qs = location.search !== "" ? location.search : "?dashboard"
 
   document.querySelector(`a[href='${qs}'].sidebar-link`).parentNode.classList.add("active")
   document.querySelector('.sidebar-item.active').scrollIntoView(false)
-  
+
   let page = savedPages.find(e => e.route.path === qs)
   if (!page) {
     page = {
@@ -343,10 +343,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function setInnerHTML(elm, html) {
   elm.innerHTML = html;
-  Array.from(elm.querySelectorAll("script")).forEach( oldScript => {
+  Array.from(elm.querySelectorAll("script")).forEach(oldScript => {
     const newScript = document.createElement("script");
     Array.from(oldScript.attributes)
-      .forEach( attr => newScript.setAttribute(attr.name, attr.value) );
+      .forEach(attr => newScript.setAttribute(attr.name, attr.value));
     newScript.appendChild(document.createTextNode(oldScript.innerHTML));
     oldScript.parentNode.replaceChild(newScript, oldScript);
   });
@@ -356,9 +356,9 @@ function loadScript(scriptUrl) {
   const script = document.createElement('script');
   script.src = scriptUrl;
   document.body.appendChild(script);
-  
+
   return new Promise((res, rej) => {
-    script.onload = function() {
+    script.onload = function () {
       res();
     }
     script.onerror = function () {
@@ -366,3 +366,20 @@ function loadScript(scriptUrl) {
     }
   });
 }
+
+function loadAllScripts(scripts, callback) {
+  scripts = scripts.map(e => {
+    return {url: e, loaded: false}
+  });
+  
+  scripts.forEach(v => {
+    loadScript(v.url).then(() => {
+      v.loaded = true;
+      if (!scripts.some(e => e.loaded === false)) {
+        callback();
+      }
+    });
+  })
+}
+
+const server = "http://localhost/my-isp/";
