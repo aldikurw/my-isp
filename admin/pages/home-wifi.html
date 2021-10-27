@@ -335,12 +335,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form class="row" id="form-pelanggan">
+                <form class="row" id="form-pelanggan" enctype='multipart/form-data'>
                     <div class="col-12 col-lg-6 mb-3">
                         <div class="form-floating">
-                            <input type="text" class="form-control" name="nama_pelanggan" placeholder="Nama Pelanggan"
-                                required>
-                            <label for="nama_pelanggan">Nama pelanggan<sup class="text-danger">*</sup></label>
+                            <input type="text" class="form-control" name="nama" placeholder="Nama Pelanggan" required>
+                            <label for="nama">Nama pelanggan<sup class="text-danger">*</sup></label>
                         </div>
                     </div>
                     <div class="col-12 col-lg-6 mb-3">
@@ -391,8 +390,8 @@
                         </div>
                     </div>
                     <div class="col-12 col-lg-4 mb-3">
-                        <div class="form-floating" name="jenis_kelamin">
-                            <select class="form-select">
+                        <div class="form-floating">
+                            <select class="form-select" name="jenis_kelamin">
                                 <option value="" selected disabled hidden>Pilih</option>
                                 <option value="Laki-Laki">Laki-Laki</option>
                                 <option value="Perempuan">Perempuan</option>
@@ -411,7 +410,7 @@
                         <div class="input-group form-floating">
                             <select class="form-select" name="alamat" required>
                                 <option value="" selected disabled hidden>Pilih</option>
-                                <option value="_buat_baru" >Buat baru</option>
+                                <option value="_buat_baru">Buat baru</option>
                             </select>
                             <label for="alamat">Alamat<sup class="text-danger">*</sup></label>
                         </div>
@@ -452,7 +451,7 @@
                     </div>
                     <div class="col-12">
                         <label>Foto KTP</label>
-                        <input type="file" class="filepond" name="foto-ktp" data-max-file-size="3MB">
+                        <input type="file" class="filepond" name="foto_ktp" data-max-file-size="3MB">
 
                     </div>
                     <div class="col-12 position-relative">
@@ -501,11 +500,13 @@
         const modal = new bootstrap.Modal(document.getElementById('modal-pelanggan'));
 
         document.getElementById("button-tambah-pelanggan").onclick = evt => {
-            showModalPelanggan("tambah");
+            showModal("POST");
         };
 
-        function showModalPelanggan(mode, id) {
-            if (mode == "add") {
+        let method;
+        function showModal(m, id) {
+            method = m;
+            if (m == "POST") {
                 document.getElementById("modal-title-pelanggan").textContent = "Tambah Pelanggan";
             } else {
                 document.getElementById("modal-title-pelanggan").textContent = "Detail Pelanggan";
@@ -515,15 +516,15 @@
 
         // Paket
         fetch(server + "api/home-wifi/paket-home-wifi.php")
-        .then(response => response.json())
-        .then(result => {
-            result.data.forEach(el => {
-                const option = document.createElement("option");
-                option.value = el.id_paket_home_wifi;
-                option.textContent = el.nama + " (" + el.kecepatan + ")";
-                form.paket.appendChild(option);
-            })
-        });
+            .then(response => response.json())
+            .then(result => {
+                result.data.forEach(el => {
+                    const option = document.createElement("option");
+                    option.value = el.id_paket_home_wifi;
+                    option.textContent = el.nama + " (" + el.kecepatan + ")";
+                    form.paket.appendChild(option);
+                })
+            });
 
         //Jenis Koneksi
         form.jenis_koneksi.onchange = cekJenisKoneksi;
@@ -548,15 +549,15 @@
 
         //Alamat
         fetch(server + "api/home-wifi/alamat.php")
-        .then(response => response.json())
-        .then(result => {
-            result.data.forEach(el => {
-                const option = document.createElement("option");
-                option.value = el.id_alamat;
-                option.textContent = el.nama;
-                form.alamat.appendChild(option);
-            })
-        });
+            .then(response => response.json())
+            .then(result => {
+                result.data.forEach(el => {
+                    const option = document.createElement("option");
+                    option.value = el.id_alamat;
+                    option.textContent = el.nama;
+                    form.alamat.appendChild(option);
+                })
+            });
 
         form.alamat.onchange = cekAlamat;
         function cekAlamat() {
@@ -593,7 +594,7 @@
         };
 
         // Filepond foto ktp
-        form._fotoKtp = FilePond.create(form["foto-ktp"], {
+        fotoKtp = FilePond.create(form.foto_ktp, {
             acceptedFileTypes: ['image/*'],
             required: false,
             instantUpload: false,
@@ -607,41 +608,53 @@
         });
 
         // Mapbox pin alamat
-        form._map = new mapboxgl.Map({
+        map = new mapboxgl.Map({
             container: 'tambah-pelanggan-map',
             style: 'mapbox://styles/mapbox/streets-v11',
             center: [112.253302, -7.640462],
             zoom: 15
         });
+        markers;
 
-        form.markers;
-        form._map.on("click", e => {
-            if (form.markers) {
-                form.markers.remove();
+        map.on("click", e => {
+            if (markers) {
+                markers.remove();
             }
             const coordinate = e.lngLat;
             const marker = new mapboxgl.Marker()
                 .setLngLat(coordinate)
-                .addTo(form._map);
+                .addTo(map);
             form.lng.value = coordinate.lng;
             form.lat.value = coordinate.lat;
 
-            form.markers = marker;
+            markers = marker;
         });
 
-        form._map.on('idle', function () {
-            form._map.resize();
+        map.on('idle', function () {
+            map.resize();
         });
 
         document.getElementById("btn-submit-pelanggan").onclick = () => {
-            form.btn_submit.click();   
+            form.btn_submit.click();
         }
 
         form.onsubmit = evt => {
             evt.preventDefault();
-            
+            const formData = new FormData(form);
+            let data = Object.fromEntries(formData);
+            data = JSON.stringify(data);
+
+            fetch(server + "api/home-wifi/pelanggan.php", {
+                method: method,
+                body: data
+            })
+                .then(response => response.json())
+                .then(result => {
+                    
+                });
         }
     }
+    let fl;
 </script>
 
 <script>
