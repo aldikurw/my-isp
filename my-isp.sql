@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Oct 15, 2021 at 02:37 PM
+-- Generation Time: Oct 27, 2021 at 09:22 AM
 -- Server version: 5.7.35
 -- PHP Version: 7.4.23
 
@@ -32,9 +32,10 @@ CREATE TABLE `akun_home_wifi` (
   `id_pelanggan` int(11) NOT NULL,
   `id_paket_home_wifi` int(11) NOT NULL,
   `jenis_koneksi` enum('IP Static','PPPOE') NOT NULL,
-  `ip_static` varchar(15) NOT NULL,
-  `pppoe_username` varchar(100) NOT NULL,
-  `pppoe_password` varchar(100) NOT NULL,
+  `ip_static` varchar(15) DEFAULT NULL,
+  `username_pppoe` varchar(100) DEFAULT NULL,
+  `password_pppoe` varchar(100) DEFAULT NULL,
+  `tanggal_pemasangan` date DEFAULT NULL,
   `bulan_awal_penagihan` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -187,15 +188,13 @@ INSERT INTO `paket_voucher` (`id_paket_voucher`, `nama`, `kecepatan`, `durasi`, 
 CREATE TABLE `pelanggan` (
   `id_pelanggan` int(11) NOT NULL,
   `nama` varchar(100) NOT NULL,
-  `jenis_kelamin` enum('L','P') NOT NULL,
   `nik` varchar(16) DEFAULT NULL,
+  `jenis_kelamin` enum('Laki-Laki','Perempuan') NOT NULL,
   `kontak` varchar(13) NOT NULL,
   `id_alamat` int(11) DEFAULT NULL,
-  `alamat_lain` varchar(100) DEFAULT NULL,
   `lat` float DEFAULT NULL,
   `lng` float DEFAULT NULL,
-  `tanggal_pasang` date NOT NULL,
-  `jenis_pemasangan` enum('Converter','OLT','Antena') NOT NULL,
+  `jenis_pemasangan` enum('Media converter','OLT','Antena') NOT NULL,
   `url_foto_ktp` varchar(100) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -347,7 +346,7 @@ ALTER TABLE `transaksi_voucher_detail`
 -- AUTO_INCREMENT for table `akun_home_wifi`
 --
 ALTER TABLE `akun_home_wifi`
-  MODIFY `id_akun_home_wifi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_akun_home_wifi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `akun_hotspot_voucher`
@@ -395,7 +394,7 @@ ALTER TABLE `paket_voucher`
 -- AUTO_INCREMENT for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `transaksi_voucher_detail`

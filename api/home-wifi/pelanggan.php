@@ -38,6 +38,36 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
     $db->insert("pelanggan", $values);
     $id_pelanggan = $db->id();
+
+    $values = [
+        "id_pelanggan" => $id_pelanggan,
+        "id_paket_home_wifi" => $data->paket,
+        "jenis_koneksi" => $data->jenis_koneksi
+    ];
+
+    if ($data->jenis_koneksi == "IP Static") {
+        $values["ip_static"] = $data->ip_static;
+    } else {
+        $values["username_pppoe"] = $data->username_pppoe;
+        $values["password_pppoe"] = $data->password_pppoe;
+    }
+
+    if (!empty($data->tanggal_pemasangan)) {
+        $values["tanggal_pemasangan"] = $data->tanggal_pemasangan;
+    }
+
+    switch ($data->bulan_awal_penagihan) {
+        case "Bulan depan":
+            $values["bulan_awal_penagihan"] = date("Y-m-d",strtotime('+1 month'));
+            break;
+        case "Bulan ini":
+            $values["bulan_awal_penagihan"] = date("Y-m-d");
+            break;
+        case "Sesuai tanggal pemasangan":
+            $values["bulan_awal_penagihan"] = $data->tanggal_pemasangan;
+    }
+
+    $db->insert("akun_home_wifi", $values);
     
     $response["data"] = ["id_pelanggan" => $id_pelanggan];
     $response["success"] = true;
