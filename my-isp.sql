@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Oct 28, 2021 at 01:26 PM
+-- Generation Time: Oct 28, 2021 at 01:40 PM
 -- Server version: 5.7.35
 -- PHP Version: 7.4.23
 
@@ -59,7 +59,7 @@ CREATE TABLE `akun_reseller` (
   `id_pelanggan` int(11) NOT NULL,
   `ip_router` varchar(15) NOT NULL,
   `keterangan` varchar(100) DEFAULT NULL,
-  `tanggal_pemasangan` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `tanggal_pemasangan` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -67,9 +67,9 @@ CREATE TABLE `akun_reseller` (
 --
 
 INSERT INTO `akun_reseller` (`id_akun_reseller`, `id_pelanggan`, `ip_router`, `keterangan`, `tanggal_pemasangan`) VALUES
-(1, 35, '10.10.0.34', '', '2021-10-12 00:00:00'),
-(2, 33, '10.10.0.35', '', '2021-10-28 18:41:44'),
-(3, 38, '10.10.0.234', NULL, '2021-10-19 00:00:00');
+(1, 35, '10.10.0.204', '', '2021-10-13'),
+(2, 33, '10.10.0.35', '', '2021-10-13'),
+(3, 38, '10.10.0.234', NULL, '2021-10-06');
 
 -- --------------------------------------------------------
 
@@ -231,7 +231,7 @@ INSERT INTO `pelanggan` (`id_pelanggan`, `username_akun`, `password_akun`, `nama
 (32, 'aldi', '123', 'Aldi', '3517031234', 'Laki-Laki', '0812345678', 1, -7.64031, 112.254, 'OLT', '32.png', '2021-10-27 16:23:00'),
 (33, 'slamet', 'abc', 'Slamet Wir', '345345', 'Laki-Laki', '345346', 1, -7.6365, 112.255, 'OLT', '', '2021-10-27 16:24:37'),
 (35, 'budi', 'kentang', 'Budi', '3413425', 'Laki-Laki', '08123', 1, -7.63423, 112.253, 'OLT', '', '2021-10-28 13:20:06'),
-(38, 'a', 'a', 'asdf', '123', 'Laki-Laki', '123', 1, -7.63425, 112.252, 'OLT', '38.png', '2021-10-28 20:06:01');
+(38, 'a', 'a', 'asdf', '123', 'Laki-Laki', '123', 1, -7.63425, 112.252, 'OLT', '', '2021-10-28 20:06:01');
 
 -- --------------------------------------------------------
 
