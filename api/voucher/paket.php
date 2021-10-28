@@ -4,8 +4,11 @@ require_once "../config/config.php";
 $data = json_decode(file_get_contents("php://input"));
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
-    $response["data"] = $db->select("paket_voucher", "*", ["id_paket_voucher" => $_GET["id_paket_voucher"]])[0];
-    
+    if (isset($_GET["id_paket_voucher"])) {
+        $response["data"] = $db->select("paket_voucher", "*", ["id_paket_voucher" => $_GET["id_paket_voucher"]])[0];
+    } else {
+        $response["data"] = $db->select("paket_voucher", "*");
+    } 
     $response["success"] = true;
     $response["message"] = "Berhasil mendapatkan data paket";
 } elseif ($_SERVER["REQUEST_METHOD"] === "POST") {

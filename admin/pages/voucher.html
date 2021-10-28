@@ -379,14 +379,26 @@
             </div>
             <div class="modal-body">
                 <form id="form-transaksi" class="row">
-                    <div class="col-12 mb-3">
+                    <div class="col-12">
                         <div class="form-group">
                             <label class="d-block" for="nama_pelanggan">Nama Pelanggan</label>
                             <div id="container-select-nama-pelanggan">
                             </div>
                         </div>
                     </div>
+                    <div class="col-12">
+                        <hr>
+                    </div>
 
+                    <div class="col-12" id="container-list-paket-voucher">
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label class="d-block">Grand Total</label>
+                            <input type="number" class="form-control" value="0" name="grand_total" readonly>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -836,21 +848,21 @@
                 dom: "tipr",
                 lengthChange: false,
                 columnDefs: [{
-                    targets: [0,1,2],
+                    targets: [0, 1, 2],
                     visible: false
                 },
                 {
                     targets: [3],
-                    render: function (data,type, row, meta) {
+                    render: function (data, type, row, meta) {
                         return dayjs(row[3]).fromNow();
                     }
                 },
                 {
                     targets: [6],
-                    render: function (data,type, row, meta) {
+                    render: function (data, type, row, meta) {
                         return Number(row[6]).toLocaleString("id-ID");;
                     }
-                }, 
+                },
                 {
                     targets: -1,
                     responsivePriority: 1,
@@ -858,7 +870,7 @@
                     width: "20%",
                     render: function (data, type, row, meta) {
                         return `
-                            <button class="btn btn-sm btn-light-secondary btn-detail" data-id-transaksi="${row[2]}">Detail</button>
+                            <!-- <button class="btn btn-sm btn-light-secondary btn-detail" data-id-transaksi="${row[2]}">Detail</button> -->
                             <button class="btn btn-sm btn-light-danger btn-hapus"  data-id-transaksi="${row[2]}">Hapus</button>
                         `;
                     }
@@ -927,13 +939,14 @@
                 showModal("POST");
             };
 
-
             let method;
             let url;
+            let data_paket = [];
+            let grandTotal;
             function showModal(m, id_transaksi) {
                 const container = document.getElementById("container-select-nama-pelanggan");
                 container.innerHTML = `
-                    <select class="w-100" name="nama_pelanggan" id="select_nama_pelanggan">
+                    <select class="w-100" name="id_akun_reseller" id="select_reseller">
                         <option value="" selected disabled hidden>Pilih</option>
                     </select>
                 `;
@@ -945,7 +958,74 @@
                         option.textContent = e.nama + " - " + e.alamat;
                         select.appendChild(option);
                     });
-                    $('#select_nama_pelanggan').select2();
+                    $('#select_reseller').select2();
+                });
+
+                const container2 = document.getElementById("container-list-paket-voucher");
+                container2.innerHTML = "";
+                fetch(server + "api/voucher/paket.php").then(response => response.json()).then(result => {
+                    result.data.forEach(e => {
+                        const row = document.createElement("div");
+                        row.classList.add("row");
+                        row.innerHTML = `
+                            <div class="col-12">
+                                <label class="d-block"><strong>${e.nama} - ${e.durasi}</strong></label>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label class="d-block">Jumlah</label>
+                                            <input type="number" class="form-control" min="0" value="0" name="jumlah-paket_${e.id_paket_voucher}">
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label class="d-block">Bonus</label>
+                                            <input type="number" class="form-control" value="0" readonly name="bonus-paket_${e.id_paket_voucher}">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="d-block">Total</label>
+                                            <input type="number" class="form-control" value="0" readonly name="total-paket_${e.id_paket_voucher}">
+                                            <input type="hidden" name="total_${e.id_paket_voucher}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <hr>
+                            </div>
+                        `;
+                        row.querySelector(`input[name=jumlah-paket_${e.id_paket_voucher}]`).oninput = evt => {
+                            const bonus = (parseInt((Number(evt.currentTarget.value) / Number(e.target_bonus))) * Number(e.jumlah_bonus));
+                            const total = Number(evt.currentTarget.value) * Number(e.harga_beli);
+                            row.querySelector(`input[name=bonus-paket_${e.id_paket_voucher}]`).value = bonus;
+                            row.querySelector(`input[name=total-paket_${e.id_paket_voucher}]`).value = total.toLocaleString("id-ID");
+                            row.querySelector(`input[name=total_${e.id_paket_voucher}]`).value = total;
+                            hitungGrandTotal();
+
+                            const data = {
+                                id_paket_voucher: e.id_paket_voucher,
+                                jumlah_pembelian: Number(evt.currentTarget.value),
+                                bonus: bonus
+                            };
+                            const index = data_paket.findIndex(v => v.id_paket_voucher == e.id_paket_voucher);
+                            if (index !== -1) {
+                                data_paket[index] = data;
+                            } else {
+                                data_paket.push(data);
+                            }
+                        }
+                        container2.appendChild(row);
+                    });
+
+                    function hitungGrandTotal() {
+                        grandTotal = 0;
+                        result.data.forEach(e => {
+                            grandTotal += Number(form.querySelector(`input[name=total_${e.id_paket_voucher}]`).value);
+                        });
+                        form.grand_total.value = grandTotal.toLocaleString("id-ID");
+                    }
                 });
 
                 form.reset();
@@ -983,10 +1063,13 @@
 
             document.querySelector("#modal-transaksi .modal-footer .btn-submit").onclick = submitForm;
             function submitForm() {
-                const formData = new FormData(form);
-                let data = Object.fromEntries(formData);
+                let data = {
+                    data_paket: data_paket,
+                    grand_total: grandTotal,
+                    id_akun_reseller: form.id_akun_reseller.value
+                };
                 data = JSON.stringify(data);
-
+                
                 fetch(url, {
                     method: method,
                     body: data
