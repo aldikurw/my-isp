@@ -55,7 +55,7 @@
                                 <div class="text-dark"><strong>Total Tagihan</strong></div>
                                 <div class="text-secondary"><strong id="total-tagihan">Total Bill</strong></div>
                             </div>
-                            <div class="text-dark"><strong>192.500</strong></div>
+                            <div class="text-dark"><strong id="total-tagihan-0"></strong></div>
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                                 <div class="text-dark"><strong>ID Pelanggan</strong></div>
                                 <div class="text-secondary"><strong>Customer ID</strong></div>
                             </div>
-                            <div class="text-dark"><strong id="username"></strong></div>
+                            <div class="text-dark"><strong id="username_akun"></strong></div>
                         </div>
                     </div>
                     <div class="col-4">
@@ -166,6 +166,7 @@
                     <div class="text-dark"><strong>BANK MANDIRI</strong></div>
                     <div>
                         <div class="text-dark"><strong>89123534523</strong></div>
+                        <div class="text-dark"><strong>A/N CV. Perdana Mitra Inovasi</strong></div>
                         <div class="text-secondary"><strong>Biaya administrasi</strong> Rp2.500</div>
                         <div class="text-secondary"><strong>Total bayar Rp195.000</strong></div>
                     </div>
@@ -176,6 +177,7 @@
                     <div class="text-dark"><strong>BANK BCA</strong></div>
                     <div>
                         <div class="text-dark"><strong>234563246</strong></div>
+                        <div class="text-dark"><strong>A/N CV. Perdana Mitra Inovasi</strong></div>
                         <div class="text-secondary"><strong>Biaya administrasi</strong> Rp2.500</div>
                         <div class="text-secondary"><strong>Total bayar Rp195.000</strong></div>
                     </div>
@@ -186,6 +188,7 @@
                     <div class="text-dark"><strong>BANK BRI</strong></div>
                     <div>
                         <div class="text-dark"><strong>4564567334</strong></div>
+                        <div class="text-dark"><strong>A/N CV. Perdana Mitra Inovasi</strong></div>
                         <div class="text-secondary"><strong>Biaya administrasi</strong> Rp2.500</div>
                         <div class="text-secondary"><strong>Total bayar Rp195.000</strong></div>
                     </div>
@@ -222,9 +225,11 @@
                 document.getElementById("kecepatan-paket").textContent = result.data.kecepatan_paket;
                 document.getElementById("sub-total").textContent = result.data.harga_paket;
                 document.getElementById("ppn").textContent = result.data.harga_paket * 10 / 100;
+                document.getElementById("total-tagihan-0").textContent = Number(result.data.harga_paket) + (result.data.harga_paket * 10 / 100);
                 document.getElementById("total-tagihan-1").textContent = Number(result.data.harga_paket) + (result.data.harga_paket * 10 / 100);
                 document.getElementById("total-tagihan-2").textContent = Number(result.data.harga_paket) + (result.data.harga_paket * 10 / 100);
                 document.getElementById("status-pembayaran").textContent = result.data.status_pembayaran;
+                document.getElementById("username_akun").textContent = result.data.username_akun;
                 if (result.data.status_pembayaran == "Lunas") {
                     document.getElementById("status-pembayaran").classList.add("text-success")
                     document.getElementById("tanggal-pembayaran").textContent = result.data.tanggal_pembayaran;

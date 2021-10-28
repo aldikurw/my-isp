@@ -18,6 +18,10 @@
   cursor: pointer;
 }
 
+.select2-container {
+  width: 100% !important;
+}
+
 hr-text {
   line-height: 1em;
   position: relative;

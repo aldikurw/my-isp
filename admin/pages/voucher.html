@@ -96,10 +96,10 @@
                         <!-- Menu Transaksi -->
                         <div class="tab-pane fade show active" id="transaksi" role="tabpanel"
                             aria-labelledby="transaksi-tab">
-                            <form class="row justify-content-between" id="transaksiFilter">
+                            <div class="row justify-content-between">
                                 <div class="col-auto">
                                     <div class="form-floating">
-                                        <input type="button" value="Tambah" class="btn btn-primary">
+                                        <button class="btn btn-primary" id="btn-tambah-transaksi">Tambah</button>
                                     </div>
                                 </div>
                                 <div class="col-auto">
@@ -108,60 +108,21 @@
                                         <label for="cariInvoice">Cari</label>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
 
-                            <table id="invoiceTable" class="table table-hover position-relative" style="width:100%">
+                            <table id="table-transaksi" class="table table-hover position-relative" style="width:100%">
                                 <thead>
                                     <tr>
+                                        <th>id_pelanggan</th>
+                                        <th>id_akun_reseller</th>
+                                        <th>id_transaksi_voucher</th>
                                         <th>Waktu</th>
                                         <th>Nama</th>
                                         <th>Alamat</th>
-                                        <th>Jumlah</th>
+                                        <th>Total</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1 minute ago</td>
-                                        <td>Risa</td>
-                                        <td>Sugihwaras</td>
-                                        <td>Rp 50.000</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
-                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>53 minutes ago</td>
-                                        <td>Anton</td>
-                                        <td>Sugihwaras</td>
-                                        <td>Rp 100.000 (Bonus)</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
-                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2 hours ago</td>
-                                        <td>Anton</td>
-                                        <td>Sugihwaras</td>
-                                        <td>Rp 50.000</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
-                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1 hour ago</td>
-                                        <td>Ahmad</td>
-                                        <td>Sugihwaras</td>
-                                        <td>Rp 150.000 (Bonus)</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
-                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
                             </table>
                         </div>
 
@@ -408,6 +369,33 @@
     </div>
 </div>
 
+<!-- Modal Transaksi -->
+<div class="modal fade" id="modal-transaksi">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-transaksi" class="row">
+                    <div class="col-12 mb-3">
+                        <div class="form-group">
+                            <label class="d-block" for="nama_pelanggan">Nama Pelanggan</label>
+                            <div id="container-select-nama-pelanggan">
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success btn-submit">Simpan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     (() => {
         function refreshPage() {
@@ -425,6 +413,18 @@
                 columnDefs: [{
                     targets: [0],
                     visible: false
+                },
+                {
+                    targets: [4],
+                    render: function (data, type, row, meta) {
+                        return Number(row[4]).toLocaleString("id-ID");
+                    }
+                },
+                {
+                    targets: [5],
+                    render: function (data, type, row, meta) {
+                        return Number(row[5]).toLocaleString("id-ID");
+                    }
                 },
                 {
                     targets: -1,
@@ -751,6 +751,12 @@
                     visible: false
                 },
                 {
+                    targets: [5],
+                    render: function (data, type, row, meta) {
+                        return Number(row[5]).toLocaleString("id-ID");
+                    }
+                },
+                {
                     targets: -1,
                     responsivePriority: 1,
                     data: null,
@@ -821,6 +827,181 @@
             initOptionButton();
         }
 
+        function initTransaksi() {
+            const form = document.forms["form-transaksi"];
+            const modal = new bootstrap.Modal(document.getElementById('modal-transaksi'));
+
+            // init datatables transaksi
+            const options = {
+                dom: "tipr",
+                lengthChange: false,
+                columnDefs: [{
+                    targets: [0,1,2],
+                    visible: false
+                },
+                {
+                    targets: [3],
+                    render: function (data,type, row, meta) {
+                        return dayjs(row[3]).fromNow();
+                    }
+                },
+                {
+                    targets: [6],
+                    render: function (data,type, row, meta) {
+                        return Number(row[6]).toLocaleString("id-ID");;
+                    }
+                }, 
+                {
+                    targets: -1,
+                    responsivePriority: 1,
+                    data: null,
+                    width: "20%",
+                    render: function (data, type, row, meta) {
+                        return `
+                            <button class="btn btn-sm btn-light-secondary btn-detail" data-id-transaksi="${row[2]}">Detail</button>
+                            <button class="btn btn-sm btn-light-danger btn-hapus"  data-id-transaksi="${row[2]}">Hapus</button>
+                        `;
+                    }
+                }
+                ]
+            }
+            const table = createDataTable(
+                "table-transaksi",
+                server + "api/voucher/datatables-transaksi.php",
+                options
+            );
+
+            function initOptionButton() {
+                const btnRemove = document.querySelectorAll('#table-transaksi .btn-hapus');
+                Array.from(btnRemove).forEach(el => {
+                    el.onclick = evt => {
+                        const id = evt.currentTarget.getAttribute("data-id-transaksi");
+                        Swal.fire({
+                            title: 'Hapus?',
+                            showCancelButton: true,
+                            confirmButtonText: 'Hapus',
+                            cancelButtonText: 'Batal',
+                            showLoaderOnConfirm: true,
+                            preConfirm: (login) => {
+                                return fetch(server + "api/voucher/transaksi.php?id_transaksi_voucher=" + id, {
+                                    method: "DELETE",
+                                    headers: {
+                                        "ContentType": "application/json;charset=utf-8"
+                                    }
+                                })
+                                    .then(response => {
+                                        if (!response.ok) {
+                                            throw new Error(response.statusText)
+                                        }
+                                        return response.json()
+                                    })
+                                    .then(result => {
+                                        showToast(result.success, result.message);
+                                        refreshPage();
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    })
+                            },
+                            allowOutsideClick: () => !Swal.isLoading()
+                        })
+                    };
+                });
+
+                const btnDetail = document.querySelectorAll('#table-transaksi .btn-detail');
+                Array.from(btnDetail).forEach(el => {
+                    el.onclick = evt => {
+                        showModal("PUT", evt.currentTarget.getAttribute("data-id-transaksi"));
+                    };
+                });
+            }
+
+            table.on('draw', initOptionButton);
+
+            initOptionButton();
+
+
+
+            // init form transaksi
+            document.getElementById("btn-tambah-transaksi").onclick = evt => {
+                showModal("POST");
+            };
+
+
+            let method;
+            let url;
+            function showModal(m, id_transaksi) {
+                const container = document.getElementById("container-select-nama-pelanggan");
+                container.innerHTML = `
+                    <select class="w-100" name="nama_pelanggan" id="select_nama_pelanggan">
+                        <option value="" selected disabled hidden>Pilih</option>
+                    </select>
+                `;
+                fetch(server + "api/voucher/reseller.php").then(response => response.json()).then(result => {
+                    result.data.forEach(e => {
+                        const select = container.querySelector("select");
+                        const option = document.createElement("option");
+                        option.value = e.id_akun_reseller;
+                        option.textContent = e.nama + " - " + e.alamat;
+                        select.appendChild(option);
+                    });
+                    $('#select_nama_pelanggan').select2();
+                });
+
+                form.reset();
+                method = m;
+                url = server + "api/voucher/transaksi.php";
+
+                if (m == "POST") {
+                    document.querySelector("#modal-transaksi .modal-title").textContent = "Tambah transaksi";
+                    document.querySelector("#modal-transaksi .modal-footer .btn-submit").textContent = "Simpan";
+                } else {
+                    document.querySelector("#modal-transaksi .modal-title").textContent = "Detail transaksi";
+                    document.querySelector("#modal-transaksi .modal-footer .btn-submit").textContent = "Simpan perubahan";
+
+                    // url += `?id_transaksi_voucher=${id_transaksi}`;
+                    // fetch(url)
+                    //     .then(response => response.json())
+                    //     .then(result => {
+                    //         const data = result.data;
+                    //         form.nama.value = data.nama;
+                    //         form.kecepatan.value = data.kecepatan;
+                    //         form.durasi.value = data.durasi;
+                    //         form.harga_beli.value = data.harga_beli;
+                    //         form.harga_jual.value = data.harga_jual;
+                    //         form.target_bonus.value = data.target_bonus;
+                    //         form.jumlah_bonus.value = data.jumlah_bonus;
+                    //     });
+                }
+                modal.show();
+            }
+
+            function hideModal() {
+                modal.hide();
+                form.reset();
+            }
+
+            document.querySelector("#modal-transaksi .modal-footer .btn-submit").onclick = submitForm;
+            function submitForm() {
+                const formData = new FormData(form);
+                let data = Object.fromEntries(formData);
+                data = JSON.stringify(data);
+
+                fetch(url, {
+                    method: method,
+                    body: data
+                })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            hideModal();
+                            refreshPage();
+                        }
+                        showToast(result.success, result.message);
+                    });
+            }
+        }
+
         const scripts = [
             "../assets/vendors/filepond/filepond.min.js",
             "../assets/vendors/filepond/plugin/image-preview/filepond-plugin-image-preview.min.js",
@@ -850,6 +1031,7 @@
 
             initPaket();
             initReseller();
+            initTransaksi();
         }
     })();
 </script>

@@ -4,30 +4,46 @@ require_once "../config/config.php";
 $data = json_decode(file_get_contents("php://input"));
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
-    $response["data"] = $db->select(
-        "akun_reseller",
-        ["[><]pelanggan" => ["id_pelanggan" => "id_pelanggan"]],
-        [
-            "pelanggan.nama",
-            "pelanggan.nik",
-            "pelanggan.username_akun",
-            "pelanggan.password_akun",
-            "pelanggan.jenis_kelamin",
-            "pelanggan.kontak",
-            "pelanggan.id_alamat",
-            "pelanggan.jenis_pemasangan",
-            "pelanggan.lng",
-            "pelanggan.lat",
-            "pelanggan.url_foto_ktp",
-            "akun_reseller.id_akun_reseller",
-            "akun_reseller.ip_router",
-            "akun_reseller.tanggal_pemasangan"
-        ],
-        ["akun_reseller.id_akun_reseller" => $_GET["id_akun_reseller"]]
-    );
-    if (!empty($response["data"][0]["url_foto_ktp"])) {
-        $response["data"][0]["url_foto_ktp"] = $response["data"][0]["url_foto_ktp"] . "?" . time();
+    if (isset($_GET["id_akun_reseller"])) {
+        $response["data"] = $db->select(
+            "akun_reseller",
+            ["[><]pelanggan" => ["id_pelanggan" => "id_pelanggan"]],
+            [
+                "pelanggan.nama",
+                "pelanggan.nik",
+                "pelanggan.username_akun",
+                "pelanggan.password_akun",
+                "pelanggan.jenis_kelamin",
+                "pelanggan.kontak",
+                "pelanggan.id_alamat",
+                "pelanggan.jenis_pemasangan",
+                "pelanggan.lng",
+                "pelanggan.lat",
+                "pelanggan.url_foto_ktp",
+                "akun_reseller.id_akun_reseller",
+                "akun_reseller.ip_router",
+                "akun_reseller.tanggal_pemasangan"
+            ],
+            ["akun_reseller.id_akun_reseller" => $_GET["id_akun_reseller"]]
+        );
+        if (!empty($response["data"][0]["url_foto_ktp"])) {
+            $response["data"][0]["url_foto_ktp"] = $response["data"][0]["url_foto_ktp"] . "?" . time();
+        }
+    } else {
+        $sql = <<<EOT
+            SELECT
+                akn.id_akun_reseller,
+                plg.nama,
+                alm.nama alamat
+            FROM akun_reseller akn
+            INNER JOIN pelanggan plg
+                ON plg.id_pelanggan = akn.id_pelanggan
+            INNER JOIN alamat alm
+                ON alm.id_alamat = plg.id_alamat;
+        EOT;
+        $response["data"] = $db->query(($sql))->fetchAll();
     }
+
     $response["success"] = true;
     $response["message"] = "Berhasil mendapatkan data reseller";
 } elseif ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -123,7 +139,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     }
 
     $db->update("akun_reseller", $values, ["id_akun_reseller" => $_GET["id_akun_reseller"]]);
-    
+
     $response["data"] = ["id_pelanggan" => $pelanggan["id_pelanggan"]];
     $response["success"] = true;
     $response["message"] = "Berhasil menyimpan perubahan";

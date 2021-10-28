@@ -1024,6 +1024,12 @@
                     visible: false
                 },
                 {
+                    targets: [3],
+                    render: function (data, type, row, meta) {
+                        return Number(row[3]).toLocaleString("id-ID");
+                    }
+                },
+                {
                     targets: -1,
                     responsivePriority: 1,
                     data: null,
@@ -1096,7 +1102,7 @@
 
         function refreshStatus() {
             fetch(server + "api/home-wifi/index.php").then(response => response.json()).then(result => {
-                document.getElementById("status-pemasukan").textContent = result.data.pemasukan;
+                document.getElementById("status-pemasukan").textContent = Number(result.data.pemasukan).toLocaleString("id-ID");
                 document.getElementById("status-lunas").textContent = result.data.lunas;
                 document.getElementById("status-belum-lunas").textContent = result.data.belum_lunas;
             });

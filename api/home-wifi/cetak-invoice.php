@@ -27,11 +27,12 @@ $invoice = $db->select("invoice_home_wifi", ["uuid", "status_pembayaran", "tangg
     "bulan" => $_GET["bulan"]
 ])[0];
 $id_pelanggan = $db->select("akun_home_wifi", "id_pelanggan", ["id_akun_home_wifi" => $_GET["id_akun_home_wifi"]]);
-$pelanggan = $db->select("pelanggan", ["[><]alamat" => ["id_alamat" => "id_alamat"]], ["pelanggan.nama", "alamat.nama (alamat)"], ["id_pelanggan" => $id_pelanggan])[0];
+$pelanggan = $db->select("pelanggan", ["[><]alamat" => ["id_alamat" => "id_alamat"]], ["pelanggan.username_akun", "pelanggan.nama", "alamat.nama (alamat)"], ["id_pelanggan" => $id_pelanggan])[0];
 $paket = $db->select("paket_home_wifi", ["[><]akun_home_wifi" => ["id_paket_home_wifi" => "id_paket_home_wifi"]],["nama", "kecepatan", "harga"])[0];
 
 $response["data"] = [
     "uuid" => $invoice["uuid"],
+    "username_akun" => $pelanggan["username_akun"],
     "nama_pelanggan" => $pelanggan["nama"],
     "alamat_pelanggan" => $pelanggan["alamat"],
     "status_pembayaran" => $invoice["status_pembayaran"],
