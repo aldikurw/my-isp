@@ -15,7 +15,7 @@
                         </div>
                         <div class="col-md-8">
                             <h6 class="text-muted font-semibold">Pemasukan</h6>
-                            <h6 class="font-extrabold mb-0">Rp 200.000</h6>
+                            <h6 class="font-extrabold mb-0" id="status-pemasukan"></h6>
                         </div>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-md-8">
                             <h6 class="text-muted font-semibold">Reseller</h6>
-                            <h6 class="font-extrabold mb-0">2</h6>
+                            <h6 class="font-extrabold mb-0" id="status-reseller"></h6>
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                         </div>
                         <div class="col-md-8">
                             <h6 class="text-muted font-semibold">Total Transaksi</h6>
-                            <h6 class="font-extrabold mb-0">2</h6>
+                            <h6 class="font-extrabold mb-0" id="status-total-transaksi"></h6>
                         </div>
                     </div>
                 </div>
@@ -1085,6 +1085,14 @@
             }
         }
 
+        function refreshStatus() {
+            fetch(server + "api/voucher/index.php").then(response => response.json()).then(result => {
+                document.getElementById("status-pemasukan").textContent = Number(result.data.pemasukan).toLocaleString("id-ID");
+                document.getElementById("status-reseller").textContent = result.data.reseller;
+                document.getElementById("status-total-transaksi").textContent = result.data.total_transaksi;
+            });
+        }
+
         const scripts = [
             "../assets/vendors/filepond/filepond.min.js",
             "../assets/vendors/filepond/plugin/image-preview/filepond-plugin-image-preview.min.js",
@@ -1115,6 +1123,7 @@
             initPaket();
             initReseller();
             initTransaksi();
+            refreshStatus();
         }
     })();
 </script>

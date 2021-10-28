@@ -24,7 +24,10 @@
                             <h6 class="text-muted font-semibold">Home Wifi
                                 <span class="spansub">Lunas/Belum</span>
                             </h6>
-                            <h6 class="font-extrabold mb-0">2/0</h6>
+                            <h6 class="font-extrabold mb-0">
+                                <span id="home_wifi_lunas"></span>/
+                                <span id="home_wifi_belum_lunas"></span>
+                            </h6>
                         </div>
                     </div>
                 </div>
@@ -43,7 +46,7 @@
                             <h6 class="text-muted font-semibold">Pemasukan Voucher
                                 <span class="spansub">Bulan ini</span>
                             </h6>
-                            <h6 class="font-extrabold mb-0">Rp 300.000</h6>
+                            <h6 class="font-extrabold mb-0" id="pemasukan_voucher"></h6>
                         </div>
                     </div>
                 </div>
@@ -62,7 +65,7 @@
                             <h6 class="text-muted font-semibold">Tiket
                                 <span class="spansub">PSB/Gangguan</span>
                             </h6>
-                            <h6 class="font-extrabold mb-0">5/2</h6>
+                            <h6 class="font-extrabold mb-0">1/1</h6>
                         </div>
                     </div>
                 </div>
@@ -108,6 +111,12 @@
 
 <script>
     (() => {
+        fetch(server + "api/dashboard/index.php").then(response => response.json()).then(result => {
+                document.getElementById("pemasukan_voucher").textContent = Number(result.data.pemasukan_voucher).toLocaleString("id-ID");
+                document.getElementById("home_wifi_lunas").textContent = result.data.home_wifi_lunas;
+                document.getElementById("home_wifi_belum_lunas").textContent = result.data.home_wifi_belum_lunas;
+            });
+
         var options = {
             series: [{
                 name: 'Pemasukan',
