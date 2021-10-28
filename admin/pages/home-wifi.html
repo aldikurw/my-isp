@@ -228,7 +228,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-floating">
-                                        <input type="button" value="Tambah" class="btn btn-primary">
+                                        <input type="button" value="Tambah" class="btn btn-primary" id="btn-tambah-paket">
                                     </div>
                                 </div>
                             </div>
@@ -236,13 +236,14 @@
                             <table id="table-paket" class="table table-hover position-relative" style="width:100%">
                                 <thead>
                                     <tr>
+                                        <th>_id_paket_home_wifi</th>
                                         <th>Nama</th>
                                         <th>Kecepatan</th>
                                         <th>Harga</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <!-- <tbody>
                                     <tr>
                                         <td>Basic</td>
                                         <td>2Mb/2Mb</td>
@@ -261,7 +262,7 @@
                                             <button class="btn btn-sm btn-light-danger">Hapus</button>
                                         </td>
                                     </tr>
-                                </tbody>
+                                </tbody> -->
                             </table>
                         </div>
                     </div>
@@ -446,6 +447,44 @@
                     <tbody>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Paket -->
+<div class="modal fade" id="modal-paket">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-paket" class="row">
+                    <div class="col-12 mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" name="nama" placeholder="Nama">
+                            <label for="nama">Nama</label>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" name="kecepatan" placeholder="Kecepatan">
+                            <label for="kecepatan">Kecepatan</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" name="harga" placeholder="Harga">
+                            <label for="harga">Harga</label>
+                        </div>
+                    </div>
+                    <input type="submit" name="btn_submit" class="d-none">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success btn-submit">Simpan</button>
             </div>
         </div>
     </div>
@@ -850,7 +889,7 @@
                                         `;
                                         }
                                         tbody.appendChild(tr);
-                                        
+
                                         const btnBayar = tbody.querySelectorAll(".btn-bayar");
                                         Array.from(btnBayar).forEach(e => {
                                             e.onclick = evt => {
@@ -895,6 +934,148 @@
             }
         }
 
+        function initPaket() {
+            const form = document.forms["form-paket"];
+            const modal = new bootstrap.Modal(document.getElementById('modal-paket'));
+            document.getElementById("btn-tambah-paket").onclick = evt => {
+                showModal("POST");
+            };
+
+            document.querySelector("#modal-paket .modal-footer .btn-submit").onclick = evt => {
+                form.btn_submit.click();
+            };
+
+            let method;
+            let url;
+            function showModal(m, id_paket_home_wifi) {
+                form.reset();
+                method = m;
+                url = server + "api/home-wifi/paket.php";
+
+                if (m == "POST") {
+                    document.querySelector("#modal-paket .modal-title").textContent = "Tambah Paket";
+                    document.querySelector("#modal-paket .modal-footer .btn-submit").textContent = "Simpan";
+                } else {
+                    document.querySelector("#modal-paket .modal-title").textContent = "Detail Paket";
+                    document.querySelector("#modal-paket .modal-footer .btn-submit").textContent = "Simpan perubahan";
+
+                    url += `?id_paket_home_wifi=${id_paket_home_wifi}`;
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(result => {
+                            const data = result.data;
+                            form.nama.value = data.nama;
+                            form.kecepatan.value = data.kecepatan;
+                            form.harga.value = data.harga;
+                        });
+                }
+                modal.show();
+            }
+
+            function hideModal() {
+                modal.hide();
+                form.reset();
+            }
+
+            form.onsubmit = evt => {
+                evt.preventDefault();
+                const formData = new FormData(form);
+                let data = Object.fromEntries(formData);
+                data = JSON.stringify(data);
+
+                fetch(url, {
+                    method: method,
+                    body: data
+                })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            hideModal();
+                            refreshPage();
+                        }
+                        showToast(result.success, result.message);
+                    });
+            }
+
+            // Init datatable paket
+            const options = {
+                dom: "tipr",
+                lengthChange: false,
+                columnDefs: [{
+                    targets: [0],
+                    visible: false
+                },
+                {
+                    targets: -1,
+                    responsivePriority: 1,
+                    data: null,
+                    width: "20%",
+                    render: function (data, type, row, meta) {
+                        return `
+                            <button class="btn btn-sm btn-light-warning btn-ubah" data-id-paket-home-wifi="${row[0]}" data-nama="${row[1]}">Ubah</button>
+                            <button class="btn btn-sm btn-light-danger btn-hapus"  data-id-paket-home-wifi="${row[0]}" data-nama="${row[1]}">Hapus</button>
+                        `;
+                    }
+                }
+                ]
+            }
+            const table = createDataTable(
+                "table-paket",
+                server + "api/home-wifi/datatables-paket.php",
+                options
+            );
+
+            function initOptionButton() {
+                const btnRemove = document.querySelectorAll('#table-paket .btn-hapus');
+                Array.from(btnRemove).forEach(el => {
+                    el.onclick = evt => {
+                        const id = evt.currentTarget.getAttribute("data-id-paket-home-wifi");
+                        const nama = evt.currentTarget.getAttribute("data-nama");
+                        Swal.fire({
+                            title: 'Hapus ' + nama,
+                            showCancelButton: true,
+                            confirmButtonText: 'Hapus',
+                            cancelButtonText: 'Batal',
+                            showLoaderOnConfirm: true,
+                            preConfirm: (login) => {
+                                return fetch(server + "api/home-wifi/paket.php?id_paket_home_wifi=" + id, {
+                                    method: "DELETE",
+                                    headers: {
+                                        "ContentType": "application/json;charset=utf-8"
+                                    }
+                                })
+                                    .then(response => {
+                                        if (!response.ok) {
+                                            throw new Error(response.statusText)
+                                        }
+                                        return response.json()
+                                    })
+                                    .then(result => {
+                                        showToast(result.success, result.message);
+                                        refreshPage();
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    })
+                            },
+                            allowOutsideClick: () => !Swal.isLoading()
+                        })
+                    };
+                });
+
+                const btnUbah = document.querySelectorAll('#table-paket .btn-ubah');
+                Array.from(btnUbah).forEach(el => {
+                    el.onclick = evt => {
+                        showModal("PUT", evt.currentTarget.getAttribute("data-id-paket-home-wifi"));
+                    };
+                });
+            }
+
+            table.on('draw', initOptionButton);
+
+            initOptionButton();
+        }
+
         const scripts = [
             "../assets/vendors/filepond/filepond.min.js",
             "../assets/vendors/filepond/plugin/image-preview/filepond-plugin-image-preview.min.js",
@@ -923,6 +1104,7 @@
 
 
             initPelanggan();
+            initPaket();
             // initDatatablesPelanggan();
             // initFormPelanggan();
         }
