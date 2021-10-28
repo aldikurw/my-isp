@@ -5,13 +5,13 @@ $data = json_decode(file_get_contents("php://input"));
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
     $response["data"] = $db->select(
-        "akun_home_wifi",
+        "akun_reseller",
         ["[><]pelanggan" => ["id_pelanggan" => "id_pelanggan"]],
         [
-            "pelanggan.username_akun",
-            "pelanggan.password_akun",
             "pelanggan.nama",
             "pelanggan.nik",
+            "pelanggan.username_akun",
+            "pelanggan.password_akun",
             "pelanggan.jenis_kelamin",
             "pelanggan.kontak",
             "pelanggan.id_alamat",
@@ -19,21 +19,17 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             "pelanggan.lng",
             "pelanggan.lat",
             "pelanggan.url_foto_ktp",
-            "akun_home_wifi.id_paket_home_wifi",
-            "akun_home_wifi.jenis_koneksi",
-            "akun_home_wifi.ip_static",
-            "akun_home_wifi.username_pppoe",
-            "akun_home_wifi.password_pppoe",
-            "akun_home_wifi.tanggal_pemasangan",
-            "akun_home_wifi.bulan_awal_penagihan"
+            "akun_reseller.id_akun_reseller",
+            "akun_reseller.ip_router",
+            "akun_reseller.tanggal_pemasangan"
         ],
-        ["akun_home_wifi.id_akun_home_wifi" => $_GET["id_akun_home_wifi"]]
+        ["akun_reseller.id_akun_reseller" => $_GET["id_akun_reseller"]]
     );
     if (!empty($response["data"][0]["url_foto_ktp"])) {
         $response["data"][0]["url_foto_ktp"] = $response["data"][0]["url_foto_ktp"] . "?" . time();
     }
     $response["success"] = true;
-    $response["message"] = "Berhasil mendapatkan data pelanggan";
+    $response["message"] = "Berhasil mendapatkan data reseller";
 } elseif ($_SERVER["REQUEST_METHOD"] === "POST") {
     $values = [
         "nama" => $data->nama,
@@ -72,37 +68,18 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
     $values = [
         "id_pelanggan" => $id_pelanggan,
-        "id_paket_home_wifi" => $data->paket,
-        "jenis_koneksi" => $data->jenis_koneksi
+        "ip_router" => $data->ip_router
     ];
-
-    if ($data->jenis_koneksi == "IP static") {
-        $values["ip_static"] = $data->ip_static;
-    } else {
-        $values["username_pppoe"] = $data->username_pppoe;
-        $values["password_pppoe"] = $data->password_pppoe;
-    }
 
     if (!empty($data->tanggal_pemasangan)) {
         $values["tanggal_pemasangan"] = $data->tanggal_pemasangan;
     }
 
-    switch ($data->bulan_awal_penagihan) {
-        case "Bulan depan":
-            $values["bulan_awal_penagihan"] = date("Y-m-d", strtotime('+1 month'));
-            break;
-        case "Bulan ini":
-            $values["bulan_awal_penagihan"] = date("Y-m-d");
-            break;
-        case "Sesuai tanggal pemasangan":
-            $values["bulan_awal_penagihan"] = $data->tanggal_pemasangan;
-    }
-
-    $db->insert("akun_home_wifi", $values);
+    $db->insert("akun_reseller", $values);
 
     $response["data"] = ["id_pelanggan" => $id_pelanggan];
     $response["success"] = true;
-    $response["message"] = "Berhasil menambahkan pelanggan";
+    $response["message"] = "Berhasil menambahkan reseller";
 } elseif ($_SERVER["REQUEST_METHOD"] === "PUT") {
     $values = [
         "pelanggan.username_akun" => $data->username_akun,
@@ -125,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         $values["id_alamat"] = $db->id();
     }
 
-    $pelanggan = $db->select("akun_home_wifi", ["[><]pelanggan" => ["id_pelanggan" => "id_pelanggan"]], ["akun_home_wifi.id_pelanggan", "pelanggan.url_foto_ktp"], ["akun_home_wifi.id_akun_home_wifi" => $_GET["id_akun_home_wifi"]])[0];
+    $pelanggan = $db->select("akun_reseller", ["[><]pelanggan" => ["id_pelanggan" => "id_pelanggan"]], ["akun_reseller.id_pelanggan", "pelanggan.url_foto_ktp"], ["akun_reseller.id_akun_reseller" => $_GET["id_akun_reseller"]])[0];
 
     if (!empty($pelanggan["url_foto_ktp"])) {
         $file = "../../assets/images/foto-ktp/" . $pelanggan["url_foto_ktp"];
@@ -138,25 +115,14 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
 
     $values = [
-        "id_paket_home_wifi" => $data->paket,
-        "jenis_koneksi" => $data->jenis_koneksi,
-        "ip_static" => "",
-        "username_pppoe" => "",
-        "password_pppoe" => ""
+        "ip_router" => $data->ip_router
     ];
-
-    if ($data->jenis_koneksi == "IP static") {
-        $values["ip_static"] = $data->ip_static;
-    } else {
-        $values["username_pppoe"] = $data->username_pppoe;
-        $values["password_pppoe"] = $data->password_pppoe;
-    }
 
     if (!empty($data->tanggal_pemasangan)) {
         $values["tanggal_pemasangan"] = $data->tanggal_pemasangan;
     }
 
-    $db->update("akun_home_wifi", $values, ["id_akun_home_wifi" => $_GET["id_akun_home_wifi"]]);
+    $db->update("akun_reseller", $values, ["id_akun_reseller" => $_GET["id_akun_reseller"]]);
     
     $response["data"] = ["id_pelanggan" => $pelanggan["id_pelanggan"]];
     $response["success"] = true;

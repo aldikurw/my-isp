@@ -80,18 +80,22 @@
                 <div class="card-body">
                     <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link active" id="transaksi-tab" data-bs-toggle="tab" href="#transaksi" role="tab" aria-controls="transaksi" aria-selected="true">Transaksi</a>
+                            <a class="nav-link active" id="transaksi-tab" data-bs-toggle="tab" href="#transaksi"
+                                role="tab" aria-controls="transaksi" aria-selected="true">Transaksi</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="reseller-tab" data-bs-toggle="tab" href="#reseller" role="tab" aria-controls="reseller" aria-selected="false">Reseller</a>
+                            <a class="nav-link" id="reseller-tab" data-bs-toggle="tab" href="#reseller" role="tab"
+                                aria-controls="reseller" aria-selected="false">Reseller</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="paket-tab" data-bs-toggle="tab" href="#paket" role="tab" aria-controls="paket" aria-selected="false">Paket</a>
+                            <a class="nav-link" id="paket-tab" data-bs-toggle="tab" href="#paket" role="tab"
+                                aria-controls="paket" aria-selected="false">Paket</a>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         <!-- Menu Transaksi -->
-                        <div class="tab-pane fade show active" id="transaksi" role="tabpanel" aria-labelledby="transaksi-tab">
+                        <div class="tab-pane fade show active" id="transaksi" role="tabpanel"
+                            aria-labelledby="transaksi-tab">
                             <form class="row justify-content-between" id="transaksiFilter">
                                 <div class="col-auto">
                                     <div class="form-floating">
@@ -163,23 +167,25 @@
 
                         <!-- Menu Reseller -->
                         <div class="tab-pane fade" id="reseller" role="tabpanel" aria-labelledby="reseller-tab">
-                            <form class="row justify-content-between" id="resellerFilter">
+                            <div class="row justify-content-between" id="resellerFilter">
                                 <div class="col-auto">
                                     <div class="form-floating">
-                                        <input type="button" value="Tambah" class="btn btn-primary">
+                                        <button class="btn btn-primary" id="btn-tambah-reseller">Tambah</button>
                                     </div>
                                 </div>
                                 <div class="col-auto">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="cariReseller" placeholder="Cari">
-                                        <label for="cariReseller">Cari</label>
+                                        <input type="text" class="form-control" id="cari-reseller" placeholder="Cari">
+                                        <label for="cari-reseller">Cari</label>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
 
-                            <table id="resellerTable" class="table table-hover position-relative" style="width:100%">
+                            <table id="table-reseller" class="table table-hover position-relative" style="width:100%">
                                 <thead>
                                     <tr>
+                                        <th>id_pelanggan</th>
+                                        <th>id_akun_reseller</th>
                                         <th>Nama</th>
                                         <th>Alamat</th>
                                         <th>IP Router</th>
@@ -187,92 +193,27 @@
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Risa</td>
-                                        <td>Sugihwaras</td>
-                                        <td>10.10.1.12</td>
-                                        <td>Rp 150.000</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
-                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Anton</td>
-                                        <td>Sugihwaras</td>
-                                        <td>10.10.1.23</td>
-                                        <td>Rp 50.000</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
-                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Ahmad</td>
-                                        <td>Sugihwaras</td>
-                                        <td>10.10.1.27</td>
-                                        <td>Rp 250.000</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
-                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
                             </table>
                         </div>
 
                         <!-- Menu Paket -->
                         <div class="tab-pane fade" id="paket" role="tabpanel" aria-labelledby="paket-tab">
-                            <button type="button" class="btn btn-primary">Tambah</button>
+                            <button type="button" class="btn btn-primary" id="btn-tambah-paket">Tambah</button>
 
-                            <table id="paketTable" class="table table-hover position-relative" style="width:100%">
+                            <table id="table-paket" class="table table-hover position-relative" style="width:100%">
                                 <thead>
                                     <tr>
+                                        <th>_id_paket_voucher</th>
                                         <th>Nama</th>
-                                        <th>Durasi</th>
                                         <th>Kecepatan</th>
+                                        <th>Durasi</th>
                                         <th>Harga Beli</th>
                                         <th>Harga Jual</th>
+                                        <th>Target Bonus</th>
+                                        <th>Jumlah Bonus</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Bronze</td>
-                                        <td>12h</td>
-                                        <td>1500k/1500k</td>
-                                        <td>Rp 1.500</td>
-                                        <td>Rp 2.000</td>
-
-                                        <td>
-                                            <button class="btn btn-sm btn-light-warning">Ubah</button>
-                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Silver</td>
-                                        <td>7d</td>
-                                        <td>1500k/1500k</td>
-                                        <td>Rp 15.000</td>
-                                        <td>Rp 20.000</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light-warning">Ubah</button>
-                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Gold</td>
-                                        <td>30d</td>
-                                        <td>1500k/1500k</td>
-                                        <td>Rp 40.000</td>
-                                        <td>Rp 50.000</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light-warning">Ubah</button>
-                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -282,30 +223,633 @@
     </div>
 </div>
 
+<!-- Modal Paket -->
+<div class="modal fade" id="modal-paket">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-paket" class="row">
+                    <div class="col-12 mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" name="nama" placeholder="Nama">
+                            <label for="nama">Nama</label>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" name="durasi" placeholder="Durasi">
+                            <label for="durasi">Durasi</label>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" name="kecepatan" placeholder="Kecepatan">
+                            <label for="kecepatan">Kecepatan</label>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" name="harga_beli" placeholder="Harga beli">
+                            <label for="harga_beli">Harga beli</label>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" name="harga_jual" placeholder="Harga jual">
+                            <label for="harga_jual">Harga jual</label>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" name="target_bonus" placeholder="Target bonus">
+                            <label for="target_bonus">Target bonus</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" name="jumlah_bonus" placeholder="Jumlah bonus">
+                            <label for="jumlah_bonus">Jumlah bonus</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success btn-submit">Simpan</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-<script defer>
-    document.addEventListener("DOMContentLoaded", evt => {
-        const invoiceTable = $('#invoiceTable').DataTable({
-            lengthChange: false,
-            dom: "tipr"
-        })
+<!-- Modal Reseller-->
+<div class="modal fade" id="modal-reseller">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row" id="form-reseller" enctype='multipart/form-data'>
+                    <div class="col-12 col-lg-6 mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" name="nama" placeholder="Nama reseller" required>
+                            <label for="nama">Nama reseller<sup class="text-danger">*</sup></label>
+                        </div>
+                    </div>
 
-        $('#cariInvoice').on('keyup', function() {
-            invoiceTable.search(this.value).draw();
-        })
+                    <div class="col-12 col-lg-6 mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" name="ip_router" placeholder="IP router" required>
+                            <label for="ip_router">IP router<sup class="text-danger">*</sup></label>
+                        </div>
+                    </div>
 
-        const resellerTable = $('#resellerTable').DataTable({
-            lengthChange: false,
-            dom: "tipr"
-        })
+                    <div class="col-12 col-lg-6 mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" name="username_akun" placeholder="Username akun"
+                                required>
+                            <label for="username_akun">Username akun<sup class="text-danger">*</sup></label>
+                        </div>
+                    </div>
 
-        $('#cariPelanggan').on('keyup', function() {
-            resellerTable.search(this.value).draw();
-        })
+                    <div class="col-12 col-lg-6 mb-3">
+                        <div class="form-floating input-group">
+                            <input type="password" class="form-control" name="password_akun" placeholder="Password akun"
+                                required>
+                            <div class="input-group-text" style="font-size: 0.8em">
+                                <input class="form-check-input me-2" type="checkbox" name="show_password"> Show
+                            </div>
+                            <label for="password_akun">Password akun<sup class="text-danger">*</sup></label>
+                        </div>
+                    </div>
 
-        const paketTable = $('#paketTable').DataTable({
-            lengthChange: false,
-            dom: "tipr"
-        })
-    })
+                    <div class="col-12">
+                        <hr>
+                    </div>
+
+                    <div class="col-12 col-lg-4 mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" name="nik" placeholder="NIK">
+                            <label for="nik">NIK</label>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4 mb-3">
+                        <div class="form-floating">
+                            <select class="form-select" name="jenis_kelamin">
+                                <option value="" selected disabled hidden>Pilih</option>
+                                <option value="Laki-Laki">Laki-Laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
+                            <label for="jenis_kelamin">Jenis Kelamin</label>
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-lg-4 mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" name="kontak" placeholder="Kontak">
+                            <label for="kontak">Kontak</label>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4 mb-3">
+                        <div class="input-group form-floating">
+                            <select class="form-select" name="alamat" required>
+                                <option value="" selected disabled hidden>Pilih</option>
+                                <option value="_buat_baru">Buat baru</option>
+                            </select>
+                            <label for="alamat">Alamat<sup class="text-danger">*</sup></label>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4 mb-3 d-none">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" name="alamat_baru" placeholder="Alamat baru">
+                            <label for="alamat_baru">Alamat baru<sup class="text-danger">*</sup></label>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4 mb-3">
+                        <div class="form-floating">
+                            <select class="form-select" name="jenis_pemasangan" required>
+                                <option value="" selected disabled hidden>Pilih</option>
+                                <option value="OLT">OLT</option>
+                                <option value="Media converter">Media converter</option>
+                                <option value="Antena">Antena</option>
+                            </select>
+                            <label for="jenis_pemasangan">Jenis pemasangan<sup class="text-danger">*</sup></label>
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-lg-4 mb-3">
+                        <div class="form-floating">
+                            <input type="date" class="form-control" name="tanggal_pemasangan">
+                            <label for="tanggal_pemasangan">Tanggal pemasangan</label>
+                        </div>
+                    </div>
+                    <div class="col-12 position-relative">
+                        <label>Pin alamat</label>
+                        <input type="hidden" name="lng">
+                        <input type="hidden" name="lat">
+                        <div class="map" id="reseller-map"></div>
+                    </div>
+                    <div class="col-12">
+                        <label>Foto KTP</label>
+                        <input type="file" class="filepond" name="foto_ktp" data-max-file-size="3MB">
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary btn-reset">Reset</button>
+                <button class="btn btn-success btn-submit">Simpan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (() => {
+        function refreshPage() {
+            document.querySelector(".sidebar-item.active a").click();
+        }
+
+        function initPaket() {
+            const form = document.forms["form-paket"];
+            const modal = new bootstrap.Modal(document.getElementById('modal-paket'));
+
+            // init datatables paket
+            const options = {
+                dom: "tipr",
+                lengthChange: false,
+                columnDefs: [{
+                    targets: [0],
+                    visible: false
+                },
+                {
+                    targets: -1,
+                    responsivePriority: 1,
+                    data: null,
+                    width: "20%",
+                    render: function (data, type, row, meta) {
+                        return `
+                            <button class="btn btn-sm btn-light-warning btn-ubah" data-id-paket="${row[0]}" data-nama="${row[1]}">Ubah</button>
+                            <button class="btn btn-sm btn-light-danger btn-hapus"  data-id-paket="${row[0]}" data-nama="${row[1]}">Hapus</button>
+                        `;
+                    }
+                }
+                ]
+            }
+            const table = createDataTable(
+                "table-paket",
+                server + "api/voucher/datatables-paket.php",
+                options
+            );
+
+            function initOptionButton() {
+                const btnRemove = document.querySelectorAll('#table-paket .btn-hapus');
+                Array.from(btnRemove).forEach(el => {
+                    el.onclick = evt => {
+                        const id = evt.currentTarget.getAttribute("data-id-paket");
+                        const nama = evt.currentTarget.getAttribute("data-nama");
+                        Swal.fire({
+                            title: 'Hapus ' + nama,
+                            showCancelButton: true,
+                            confirmButtonText: 'Hapus',
+                            cancelButtonText: 'Batal',
+                            showLoaderOnConfirm: true,
+                            preConfirm: (login) => {
+                                return fetch(server + "api/voucher/paket.php?id_paket_voucher=" + id, {
+                                    method: "DELETE",
+                                    headers: {
+                                        "ContentType": "application/json;charset=utf-8"
+                                    }
+                                })
+                                    .then(response => {
+                                        if (!response.ok) {
+                                            throw new Error(response.statusText)
+                                        }
+                                        return response.json()
+                                    })
+                                    .then(result => {
+                                        showToast(result.success, result.message);
+                                        refreshPage();
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    })
+                            },
+                            allowOutsideClick: () => !Swal.isLoading()
+                        })
+                    };
+                });
+
+                const btnUbah = document.querySelectorAll('#table-paket .btn-ubah');
+                Array.from(btnUbah).forEach(el => {
+                    el.onclick = evt => {
+                        showModal("PUT", evt.currentTarget.getAttribute("data-id-paket"));
+                    };
+                });
+            }
+
+            table.on('draw', initOptionButton);
+
+            initOptionButton();
+
+
+
+            // init form paket
+            document.getElementById("btn-tambah-paket").onclick = evt => {
+                showModal("POST");
+            };
+
+            let method;
+            let url;
+            function showModal(m, id_paket) {
+                form.reset();
+                method = m;
+                url = server + "api/voucher/paket.php";
+
+                if (m == "POST") {
+                    document.querySelector("#modal-paket .modal-title").textContent = "Tambah Paket";
+                    document.querySelector("#modal-paket .modal-footer .btn-submit").textContent = "Simpan";
+                } else {
+                    document.querySelector("#modal-paket .modal-title").textContent = "Detail Paket";
+                    document.querySelector("#modal-paket .modal-footer .btn-submit").textContent = "Simpan perubahan";
+
+                    url += `?id_paket_voucher=${id_paket}`;
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(result => {
+                            const data = result.data;
+                            form.nama.value = data.nama;
+                            form.kecepatan.value = data.kecepatan;
+                            form.durasi.value = data.durasi;
+                            form.harga_beli.value = data.harga_beli;
+                            form.harga_jual.value = data.harga_jual;
+                            form.target_bonus.value = data.target_bonus;
+                            form.jumlah_bonus.value = data.jumlah_bonus;
+                        });
+                }
+                modal.show();
+            }
+
+            function hideModal() {
+                modal.hide();
+                form.reset();
+            }
+
+            document.querySelector("#modal-paket .modal-footer .btn-submit").onclick = submitForm;
+            function submitForm() {
+                const formData = new FormData(form);
+                let data = Object.fromEntries(formData);
+                data = JSON.stringify(data);
+
+                fetch(url, {
+                    method: method,
+                    body: data
+                })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            hideModal();
+                            refreshPage();
+                        }
+                        showToast(result.success, result.message);
+                    });
+            }
+        }
+
+        function initReseller() {
+            const form = document.forms["form-reseller"];
+            const modal = new bootstrap.Modal(document.getElementById('modal-reseller'));
+
+            // init form
+            document.getElementById("btn-tambah-reseller").onclick = evt => {
+                showModal("POST");
+            };
+
+            form.show_password.onchange = showPassword;
+            function showPassword() {
+                form.password_akun.type = form.show_password.checked ? "text" : "password";
+            }
+
+            let method;
+            let url;
+            function showModal(m, id_akun_reseller) {
+                form.reset();
+                method = m;
+                url = server + "api/voucher/reseller.php";
+
+                if (m == "POST") {
+                    document.querySelector("#modal-reseller .modal-title").textContent = "Tambah Reseller";
+                    document.querySelector("#modal-reseller .modal-footer .btn-submit").textContent = "Simpan";
+                } else if (m == "PUT") {
+                    document.querySelector("#modal-reseller .modal-title").textContent = "Detail Reseller";
+                    document.querySelector("#modal-reseller .modal-footer .btn-submit").textContent = "Simpan perubahan";
+
+                    url += `?id_akun_reseller=${id_akun_reseller}`;
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(result => {
+                            const data = result.data[0];
+                            form.username_akun.value = data.username_akun;
+                            form.password_akun.value = data.password_akun;
+                            form.nama.value = data.nama;
+                            form.ip_router.value = data.ip_router;
+                            form.nik.value = data.nik;
+                            form.jenis_kelamin.value = data.jenis_kelamin;
+                            form.kontak.value = data.kontak;
+                            form.alamat.value = data.id_alamat;
+                            form.jenis_pemasangan.value = data.jenis_pemasangan;
+                            form.tanggal_pemasangan.value = data.tanggal_pemasangan;
+                            form.lng.value = data.lng;
+                            form.lat.value = data.lat;
+                            if (data.lng != "" && data.lat != "" && data.lng != null && data.lat != null) {
+                                const coordinate = { lng: data.lng, lat: data.lat };
+                                marker = new mapboxgl.Marker()
+                                    .setLngLat(coordinate)
+                                    .addTo(map);
+                                map.flyTo({
+                                    center: coordinate
+                                });
+                            }
+                            if (data.url_foto_ktp !== "" && data.url_foto_ktp !== null) {
+                                fotoKtp.addFile("../assets/images/foto-ktp/" + data.url_foto_ktp);
+                            }
+                        });
+                }
+                modal.show();
+            }
+
+            function hideModal() {
+                modal.hide();
+                form.reset();
+            }
+
+            //Alamat
+            fetch(server + "api/pelanggan/alamat.php")
+                .then(response => response.json())
+                .then(result => {
+                    result.data.forEach(el => {
+                        const option = document.createElement("option");
+                        option.value = el.id_alamat;
+                        option.textContent = el.nama;
+                        form.alamat.appendChild(option);
+                    })
+                });
+
+            form.alamat.onchange = cekAlamat;
+            function cekAlamat() {
+                form.alamat_baru.closest(".col-12").classList.add("d-none");
+                form.alamat_baru.required = false;
+
+                if (form.alamat.value == "_buat_baru") {
+                    form.alamat_baru.closest(".col-12").classList.remove("d-none");
+                    form.alamat_baru.required = true;
+                }
+            }
+
+            form.onreset = evt => {
+                form.show_password.checked = false;
+                showPassword();
+
+                form.alamat.value = "";
+                cekAlamat();
+
+                if (marker) {
+                    marker.remove();
+                }
+                fotoKtp.removeFile(0);
+            };
+
+            // Filepond foto ktp
+            fotoKtp = FilePond.create(form.foto_ktp, {
+                acceptedFileTypes: ['image/*'],
+                required: false,
+                instantUpload: false,
+                allowRevert: false,
+                allowProcess: false,
+                labelIdle: "Drag & Drop your files or Browse",
+                maxParallelUploads: 1,
+                server: {
+                    process: server + "api/pelanggan/upload-foto-ktp.php"
+                },
+            });
+
+            // Mapbox pin alamat
+            map = new mapboxgl.Map({
+                container: 'reseller-map',
+                style: 'mapbox://styles/mapbox/streets-v11',
+                center: [112.253302, -7.640462],
+                zoom: 15
+            });
+            let marker;
+
+            map.on("click", e => {
+                if (marker) {
+                    marker.remove();
+                }
+                const coordinate = e.lngLat;
+                marker = new mapboxgl.Marker()
+                    .setLngLat(coordinate)
+                    .addTo(map);
+                form.lng.value = coordinate.lng;
+                form.lat.value = coordinate.lat;
+            });
+
+            map.on('idle', function () {
+                map.resize();
+            });
+
+            document.querySelector("#modal-reseller .modal-footer .btn-reset").onclick = () => {
+                form.reset();
+            }
+
+            document.querySelector("#modal-reseller .modal-footer .btn-submit").onclick = () => {
+                submitForm();
+            }
+
+            function submitForm() {
+                const formData = new FormData(form);
+                let data = Object.fromEntries(formData);
+                data = JSON.stringify(data);
+
+                fetch(url, {
+                    method: method,
+                    body: data
+                })
+                    .then(response => response.json())
+                    .then(result => {
+                        const length = fotoKtp.getFiles().length;
+                        if (length > 0) {
+                            fotoKtp.getFile(0).setMetadata("id_pelanggan", result.data.id_pelanggan);
+                            fotoKtp.processFiles().then(file => {
+                                showToast(result.success, result.message);
+                                if (result.success) {
+                                    hideModal();
+                                }
+                                refreshPage();
+                            });
+                        } else {
+                            showToast(result.success, result.message);
+                            if (result.success) {
+                                hideModal();
+                            }
+                            refreshPage();
+                        }
+                    });
+            }
+
+
+            // init datatables reseller
+            const options = {
+                dom: "tipr",
+                lengthChange: false,
+                columnDefs: [{
+                    targets: [0, 1],
+                    visible: false
+                },
+                {
+                    targets: -1,
+                    responsivePriority: 1,
+                    data: null,
+                    width: "20%",
+                    render: function (data, type, row, meta) {
+                        return `
+                            <button class="btn btn-sm btn-light-secondary btn-detail" data-id-akun-reseller="${row[1]}" data-nama="${row[2]}">Detail</button>
+                            <button class="btn btn-sm btn-light-danger btn-hapus"  data-id-pelanggan="${row[0]}" data-nama="${row[2]}">Hapus</button>
+                        `;
+                    }
+                }
+                ]
+            }
+            const table = createDataTable(
+                "table-reseller",
+                server + "api/voucher/datatables-reseller.php",
+                options
+            );
+
+            function initOptionButton() {
+                const btnRemove = document.querySelectorAll('#table-reseller .btn-hapus');
+                Array.from(btnRemove).forEach(el => {
+                    el.onclick = evt => {
+                        const id = evt.currentTarget.getAttribute("data-id-pelanggan");
+                        const nama = evt.currentTarget.getAttribute("data-nama");
+                        Swal.fire({
+                            title: 'Hapus ' + nama,
+                            showCancelButton: true,
+                            confirmButtonText: 'Hapus',
+                            cancelButtonText: 'Batal',
+                            showLoaderOnConfirm: true,
+                            preConfirm: (login) => {
+                                return fetch(server + "api/voucher/reseller.php?id_pelanggan=" + id, {
+                                    method: "DELETE",
+                                    headers: {
+                                        "ContentType": "application/json;charset=utf-8"
+                                    }
+                                })
+                                    .then(response => {
+                                        if (!response.ok) {
+                                            throw new Error(response.statusText)
+                                        }
+                                        return response.json()
+                                    })
+                                    .then(result => {
+                                        showToast(result.success, result.message);
+                                        refreshPage();
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    })
+                            },
+                            allowOutsideClick: () => !Swal.isLoading()
+                        })
+                    };
+                });
+
+                const btnDetail = document.querySelectorAll('#table-reseller .btn-detail');
+                Array.from(btnDetail).forEach(el => {
+                    el.onclick = evt => {
+                        showModal("PUT", evt.currentTarget.getAttribute("data-id-akun-reseller"));
+                    };
+                });
+            }
+
+            table.on('draw', initOptionButton);
+
+            initOptionButton();
+        }
+
+        const scripts = [
+            "../assets/vendors/filepond/filepond.min.js",
+            "../assets/vendors/filepond/plugin/image-preview/filepond-plugin-image-preview.min.js",
+            "../assets/vendors/filepond/plugin/image-exif-orientation/filepond-plugin-image-exif-orientation.min.js",
+            "../assets/vendors/filepond/plugin/file-validate-size/filepond-plugin-file-validate-size.min.js",
+            "../assets/vendors/filepond/plugin/file-rename/filepond-plugin-file-rename.min.js",
+            "../assets/vendors/filepond/plugin/file-validate-type/filepond-plugin-file-validate-type.min.js",
+            "../assets/vendors/filepond/plugin/file-rename/filepond-plugin-file-rename.min.js",
+            "../assets/vendors/filepond/plugin/file-metadata/filepond-plugin-file-metadata.min.js",
+            "https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js"
+        ]
+
+        loadAllScripts(scripts, initPage)
+
+        function initPage() {
+            FilePond.registerPlugin(
+                FilePondPluginImagePreview,
+                FilePondPluginImageExifOrientation,
+                FilePondPluginFileValidateSize,
+                FilePondPluginFileValidateType,
+                FilePondPluginFileRename,
+                FilePondPluginFileMetadata
+            );
+
+            mapboxgl.accessToken = 'pk.eyJ1IjoiYWxkaWt1cnciLCJhIjoiY2t1ZTRkZm9jMDh4bjJwbnZvZTZ6OG93MiJ9.c6lXJbri6dbYO0p0t8u8Rw';
+
+
+            initPaket();
+            initReseller();
+        }
+    })();
 </script>

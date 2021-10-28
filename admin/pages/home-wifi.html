@@ -243,26 +243,6 @@
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
-                                <!-- <tbody>
-                                    <tr>
-                                        <td>Basic</td>
-                                        <td>2Mb/2Mb</td>
-                                        <td>Rp 125.000</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light-warning">Ubah</button>
-                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Plus</td>
-                                        <td>4Mb/4Mb</td>
-                                        <td>Rp 175.000</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light-warning">Ubah</button>
-                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
-                                        </td>
-                                    </tr>
-                                </tbody> -->
                             </table>
                         </div>
                     </div>
@@ -296,7 +276,26 @@
                             <label for="paket">Paket<sup class="text-danger">*</sup></label>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-4 mb-3">
+                    <div class="col-12 col-lg-6 mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" name="username_akun" placeholder="Username akun"
+                                required>
+                            <label for="username_akun">Username akun<sup class="text-danger">*</sup></label>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 mb-3">
+                        <div class="form-floating input-group">
+                            <input type="password" class="form-control" name="password_akun" placeholder="Password akun"
+                                required>
+                            <div class="input-group-text" style="font-size: 0.8em">
+                                <input class="form-check-input me-2" type="checkbox" name="show_password_akun"> Show
+                            </div>
+                            <label for="password_akun">Password akun<sup class="text-danger">*</sup></label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12 col-lg-3 mb-3">
                         <div class="form-floating">
                             <select class="form-select" name="jenis_koneksi" required>
                                 <option value="" selected disabled hidden>Pilih</option>
@@ -312,9 +311,13 @@
                             <label for="pppoe_username">Username PPPOE<sup class="text-danger">*</sup></label>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-4 mb-3 d-none">
-                        <div class="form-floating">
-                            <input type="text" class="form-control" name="password_pppoe" placeholder="Password PPPOE">
+                    <div class="col-12 col-lg-5 mb-3">
+                        <div class="form-floating input-group">
+                            <input type="password" class="form-control" name="password_pppoe" placeholder="Password PPPOE"
+                                required>
+                            <div class="input-group-text" style="font-size: 0.8em">
+                                <input class="form-check-input me-2" type="checkbox" name="show_password_pppoe"> Show
+                            </div>
                             <label for="password_pppoe">Password PPPOE<sup class="text-danger">*</sup></label>
                         </div>
                     </div>
@@ -522,6 +525,13 @@
                 showModal("POST");
             };
 
+            form.show_password_akun.onchange = showPassword;
+            form.show_password_pppoe.onchange = showPassword;
+            function showPassword() {
+                form.password_akun.type = form.show_password_akun.checked ? "text" : "password";
+                form.password_pppoe.type = form.show_password_pppoe.checked ? "text" : "password";
+            }
+
             let method;
             let url;
             function showModal(m, id_akun_home_wifi) {
@@ -541,6 +551,8 @@
                         .then(response => response.json())
                         .then(result => {
                             const data = result.data[0];
+                            form.username_akun.value = data.username_akun;
+                            form.password_akun.value = data.password_akun;
                             form.nama.value = data.nama;
                             form.paket.value = data.id_paket_home_wifi;
                             form.jenis_koneksi.value = data.jenis_koneksi;
@@ -647,6 +659,10 @@
             }
 
             form.onreset = evt => {
+                form.show_password_akun.checked = false;
+                form.show_password_pppoe.checked = false;
+                showPassword();
+
                 form.jenis_koneksi.value = "";
                 cekJenisKoneksi();
 
@@ -902,6 +918,7 @@
                                                     if (result.success) {
                                                         cekTahun();
                                                     }
+                                                    refreshStatus();
                                                 });
                                             }
                                         });
@@ -918,6 +935,7 @@
                                                     if (result.success) {
                                                         cekTahun();
                                                     }
+                                                    refreshStatus();
                                                 });
                                             }
                                         });
@@ -1076,6 +1094,14 @@
             initOptionButton();
         }
 
+        function refreshStatus() {
+            fetch(server + "api/home-wifi/index.php").then(response => response.json()).then(result => {
+                document.getElementById("status-pemasukan").textContent = result.data.pemasukan;
+                document.getElementById("status-lunas").textContent = result.data.lunas;
+                document.getElementById("status-belum-lunas").textContent = result.data.belum_lunas;
+            });
+        }
+
         const scripts = [
             "../assets/vendors/filepond/filepond.min.js",
             "../assets/vendors/filepond/plugin/image-preview/filepond-plugin-image-preview.min.js",
@@ -1105,11 +1131,7 @@
 
             initPelanggan();
             initPaket();
-            fetch(server + "api/home-wifi/index.php").then(response => response.json()).then(result => {
-                document.getElementById("status-pemasukan").textContent = result.data.pemasukan;
-                document.getElementById("status-lunas").textContent = result.data.lunas;
-                document.getElementById("status-belum-lunas").textContent = result.data.belum_lunas;
-            });
+            refreshStatus();
         }
     })()
 </script>
