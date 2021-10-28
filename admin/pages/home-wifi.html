@@ -717,7 +717,7 @@
                     width: "20%",
                     render: function (data, type, row, meta) {
                         return `
-                            <button class="btn btn-sm btn-light-success btn-invoice" data-id-akun-home-wifi="${row[1]}">Invoice</button>
+                            <button class="btn btn-sm btn-light-warning btn-invoice" data-id-akun-home-wifi="${row[1]}">Invoice</button>
                             <button class="btn btn-sm btn-light-secondary btn-detail" data-id-akun-home-wifi="${row[1]}">Detail</button>
                             <button class="btn btn-sm btn-light-danger btn-hapus" data-id-nama="${row[2]}" data-id-pelanggan="${row[0]}">Hapus</button>
                         `;
@@ -806,32 +806,89 @@
                                 const option = document.createElement("option");
                                 option.value = x;
                                 option.textContent = x;
+                                if (x == tahunSekarang) {
+                                    option.selected = true;
+                                }
                                 selectTahun.appendChild(option);
                             }
 
-                            selectTahun.onchange = evt => {
+                            function cekTahun() {
                                 const tbody = document.querySelector("#modal-invoice tbody");
                                 tbody.innerHTML = "";
                                 const bulanName = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "October", "November", "Desember"];
-                                let bulanNum = evt.currentTarget.value == tahunAwal ? Number(data.bulan_awal_penagihan.split("-")[1]) : 1;
+                                let bulanNum = selectTahun.value == tahunAwal ? Number(data.bulan_awal_penagihan.split("-")[1]) : 1;
 
-                                fetch(server + "api/home-wifi/invoice.php").then(response => response.json()).then(result => {
+                                fetch(server + "api/home-wifi/invoice.php?id_akun_home_wifi=" + id_akun_home_wifi).then(response => response.json()).then(result => {
+                                    const data = result.data ?? [];
                                     while (bulanNum <= 12) {
                                         const tr = document.createElement("tr");
-                                        tr.innerHTML = `
-                                            <td>${bulanName[$bulanNum]}</td>
-                                            <td>Belum</td>
-                                            <td>2021-01-01</td>
+                                        const index = data.findIndex(e => e.tahun == selectTahun.value && e.bulan == bulanNum && e.status_pembayaran == "Lunas");
+                                        if (index !== -1) {
+                                            const date = new Date(data[index].tanggal_pembayaran);
+                                            let formattedDate = date.toLocaleString('id-ID', {
+                                                day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: 'numeric'
+                                            }).replace(/ /g, ' ');
+                                            formattedDate = formattedDate.replace(".", ":");
+                                            tr.innerHTML = `
+                                            <td>${bulanName[bulanNum - 1]}</td>
+                                            <td>Lunas</td>
+                                            <td>${formattedDate}</td>
                                             <td>
-                                                <button class="btn btn-sm btn-light-success">Bayar</button>
-                                                <button class="btn btn-sm btn-light-secondary">Cetak</button>
-                                                <button class="btn btn-sm btn-light-danger">Batal</button>
+                                                <button class="btn btn-sm btn-light-danger btn-batal" data-id-bulan="${bulanNum}" data-id-tahun="${selectTahun.value}" data-id-akun-home-wifi="${id_akun_home_wifi}">Batal</button>
+                                                <a href="cetak_invoice.html?bulan=${bulanNum}&tahun=${selectTahun.value}&id_akun_home_wifi=${id_akun_home_wifi}" class="btn btn-sm btn-light-secondary btn-cetak" target="_blank">Cetak</a>
                                             </td>
                                         `;
+                                        } else {
+                                            tr.innerHTML = `
+                                            <td>${bulanName[bulanNum - 1]}</td>
+                                            <td>Belum</td>
+                                            <td>-</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-light-success btn-bayar" data-id-bulan="${bulanNum}" data-id-tahun="${selectTahun.value}" data-id-akun-home-wifi="${id_akun_home_wifi}">Bayar</button>
+                                                <a href="cetak_invoice.html?bulan=${bulanNum}&tahun=${selectTahun.value}&id_akun_home_wifi=${id_akun_home_wifi}" class="btn btn-sm btn-light-secondary btn-cetak" target="_blank">Cetak</a>
+                                            </td>
+                                        `;
+                                        }
+                                        tbody.appendChild(tr);
+                                        
+                                        const btnBayar = tbody.querySelectorAll(".btn-bayar");
+                                        Array.from(btnBayar).forEach(e => {
+                                            e.onclick = evt => {
+                                                const tahun = evt.currentTarget.getAttribute("data-id-tahun");
+                                                const bulan = evt.currentTarget.getAttribute("data-id-bulan");
+                                                fetch(`${server}api/home-wifi/invoice.php?id_akun_home_wifi=${id_akun_home_wifi}&tahun=${tahun}&bulan=${bulan}`, {
+                                                    method: "POST",
+                                                }).then(response => response.json()).then(result => {
+                                                    showToast(result.success, result.message);
+                                                    if (result.success) {
+                                                        cekTahun();
+                                                    }
+                                                });
+                                            }
+                                        });
+
+                                        const btnBatal = tbody.querySelectorAll(".btn-batal");
+                                        Array.from(btnBatal).forEach(e => {
+                                            e.onclick = evt => {
+                                                const tahun = evt.currentTarget.getAttribute("data-id-tahun");
+                                                const bulan = evt.currentTarget.getAttribute("data-id-bulan");
+                                                fetch(`${server}api/home-wifi/invoice.php?id_akun_home_wifi=${id_akun_home_wifi}&tahun=${tahun}&bulan=${bulan}`, {
+                                                    method: "DELETE",
+                                                }).then(response => response.json()).then(result => {
+                                                    showToast(result.success, result.message);
+                                                    if (result.success) {
+                                                        cekTahun();
+                                                    }
+                                                });
+                                            }
+                                        });
+
                                         bulanNum++;
                                     }
                                 })
                             }
+                            selectTahun.onchange = cekTahun;
+                            cekTahun();
                         })
                     })
                 modalInvoice.show();

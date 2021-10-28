@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .custom-border {
+            border: 4px solid;
+        }
+        body {
+            zoom: 70%;
+        }
+    </style>
+</head>
+
+<body class="bg-white p-4">
+    <div class="">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex align-items-center justify-content-center">
+                <img src="../assets/images/logo/logo.png" alt="Logo" width="200px">
+            </div>
+            <div class="d-flex align-items-center justify-content-center">
+                <h2 class="p-0 m-0 font-weight-bold">BILL SUMMARY</h2>
+            </div>
+        </div>
+        <div class="row text-center mt-4" style="height: 130px">
+            <div class="col-8">
+                <div class="row custom-border rounded me-2 h-100 p-2">
+                    <div class="col-4" style="border-right: 4px solid">
+                        <div class="d-flex flex-column justify-content-between h-100">
+                            <div>
+                                <div class="text-dark"><strong>Tanggal Tagihan</strong></div>
+                                <div class="text-secondary"><strong>Invoice Date</strong></div>
+                            </div>
+                            <div class="text-dark"><strong id="tanggal-tagihan"></strong></div>
+                        </div>
+                    </div>
+                    <div class="col-4" style="border-right: 4px solid">
+                        <div class="d-flex flex-column justify-content-between h-100">
+                            <div>
+                                <div class="text-dark"><strong>Jatuh Tempo</strong></div>
+                                <div class="text-secondary"><strong>Due Date</strong></div>
+                            </div>
+                            <div class="text-dark"><strong id="jatuh-tempo"></strong></div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="d-flex flex-column justify-content-between h-100">
+                            <div>
+                                <div class="text-dark"><strong>Total Tagihan</strong></div>
+                                <div class="text-secondary"><strong id="total-tagihan">Total Bill</strong></div>
+                            </div>
+                            <div class="text-dark"><strong>192.500</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="row custom-border rounded me-2 h-100 p-2">
+                    <div class="col-12">
+                        <div class="d-flex flex-column justify-content-between h-100">
+                            <div>
+                                <div class="text-dark"><strong>No Tagihan</strong></div>
+                                <div class="text-secondary"><strong>Invoice Number</strong></div>
+                            </div>
+                            <div class="text-dark"><strong id="no-tagihan"></strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-7">
+                <div class="row" style="height: 100px">
+                    <div class="col-4 bg-light rounded">
+                        <div class="d-flex flex-column justify-content-between h-100 p-2">
+                            <div>
+                                <div class="text-dark"><strong>ID Pelanggan</strong></div>
+                                <div class="text-secondary"><strong>Customer ID</strong></div>
+                            </div>
+                            <div class="text-dark"><strong id="username"></strong></div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="d-flex flex-column justify-content-center h-100 p-2 ms-4">
+                            <div>
+                                <div class="text-dark" style="font-size: 1.5em"><strong id="nama-pelanggan"></strong></div>
+                                <div class="text-secondary" style="font-size: 1.2em"><strong id="alamat-pelanggan"></strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table w-100 mt-2">
+                    <thead class="bg-info text-light">
+                        <tr>
+                            <th>Detail / <em>Detail<em></th>
+                            <th>Jumlah / <em>Amount (Rp)<em></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Home Wifi <span id="nama-paket"></span> <span id="kecepatan-paket"></span></td>
+                            <td id="total-tagihan-1"></td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="bg-light">
+                        <tr>
+                            <td><strong>Sub Total</strong></td>
+                            <td id="sub-total"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>PPN 10%</strong> / VAT 10%</td>
+                            <td id="ppn"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Materai</strong> / Stamp Duty</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total</strong></td>
+                            <td id="total-tagihan-2"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="col-5">
+                <div class="row bg-light rounded p-4">
+                    <p style="font-size: 1.5em"><strong>Info</strong></p>
+                    <ol>
+                        <li>
+                            <strong>Total tagihan belum termasuk biaya administrasi channel metode bayar.</strong>
+                            <br>
+                            <em>(Total amount doesn't include service fee for payment channel)</em>
+                        </li>
+                        <li>
+                            <strong>myISP sekarang dapat diakses melalui situs my-isp.netlify.app untuk dapat melihat informasi tagihan</strong>
+                            <br>
+                            <em>myISP can now be accessed via the my-isp.netlify.app site to view billing information</em>
+                        </li>
+                    </ol>
+                </div>
+                <div class="row mt-2 text-center">
+                    <div class="col">
+                        <p><strong>Status</strong></p>
+                        <h1 id="status-pembayaran"></h1>
+                        <p><strong id="tanggal-pembayaran"></strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p class="mt-2"><strong>Dapat dibayar melalui</strong> / Pay Through</p>
+        <div class="row rounded me-2 h-100 p-2 text-center">
+            <div class="col-4" style="border-right: 2px solid">
+                <div class="d-flex flex-column justify-content-between h-100">
+                    <div class="text-dark"><strong>VIA BANK MANDIRI</strong></div>
+                    <div>
+                        <div class="text-dark"><strong>89123534523</strong></div>
+                        <div class="text-secondary"><strong>Biaya administrasi</strong> Rp2.500</div>
+                        <div class="text-secondary"><strong>Total bayar Rp195.000</strong></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4" style="border-right: 2px solid">
+                <div class="d-flex flex-column justify-content-between h-100">
+                    <div class="text-dark"><strong>VIA BANK BCA</strong></div>
+                    <div>
+                        <div class="text-dark"><strong>234563246</strong></div>
+                        <div class="text-secondary"><strong>Biaya administrasi</strong> Rp2.500</div>
+                        <div class="text-secondary"><strong>Total bayar Rp195.000</strong></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="d-flex flex-column justify-content-between h-100">
+                    <div class="text-dark"><strong>VIA BANK BRI</strong></div>
+                    <div>
+                        <div class="text-dark"><strong>4564567334</strong></div>
+                        <div class="text-secondary"><strong>Biaya administrasi</strong> Rp2.500</div>
+                        <div class="text-secondary"><strong>Total bayar Rp195.000</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="text-center mt-4" style="font-size: 1.3em"><strong>Total Pembayaran yang harus dilakukan adalah total tagihan + biaya administrasi pembayaran sesuia channel yang digunakan</strong></p>
+        <p class="mt-2" style=" direction:rtl; text-align:justify;">G6QC+QR6, Area Sawah, Rejoagung, Kec. Ploso, Kabupaten Jombang, Jawa Timur 61453</p>
+        
+        <script src="../assets/js/main.js"></script>
+        <script>
+            const url = new URL(window.location.href);
+            const id_akun_home_wifi = url.searchParams.get("id_akun_home_wifi");
+            const tahun = url.searchParams.get("tahun");
+            const bulan = url.searchParams.get("bulan");
+
+            let date = new Date(`${tahun}-${bulan}-01`);
+            let formattedDate = date.toLocaleString('id-ID', {
+                day: 'numeric', month: 'short', year: 'numeric'
+            }).replace(/ /g, ' ');
+            document.getElementById("tanggal-tagihan").textContent = formattedDate;
+
+            date = new Date(`${tahun}-${bulan}-15`);
+            formattedDate = date.toLocaleString('id-ID', {
+                day: 'numeric', month: 'short', year: 'numeric'
+            }).replace(/ /g, ' ');
+            document.getElementById("jatuh-tempo").textContent = formattedDate;
+
+            
+            fetch(server + `api/home-wifi/cetak-invoice.php?bulan=${bulan}&tahun=${tahun}&id_akun_home_wifi=${id_akun_home_wifi}`).then(response => response.json()).then(result => {
+                document.getElementById("no-tagihan").textContent = result.data.uuid;
+                document.getElementById("nama-pelanggan").textContent = result.data.nama_pelanggan;
+                document.getElementById("alamat-pelanggan").textContent = result.data.alamat_pelanggan;
+                document.getElementById("nama-paket").textContent = result.data.nama_paket;
+                document.getElementById("kecepatan-paket").textContent = result.data.kecepatan_paket;
+                document.getElementById("sub-total").textContent = result.data.harga_paket;
+                document.getElementById("ppn").textContent = result.data.harga_paket * 10 / 100;
+                document.getElementById("total-tagihan-1").textContent = Number(result.data.harga_paket) + (result.data.harga_paket * 10 / 100);
+                document.getElementById("total-tagihan-2").textContent = Number(result.data.harga_paket) + (result.data.harga_paket * 10 / 100);
+                document.getElementById("status-pembayaran").textContent = result.data.status_pembayaran;
+                if (result.data.status_pembayaran == "Lunas") {
+                    document.getElementById("status-pembayaran").classList.add("text-success")
+                    document.getElementById("tanggal-pembayaran").textContent = result.data.tanggal_pembayaran;
+                } else {
+                    document.getElementById("status-pembayaran").classList.add("text-danger")
+                }
+            });
+        </script>
+</body>
+
+</html>
