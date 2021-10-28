@@ -15,7 +15,7 @@
                         </div>
                         <div class="col-md-8">
                             <h6 class="text-muted font-semibold">Pemasukan</h6>
-                            <h6 class="font-extrabold mb-0">Rp 300.000</h6>
+                            <h6 class="font-extrabold mb-0" id="status-pemasukan"></h6>
                         </div>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-md-8">
                             <h6 class="text-muted font-semibold">Lunas</h6>
-                            <h6 class="font-extrabold mb-0">2</h6>
+                            <h6 class="font-extrabold mb-0" id="status-lunas"></h6>
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                         </div>
                         <div class="col-md-8">
                             <h6 class="text-muted font-semibold">Belum Lunas</h6>
-                            <h6 class="font-extrabold mb-0">1</h6>
+                            <h6 class="font-extrabold mb-0" id="status-belum-lunas"></h6>
                         </div>
                     </div>
                 </div>
@@ -388,8 +388,8 @@
                     <div class="col-12 col-lg-4 mb-3">
                         <div class="form-floating">
                             <select class="form-select" name="bulan_awal_penagihan">
-                                <option value="Bulan depan" selected>Bulan depan</option>
-                                <option value="Bulan ini">Bulan ini</option>
+                                <option value="Bulan ini" selected>Bulan ini</option>
+                                <option value="Bulan depan">Bulan depan</option>
                                 <option value="Sesuai tanggal pemasangan">Sesuai tanggal pemasangan</option>
                             </select>
                             <label for="bulan_awal_penagihan">Bulan awal penagihan</label>
@@ -1105,8 +1105,11 @@
 
             initPelanggan();
             initPaket();
-            // initDatatablesPelanggan();
-            // initFormPelanggan();
+            fetch(server + "api/home-wifi/index.php").then(response => response.json()).then(result => {
+                document.getElementById("status-pemasukan").textContent = result.data.pemasukan;
+                document.getElementById("status-lunas").textContent = result.data.lunas;
+                document.getElementById("status-belum-lunas").textContent = result.data.belum_lunas;
+            });
         }
     })()
 </script>
