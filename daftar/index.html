@@ -86,7 +86,7 @@
                             <div class="form-floating">
                                 <select class="form-select" name="jenis_layanan" required>
                                     <option value="" selected disabled hidden>Pilih</option>
-                                    <option value="Home wifi">Home</option>
+                                    <option value="Home">Home</option>
                                     <option value="Hotspot voucher">Hotspot voucher</option>
                                 </select>
                                 <label for="jenis_layanan">Jenis layanan</label>
@@ -189,7 +189,7 @@
             form.paket_home_wifi.closest(".col-12").classList.add("d-none");
             form.paket_home_wifi.required = false;
 
-            if (form.jenis_layanan.value == "Home wifi") {
+            if (form.jenis_layanan.value == "Home") {
                 form.paket_home_wifi.closest(".col-12").classList.remove("d-none");
                 form.paket_home_wifi.required = true;
             }
@@ -256,7 +256,7 @@
             labelIdle: "Drag & Drop your files or Browse",
             maxParallelUploads: 1,
             server: {
-                process: server + "api/pelanggan/upload-foto-ktp.php"
+                process: server + "api/daftar/upload-foto-ktp.php"
             },
         });
 
@@ -300,7 +300,7 @@
             if (marker) {
                 marker.remove();
             }
-            const coordinate = {lng: e.coords.longitude, lat: e.coords.latitude};
+            const coordinate = { lng: e.coords.longitude, lat: e.coords.latitude };
             marker = new mapboxgl.Marker()
                 .setLngLat(coordinate)
                 .addTo(map);
@@ -310,16 +310,42 @@
 
         form.onsubmit = evt => {
             evt.preventDefault();
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil mendaftar',
-                text: "Silahkan masuk untuk melihat status pendaftaran",
-                showConfirmButton: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    location.href = "../login";
-                }
+
+            const formData = new FormData(form);
+            let data = Object.fromEntries(formData);
+            data = JSON.stringify(data);
+
+            fetch(server + "api/daftar/index.php", {
+                method: "POST",
+                body: data
             })
+                .then(response => response.json())
+                .then(result => {
+                    const length = fotoKtp.getFiles().length;
+                    if (length > 0) {
+                        fotoKtp.getFile(0).setMetadata("id_calon_pelanggan", result.data.id_calon_pelanggan);
+                        fotoKtp.processFiles().then(file => {
+                            if (result.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Berhasil mendaftar',
+                                    text: "Silahkan masuk untuk melihat status pendaftaran",
+                                    showConfirmButton: true,
+                                    backdrop: false
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        location.href = "../masuk";
+                                    }
+                                })
+                            }
+                        });
+                    } else {
+                        showToast(result.success, result.message);
+                        if (result.success) {
+
+                        }
+                    }
+                });
         }
     </script>
 </body>
