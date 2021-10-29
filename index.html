@@ -68,8 +68,8 @@
         <ul>
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="#pricing">Harga</a></li>
-          <li><a class="nav-link scrollto" href="auth/login">Masuk</a></li>
-          <li><a class="nav-link scrollto" href="auth/register">Daftar</a></li>
+          <li><a class="nav-link scrollto" href="masuk/">Masuk</a></li>
+          <li><a class="nav-link scrollto" href="daftar/">Daftar</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -88,7 +88,7 @@
           </h2>
           <div data-aos="fade-up" data-aos-delay="600">
             <div class="text-center text-lg-start">
-              <a href="auth/register"
+              <a href="daftar/"
                 class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
                 <span>Daftar Sekarang</span>
                 <i class="bi bi-arrow-right"></i>
@@ -105,122 +105,6 @@
   </section><!-- End Hero -->
 
   <main id="main">
-
-    <!-- Modal Login -->
-    <div class="modal fade" id="loginModal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Masuk</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body mb-0">
-            <div id="bgModal"></div>
-            <form class="form form-vertical" id="loginForm">
-              <div class="form-body">
-                <div class="row">
-                  <div class="col-12 mb-3">
-                    <div class="form-group has-icon-left">
-                      <label>Username</label>
-                      <div class="position-relative">
-                        <input type="text" class="form-control" name="username" placeholder="Username" required>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-12 mb-3">
-                    <div class="form-group has-icon-left">
-                      <label>Password</label>
-                      <div class="position-relative">
-                        <input type="password" class="form-control" name="password" placeholder="Password" required>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-12 d-flex justify-content-between">
-                    <div class="d-flex my-auto">
-                      <span>Belum mempunyai akun? <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal"
-                          data-bs-dismiss="modal">Daftar</a></span>
-                    </div>
-                    <div class="d-flex">
-                      <button type="submit" class="btn btn-primary me-1 mb-1">Masuk</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal  Register -->
-    <div class="modal fade" id="registerModal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Daftar</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body mb-0">
-            <form id="registerForm">
-              <label>Nama Lengkap</label>
-              <div class="form-group position-relative has-icon-left mb-3">
-                <input type="text" class="form-control form-control-xl" name="fullName" placeholder="Nama Lengkap"
-                  required>
-              </div>
-
-              <label>Username</label>
-              <div class="form-group position-relative has-icon-left mb-3">
-                <input type="text" class="form-control form-control-xl" name="username" placeholder="Username" required>
-              </div>
-
-              <label>Password</label>
-              <div class="form-group position-relative has-icon-left mb-3">
-                <input type="password" class="form-control form-control-xl" name="password" placeholder="Password"
-                  required>
-              </div>
-
-              <label>Jenis Kelamin</label>
-              <div class="form-group position-relative has-icon-left mb-3">
-                <select class="form-control form-control-xl" name="gender" required>
-                  <option value="" disabled selected hidden>Jenis Kelamin</option>
-                  <option value="Laki-Laki">Laki-Laki</option>
-                  <option value="Perempuan">Perempuan</option>
-                </select>
-              </div>
-
-              <label>Paket</label>
-              <div class="form-group position-relative has-icon-left mb-3">
-                <select class="form-control form-control-xl" name="gender" required>
-                  <option value="" disabled selected hidden>Paket</option>
-                  <option value="Laki-Laki">Home Basic</option>
-                  <option value="Laki-Laki">Home Plus</option>
-                  <option value="Laki-Laki">Home Premium</option>
-                  <option value="Laki-Laki">Hotspot voucher</option>
-                </select>
-              </div>
-
-              <label>Alamat</label>
-              <div class="form-group position-relative has-icon-left mb-3">
-                <input type="text" class="form-control form-control-xl" name="address" placeholder="Alamat" required>
-              </div>
-
-              <div class="col-12 d-flex justify-content-between">
-                <div class="d-flex my-auto">
-                  <span>Sudah mempunyai akun? <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal"
-                      data-bs-dismiss="modal">Masuk</a></span>
-                </div>
-                <div class="d-flex">
-                  <button class="btn btn-primary btn-block shadow-lg">Daftar</button>
-                </div>
-              </div>
-
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- ======= Pricing Section ======= -->
     <section id="pricing" class="pricing">
