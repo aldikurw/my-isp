@@ -109,9 +109,9 @@
                         <!-- Tab peta -->
                         <div class="tab-pane fade show active" id="peta" role="tabpanel" aria-labelledby="peta-tab">
                             <ul class="customUl">
-                                <li>Pelanggan Home Lunas</li>
-                                <li>Pelanggan Home Belum Lunas</li>
-                                <li>Reseller Hotspot Voucher</li>
+                                <li>Pelanggan Home Lunas (<span id="jumlah_home_lunas"></span>)</li>
+                                <li>Pelanggan Home Belum Lunas (<span id="jumlah_home_belum_lunas"></span>)</li>
+                                <li>Reseller Voucher (<span id="jumlah_reseller_voucher"></span>)</li>
                             </ul>
                             <div class="position-relative">
                                 <div id="map"></div>
@@ -163,97 +163,6 @@
 </div>
 
 <script>
-    const geojson = {
-            type: 'FeatureCollection',
-            features: [{
-                type: 'Feature',
-                geometry: {
-                    type: 'Point',
-                    coordinates: [112.254119, -7.638849]
-                },
-                properties: {
-                    nama: 'Andre',
-                    paket: 'Home',
-                    statusPembayaran: 'Lunas'
-                }
-            },
-            {
-                type: 'Feature',
-                geometry: {
-                    type: 'Point',
-                    coordinates: [112.254758, -7.638562]
-                },
-                properties: {
-                    nama: 'Febri',
-                    paket: 'Home',
-                    statusPembayaran: 'Belum'
-                }
-            },
-            {
-                type: 'Feature',
-                geometry: {
-                    type: 'Point',
-                    coordinates: [112.254340, -7.636467]
-                },
-                properties: {
-                    nama: 'Indra',
-                    paket: 'Voucher'
-                }
-            },
-            {
-                type: 'Feature',
-                geometry: {
-                    type: 'Point',
-                    coordinates: [112.256089, -7.638211]
-                },
-                properties: {
-                    nama: 'Jihan',
-                    paket: 'Home',
-                    statusPembayaran: 'Lunas'
-                }
-            },
-            {
-                type: 'Feature',
-                geometry: {
-                    type: 'Point',
-                    coordinates: [112.255574, -7.637137]
-                },
-                properties: {
-                    nama: 'Kiki',
-                    paket: 'Home',
-                    statusPembayaran: 'Lunas'
-                }
-            },
-            {
-                type: 'Feature',
-                geometry: {
-                    type: 'Point',
-                    coordinates: [112.256583, -7.637594]
-                },
-                properties: {
-                    nama: 'Syahrul',
-                    paket: 'Home',
-                    statusPembayaran: 'Lunas'
-                }
-            },
-            {
-                type: 'Feature',
-                geometry: {
-                    type: 'Point',
-                    coordinates: [112.255510, -7.639455]
-                },
-                properties: {
-                    nama: 'Syahrul',
-                    paket: 'Home',
-                    statusPembayaran: 'Lunas'
-                }
-            },
-            ]
-        };
-
-</script>
-
-<script>
     (() => {
         loadScript("https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js")
             .then(initPage)
@@ -267,46 +176,46 @@
             center: [112.253302, -7.640462],
             zoom: 15
         });
-        
-        for (const {
-            geometry,
-            properties
-        } of geojson.features) {
-            // create a HTML element for each feature
-            const el = document.createElement('div');
-            el.classList.add('marker');
 
-            switch (properties.paket) {
-                case 'Home':
-                    if (properties.statusPembayaran === "Lunas") {
-                        el.classList.add('marker-green');
+        fetch(server + "api/cakupan-area/peta.php").then(response => response.json()).then(result => {
+            const data = result.data;
+            document.getElementById("jumlah_home_lunas").textContent = data.jumlah_home_lunas;
+            document.getElementById("jumlah_home_belum_lunas").textContent = data.jumlah_home_belum_lunas;
+            document.getElementById("jumlah_reseller_voucher").textContent = data.jumlah_reseller_voucher;
+
+            const pelanggan = [...data.pelanggan_home, ...data.reseller_voucher];
+            pelanggan.forEach(e => {
+                if (
+                    e.lat != "" && e.lat != null &&
+                    e.lng != "" && e.lng != null
+                ) {
+                    let color;
+                    if (typeof e.status_pembayaran !== 'undefined') {
+                        if (e.status_pembayaran === "Lunas") {
+                            color = "#00B8A9";
+                        } else {
+                            color = "#F6416C";
+                        }
                     } else {
-                        el.classList.add('marker-red');
+                        color = "#3F72AF";
                     }
-                    break
-                case 'Voucher':
-                    el.classList.add('marker-blue');
-                    break;
-            }
 
-            // make a marker for each feature and add to the map
-            new mapboxgl.Marker(el).setLngLat(geometry.coordinates).addTo(map);
-
-            new mapboxgl.Marker(el)
-                .setLngLat(geometry.coordinates)
-                .setPopup(
-                    new mapboxgl.Popup({
-                        offset: 25
-                    }) // add popups
-                    .setHTML(`
-                        <h6 class="mb-1 mx-2">${properties.nama}</h6>
+                    new mapboxgl.Marker({ "color": color })
+                        .setLngLat([e.lng, e.lat])
+                        .setPopup(
+                            new mapboxgl.Popup({
+                                offset: 25
+                            })
+                                .setHTML(`
+                        <h6 class="mb-1 mx-2">${e.nama}</h6>
                         <div class="avatar avatar-md mb-1">
-                            <img src="../assets/images/faces/1.jpg">
+                            <img src="../assets/images/faces/2.jpg">
                         </div>
-                        <div>${properties.paket}</div>
                     `)
-                )
-                .addTo(map);
-        }
+                        )
+                        .addTo(map);
+                }
+            });
+        });
     }
 </script>
