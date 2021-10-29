@@ -8,6 +8,8 @@
     <title>Invoice</title>
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
+    <script src="../assets/js/server.js"></script>
     <style>
         .custom-border {
             border: 4px solid;
@@ -197,7 +199,7 @@
         </div>
         <p class="mt-2" style=" direction:rtl; text-align:justify;">G6QC+QR6, Area Sawah, Rejoagung, Kec. Ploso, Kabupaten Jombang, Jawa Timur 61453</p>
         
-        <script src="../assets/js/main.js"></script>
+        <!-- <script src="../assets/js/main.js"></script> -->
         <script>
             const url = new URL(window.location.href);
             const id_akun_home_wifi = url.searchParams.get("id_akun_home_wifi");
@@ -223,11 +225,11 @@
                 document.getElementById("alamat-pelanggan").textContent = result.data.alamat_pelanggan;
                 document.getElementById("nama-paket").textContent = result.data.nama_paket;
                 document.getElementById("kecepatan-paket").textContent = result.data.kecepatan_paket;
-                document.getElementById("sub-total").textContent = result.data.harga_paket;
-                document.getElementById("ppn").textContent = result.data.harga_paket * 10 / 100;
-                document.getElementById("total-tagihan-0").textContent = Number(result.data.harga_paket) + (result.data.harga_paket * 10 / 100);
-                document.getElementById("total-tagihan-1").textContent = Number(result.data.harga_paket) + (result.data.harga_paket * 10 / 100);
-                document.getElementById("total-tagihan-2").textContent = Number(result.data.harga_paket) + (result.data.harga_paket * 10 / 100);
+                document.getElementById("sub-total").textContent = Number(result.data.harga_paket).toLocaleString("id-ID");
+                document.getElementById("ppn").textContent = Number(result.data.harga_paket * 10 / 100).toLocaleString("id-ID");
+                document.getElementById("total-tagihan-0").textContent = Number(Number(result.data.harga_paket) + (result.data.harga_paket * 10 / 100)).toLocaleString("id-ID");
+                document.getElementById("total-tagihan-1").textContent = Number(Number(result.data.harga_paket) + (result.data.harga_paket * 10 / 100)).toLocaleString("id-ID");
+                document.getElementById("total-tagihan-2").textContent = Number(Number(result.data.harga_paket) + (result.data.harga_paket * 10 / 100)).toLocaleString("id-ID");
                 document.getElementById("status-pembayaran").textContent = result.data.status_pembayaran;
                 document.getElementById("username_akun").textContent = result.data.username_akun;
                 if (result.data.status_pembayaran == "Lunas") {

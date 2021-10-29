@@ -11,16 +11,14 @@ $count = $db->count("invoice_home_wifi", [
 ]);
 
 if ($count == 0) {
-    $response["data"] = $db->insert("invoice_home_wifi", [
+    $db->insert("invoice_home_wifi", [
         "uuid" => Medoo::raw('UUID()'),
         "id_akun_home_wifi" => $_GET["id_akun_home_wifi"],
         "tahun" => $_GET["tahun"],
         "bulan" => $_GET["bulan"],
-        "status_pembayaran" => "Belum Lunas",
-        "tanggal_pembayaran" => null
+        "status_pembayaran" => "Belum Lunas"
     ]);
 }
-
 $invoice = $db->select("invoice_home_wifi", ["uuid", "status_pembayaran", "tanggal_pembayaran"], [
     "id_akun_home_wifi" => $_GET["id_akun_home_wifi"],
     "tahun" => $_GET["tahun"],

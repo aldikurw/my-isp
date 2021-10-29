@@ -13,11 +13,11 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="stats-icon purple">
-                                        <i class="iconly-boldDiscovery"></i>
+                                        <i class="iconly-boldShield-Done"></i>
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Diproses</h6>
+                                    <h6 class="text-muted font-semibold">Selesai</h6>
                                     <h6 class="font-extrabold mb-0">1</h6>
                                 </div>
                             </div>
@@ -53,11 +53,11 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="stats-icon red">
-                                        <i class="iconly-boldDanger"></i>
+                                        <i class="iconly-boldShield-Done"></i>
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Internet Mati</h6>
+                                    <h6 class="text-muted font-semibold">Selesai</h6>
                                     <h6 class="font-extrabold mb-0">1</h6>
                                 </div>
                             </div>
@@ -70,11 +70,11 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="stats-icon red">
-                                        <i class="iconly-boldMore-Circle"></i>
+                                        <i class="iconly-boldTime-Circle"></i>
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Lainnya</h6>
+                                    <h6 class="text-muted font-semibold">Pending</h6>
                                     <h6 class="font-extrabold mb-0">2</h6>
                                 </div>
                             </div>
@@ -91,10 +91,12 @@
                 <div class="card-body">
                     <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link active" id="psb-tab" data-bs-toggle="tab" href="#psb" role="tab" aria-controls="psb" aria-selected="true">PSB</a>
+                            <a class="nav-link active" id="psb-tab" data-bs-toggle="tab" href="#psb" role="tab"
+                                aria-controls="psb" aria-selected="true">PSB</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="gangguan-tab" data-bs-toggle="tab" href="#gangguan" role="tab" aria-controls="gangguan" aria-selected="false">Gangguan</a>
+                            <a class="nav-link" id="gangguan-tab" data-bs-toggle="tab" href="#gangguan" role="tab"
+                                aria-controls="gangguan" aria-selected="false">Gangguan</a>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
@@ -102,14 +104,16 @@
                         <div class="tab-pane fade show active" id="psb" role="tabpanel" aria-labelledby="psb-tab">
                             <div class="d-flex">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="cariPSB" placeholder="Cari">
-                                    <label for="cariPSB">Cari</label>
+                                    <input type="text" class="form-control" id="cari-psb" placeholder="Cari">
+                                    <label for="cari-psb">Cari</label>
                                 </div>
                             </div>
 
-                            <table id="psbTable" class="table table-hover position-relative" style="width:100%">
+                            <table id="table-calon-pelanggan" class="table table-hover position-relative"
+                                style="width:100%">
                                 <thead>
                                     <tr>
+                                        <th>id_calon_pelanggan</th>
                                         <th>Waktu</th>
                                         <th>Nama</th>
                                         <th>Alamat</th>
@@ -118,42 +122,6 @@
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1 minute ago</td>
-                                        <td>Risa</td>
-                                        <td>Sugihwaras</td>
-                                        <td>Home 2Mbps</td>
-                                        <td>Terpasang</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>53 minutes ago</td>
-                                        <td>Anton</td>
-                                        <td>Sugihwaras</td>
-                                        <td>Home 4Mbps</td>
-                                        <td>Diproses</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light-success">Terima</button>
-                                            <button class="btn btn-sm btn-light-danger">Tolak</button>
-                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1 hour ago</td>
-                                        <td>Ahmad</td>
-                                        <td>Sugihwaras</td>
-                                        <td>Home 4Mbps</td>
-                                        <td>Pending</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-light-primary">Proses</button>
-                                            <button class="btn btn-sm btn-light-danger">Tolak</button>
-                                            <button class="btn btn-sm btn-light-secondary">Detail</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
                             </table>
                         </div>
 
@@ -185,9 +153,8 @@
                                         <td>Internet Mati</td>
                                         <td>Diproses</td>
                                         <td>
-                                            <button class="btn btn-sm btn-light-success">Selesai</button>
-                                            <button class="btn btn-sm btn-light-danger">Batal</button>
                                             <button class="btn btn-sm btn-light-secondary">Detail</button>
+                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -197,9 +164,8 @@
                                         <td>Internet Lemot</td>
                                         <td>Pending</td>
                                         <td>
-                                            <button class="btn btn-sm btn-light-success">Selesai</button>
-                                            <button class="btn btn-sm btn-light-primary">Proses</button>
                                             <button class="btn btn-sm btn-light-secondary">Detail</button>
+                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -209,8 +175,8 @@
                                         <td>Router/Adaptor Mati</td>
                                         <td>Selesai</td>
                                         <td>
-                                            <button class="btn btn-sm btn-light-danger">Batal</button>
                                             <button class="btn btn-sm btn-light-secondary">Detail</button>
+                                            <button class="btn btn-sm btn-light-danger">Hapus</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -221,27 +187,521 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal calon Pelanggan-->
+    <div class="modal fade" id="modal-calon-pelanggan">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detail Calon Pelanggan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row" id="form-calon-pelanggan" enctype='multipart/form-data'>
+                        <div class="col-12 col-lg-6 mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" name="username_akun" placeholder="Username akun"
+                                    required>
+                                <label for="username_akun">Username akun</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 mb-3">
+                            <div class="form-floating input-group">
+                                <input type="password" class="form-control" name="password_akun"
+                                    placeholder="Password akun" required>
+                                <div class="input-group-text" style="font-size: 0.8em">
+                                    <input class="form-check-input me-2" type="checkbox" name="show_password_akun"> Show
+                                </div>
+                                <label for="password_akun">Password akun</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" name="nama" placeholder="Nama" required>
+                                <label for="nama">Nama</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 mb-3">
+                            <div class="form-floating">
+                                <select class="form-select" name="jenis_layanan" required>
+                                    <option value="" selected disabled hidden>Pilih</option>
+                                    <option value="Home">Home</option>
+                                    <option value="Hotspot voucher">Hotspot voucher</option>
+                                </select>
+                                <label for="jenis_layanan">Jenis layanan</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 mb-3">
+                            <div class="form-floating">
+                                <select class="form-select" name="paket_home_wifi">
+                                    <option value="" selected disabled hidden>Pilih</option>
+                                </select>
+                                <label for="paket_home_wifi">Paket home</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 mb-3">
+                            <div class="form-floating">
+                                <select class="form-select" name="jenis_koneksi">
+                                    <option value="" selected disabled hidden>Pilih</option>
+                                    <option value="PPPOE">PPPOE</option>
+                                    <option value="IP static">IP static</option>
+                                </select>
+                                <label for="jenis_koneksi">Koneksi</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" name="username_pppoe"
+                                    placeholder="Username PPPOE">
+                                <label for="pppoe_username">Username PPPOE</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 mb-3">
+                            <div class="form-floating input-group">
+                                <input type="password" class="form-control" name="password_pppoe"
+                                    placeholder="Password PPPOE" required>
+                                <div class="input-group-text" style="font-size: 0.8em">
+                                    <input class="form-check-input me-2" type="checkbox" name="show_password_pppoe">
+                                    Show
+                                </div>
+                                <label for="password_pppoe">Password PPPOE</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" name="ip_static" placeholder="IP static">
+                                <label for="ip_static">IP static</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" name="ip_router" placeholder="IP router"
+                                    required>
+                                <label for="ip_router">IP router</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <hr>
+                        </div>
+
+                        <div class="col-12 col-lg-4 mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" name="nik" placeholder="NIK">
+                                <label for="nik">NIK</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4 mb-3">
+                            <div class="form-floating">
+                                <select class="form-select" name="jenis_kelamin">
+                                    <option value="" selected disabled hidden>Pilih</option>
+                                    <option value="Laki-Laki">Laki-Laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                                <label for="jenis_kelamin">Jenis Kelamin</label>
+                            </div>
+
+                        </div>
+                        <div class="col-12 col-lg-4 mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" name="kontak" placeholder="Kontak">
+                                <label for="kontak">Kontak</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4 mb-3">
+                            <div class="input-group form-floating">
+                                <select class="form-select" name="alamat" required>
+                                    <option value="" selected disabled hidden>Pilih</option>
+                                    <option value="_buat_baru">Buat baru</option>
+                                </select>
+                                <label for="alamat">Alamat</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4 mb-3 d-none">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" name="alamat_baru" placeholder="Alamat baru">
+                                <label for="alamat_baru">Alamat baru</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4 mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" name="keterangan" placeholder="Keterangan">
+                                <label for="keterangan">Keterangan</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4 mb-3">
+                            <div class="form-floating">
+                                <select class="form-select" name="jenis_pemasangan" required>
+                                    <option value="" selected disabled hidden>Pilih</option>
+                                    <option value="OLT">OLT</option>
+                                    <option value="Media converter">Media converter</option>
+                                    <option value="Antena">Antena</option>
+                                </select>
+                                <label for="jenis_pemasangan">Jenis pemasangan</label>
+                            </div>
+
+                        </div>
+                        <div class="col-12 col-lg-4 mb-3">
+                            <div class="form-floating">
+                                <input type="date" class="form-control" name="tanggal_pemasangan">
+                                <label for="tanggal_pemasangan">Tanggal pemasangan</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4 mb-3">
+                            <div class="form-floating">
+                                <select class="form-select" name="bulan_awal_penagihan">
+                                    <option value="Bulan ini" selected>Bulan ini</option>
+                                    <option value="Bulan depan">Bulan depan</option>
+                                    <option value="Sesuai tanggal pemasangan">Sesuai tanggal pemasangan</option>
+                                </select>
+                                <label for="bulan_awal_penagihan">Bulan awal penagihan</label>
+                            </div>
+                        </div>
+                        <div class="col-12 position-relative">
+                            <label>Pin alamat</label>
+                            <input type="hidden" name="lng">
+                            <input type="hidden" name="lat">
+                            <div class="map" id="calon-pelanggan-map"></div>
+                        </div>
+                        <div class="col-12">
+                            <label>Foto KTP</label>
+                            <input type="file" class="filepond" name="foto_ktp" data-max-file-size="3MB">
+
+                        </div>
+                        <input type="submit" name="btn_submit" class="d-none">
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <div class="d-flex justify-content-between w-100">
+                        <button class="btn btn-light-secondary btn-submit" data-bs-dismiss="modal">Kembali</button>
+                        <div>
+                            <button class="btn btn-light-danger btn-submit" id="tolak-calon-pelanggan">Tolak</button>
+                            <button class="btn btn-light-success btn-submit "
+                                id="terima-calon-pelanggan">Terima</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", evt => {
-        const psbTable = $('#psbTable').DataTable({
-            lengthChange: false,
-            dom: "tipr"
-        })
+    (() => {
+        function initCalonPelanggan() {
+            const form = document.forms["form-calon-pelanggan"];
+            const modal = new bootstrap.Modal(document.getElementById('modal-calon-pelanggan'));
 
-        $('#cariPSB').on('keyup', function() {
-            psbTable.search(this.value).draw();
-        })
+            // init datatables calon-pelanggan
+            const options = {
+                dom: "tipr",
+                lengthChange: false,
+                columnDefs: [{
+                    targets: [0],
+                    visible: false
+                },
+                {
+                    targets: [1],
+                    render: function (data, type, row, meta) {
+                        return dayjs(row[1]).fromNow();;
+                    }
+                },
+                {
+                    targets: -1,
+                    responsivePriority: 1,
+                    data: null,
+                    width: "20%",
+                    render: function (data, type, row, meta) {
+                        return `
+                            <button class="btn btn-sm btn-light-secondary btn-detail" data-id-calon-pelanggan="${row[0]}" data-nama="${row[2]}">Detail</button>
+                            <button class="btn btn-sm btn-light-danger btn-hapus"  data-id-calon-pelanggan="${row[0]}" data-nama="${row[2]}">Hapus</button>
+                        `;
+                    }
+                }
+                ]
+            }
+            const table = createDataTable(
+                "table-calon-pelanggan",
+                server + "api/tiket/datatables-calon-pelanggan.php",
+                options
+            );
 
-        const gangguanTable = $('#gangguanTable').DataTable({
-            lengthChange: false,
-            dom: "tipr"
-        })
+            function initOptionButton() {
+                const btnRemove = document.querySelectorAll('#table-calon-pelanggan .btn-hapus');
+                Array.from(btnRemove).forEach(el => {
+                    el.onclick = evt => {
+                        const id = evt.currentTarget.getAttribute("data-id-calon-pelanggan");
+                        const nama = evt.currentTarget.getAttribute("data-nama");
+                        Swal.fire({
+                            title: 'Hapus ' + nama,
+                            showCancelButton: true,
+                            confirmButtonText: 'Hapus',
+                            cancelButtonText: 'Batal',
+                            showLoaderOnConfirm: true,
+                            preConfirm: (login) => {
+                                return fetch(server + "api/tiket/calon-pelanggan.php?id_calon_pelanggan=" + id, {
+                                    method: "DELETE",
+                                    headers: {
+                                        "ContentType": "application/json;charset=utf-8"
+                                    }
+                                })
+                                    .then(response => {
+                                        if (!response.ok) {
+                                            throw new Error(response.statusText)
+                                        }
+                                        return response.json()
+                                    })
+                                    .then(result => {
+                                        showToast(result.success, result.message);
+                                        refreshPage();
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    })
+                            },
+                            allowOutsideClick: () => !Swal.isLoading()
+                        })
+                    };
+                });
 
-        $('#cariGangguan').on('keyup', function() {
-            gangguanTable.search(this.value).draw();
-        })
-    })
+                const btnDetail = document.querySelectorAll('#table-calon-pelanggan .btn-detail');
+                Array.from(btnDetail).forEach(el => {
+                    el.onclick = evt => {
+                        showModal(evt.currentTarget.getAttribute("data-id-calon-pelanggan"));
+                    };
+                });
+            }
+
+            table.on('draw', initOptionButton);
+
+            initOptionButton();
+
+            // Init form calon pelanggan
+            form.show_password_akun.onchange = showPassword;
+            form.show_password_pppoe.onchange = showPassword;
+            function showPassword() {
+                form.password_akun.type = form.show_password_akun.checked ? "text" : "password";
+                form.password_pppoe.type = form.show_password_pppoe.checked ? "text" : "password";
+            }
+
+            form.jenis_layanan.oninput = cekJenisLayanan;
+
+            function cekJenisLayanan() {
+                form.paket_home_wifi.closest(".col-12").classList.add("d-none");
+                form.paket_home_wifi.required = false;
+
+                form.jenis_koneksi.closest(".col-12").classList.add("d-none");
+                form.jenis_koneksi.required = false;
+
+                form.username_pppoe.closest(".col-12").classList.add("d-none");
+                form.username_pppoe.required = false;
+
+                form.password_pppoe.closest(".col-12").classList.add("d-none");
+                form.password_pppoe.required = false;
+
+                form.ip_static.closest(".col-12").classList.add("d-none");
+                form.ip_static.required = false;
+
+                form.ip_router.closest(".col-12").classList.add("d-none");
+                form.ip_router.required = false;
+
+                if (form.jenis_layanan.value == "Home") {
+                    form.paket_home_wifi.closest(".col-12").classList.remove("d-none");
+                    form.paket_home_wifi.required = true;
+
+                    form.jenis_koneksi.closest(".col-12").classList.remove("d-none");
+                    form.jenis_koneksi.required = true;
+                } else if (form.jenis_layanan.value == "Hotspot voucher") {
+                    form.ip_router.closest(".col-12").classList.remove("d-none");
+                    form.ip_router.required = true;
+                }
+
+                form.jenis_koneksi.value = "";
+            }
+
+            //Jenis Koneksi
+            form.jenis_koneksi.onchange = cekJenisKoneksi;
+            function cekJenisKoneksi() {
+                form.ip_static.closest(".col-12").classList.add("d-none");
+                form.username_pppoe.closest(".col-12").classList.add("d-none");
+                form.password_pppoe.closest(".col-12").classList.add("d-none");
+                form.ip_static.required = false;
+                form.username_pppoe.required = false;
+                form.password_pppoe.required = false;
+
+                if (form.jenis_koneksi.value == "IP static") {
+                    form.ip_static.closest(".col-12").classList.remove("d-none");
+                    form.ip_static.required = true;
+                } else if (form.jenis_koneksi.value == "PPPOE") {
+                    form.username_pppoe.closest(".col-12").classList.remove("d-none");
+                    form.password_pppoe.closest(".col-12").classList.remove("d-none");
+                    form.username_pppoe.required = true;
+                    form.password_pppoe.required = true;
+                }
+            }
+
+            //Alamat
+            fetch(server + "api/pelanggan/alamat.php")
+                .then(response => response.json())
+                .then(result => {
+                    result.data.forEach(el => {
+                        const option = document.createElement("option");
+                        option.value = el.id_alamat;
+                        option.textContent = el.nama;
+                        form.alamat.appendChild(option);
+                    })
+                });
+
+            form.alamat.onchange = cekAlamat;
+            function cekAlamat() {
+                form.alamat_baru.closest(".col-12").classList.add("d-none");
+                form.alamat_baru.required = false;
+
+                if (form.alamat.value == "_buat_baru") {
+                    form.alamat_baru.closest(".col-12").classList.remove("d-none");
+                    form.alamat_baru.required = true;
+                }
+            }
+
+            // paket home wifi
+            fetch(server + "api/home-wifi/paket-home-wifi.php")
+                .then(response => response.json())
+                .then(result => {
+                    result.data.forEach(el => {
+                        const option = document.createElement("option");
+                        option.value = el.id_paket_home_wifi;
+                        option.textContent = el.nama + " (" + el.kecepatan + ")";
+                        form.paket_home_wifi.appendChild(option);
+                    })
+                });
+
+            // Mapbox pin alamat
+            map = new mapboxgl.Map({
+                container: 'calon-pelanggan-map',
+                style: 'mapbox://styles/mapbox/streets-v11',
+                center: [112.253302, -7.640462],
+                zoom: 15
+            });
+            let marker;
+
+            map.on("click", e => {
+                if (marker) {
+                    marker.remove();
+                }
+                const coordinate = e.lngLat;
+                marker = new mapboxgl.Marker()
+                    .setLngLat(coordinate)
+                    .addTo(map);
+                form.lng.value = coordinate.lng;
+                form.lat.value = coordinate.lat;
+            });
+
+            map.on('idle', function () {
+                map.resize();
+            });
+
+            // Filepond foto ktp
+            fotoKtp = FilePond.create(form.foto_ktp, {
+                acceptedFileTypes: ['image/*'],
+                required: false,
+                instantUpload: false,
+                allowRevert: false,
+                allowProcess: false,
+                labelIdle: "Drag & Drop your files or Browse",
+                maxParallelUploads: 1,
+                server: {
+                    process: server + "api/home-wifi/upload-foto-ktp.php"
+                },
+            });
+
+            function showModal(id_calon_pelanggan) {
+                form.reset();
+                modal.show();
+                return;
+                fetch(server + "api/tiket/calon-pelanggan.php?id_calon_pelanggan=" + id_calon_pelanggan)
+                    .then(response => response.json())
+                    .then(result => {
+                        const data = result.data;
+
+                        form.username_akun.value = data.username_akun;
+                        form.password_akun.value = data.password_akun;
+                        form.nama.value = data.nama;
+                        form.paket.value = data.id_paket_home_wifi;
+                        form.jenis_koneksi.value = data.jenis_koneksi;
+                        form.ip_static.value = data.ip_static;
+                        form.username_pppoe.value = data.username_pppoe;
+                        form.password_pppoe.value = data.password_pppoe;
+                        form.nik.value = data.nik;
+                        form.jenis_kelamin.value = data.jenis_kelamin;
+                        form.kontak.value = data.kontak;
+                        form.alamat.value = data.id_alamat;
+                        form.jenis_pemasangan.value = data.jenis_pemasangan;
+                        form.tanggal_pemasangan.value = data.tanggal_pemasangan;
+                        form.lng.value = data.lng;
+                        form.lat.value = data.lat;
+                    });
+                modal.show();
+            }
+
+            form.onreset = evt => {
+                form.show_password_akun.checked = false;
+                form.show_password_pppoe.checked = false;
+                showPassword();
+
+                cekJenisLayanan();
+                cekAlamat();
+                // form.jenis_koneksi.value = "";
+                // cekJenisKoneksi();
+
+                // form.alamat.value = "";
+                // cekAlamat();
+
+                // form.bulan_awal_penagihan.value = "";
+                // cekBulanAwalPenagihan();
+
+                // if (marker) {
+                //     marker.remove();
+                // }
+                // fotoKtp.removeFile(0);
+            };
+
+        }
+
+        const scripts = [
+            "../assets/vendors/filepond/filepond.min.js",
+            "../assets/vendors/filepond/plugin/image-preview/filepond-plugin-image-preview.min.js",
+            "../assets/vendors/filepond/plugin/image-exif-orientation/filepond-plugin-image-exif-orientation.min.js",
+            "../assets/vendors/filepond/plugin/file-validate-size/filepond-plugin-file-validate-size.min.js",
+            "../assets/vendors/filepond/plugin/file-rename/filepond-plugin-file-rename.min.js",
+            "../assets/vendors/filepond/plugin/file-validate-type/filepond-plugin-file-validate-type.min.js",
+            "../assets/vendors/filepond/plugin/file-rename/filepond-plugin-file-rename.min.js",
+            "../assets/vendors/filepond/plugin/file-metadata/filepond-plugin-file-metadata.min.js",
+            "https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js"
+        ]
+
+        loadAllScripts(scripts, initPage)
+
+        function initPage() {
+            FilePond.registerPlugin(
+                FilePondPluginImagePreview,
+                FilePondPluginImageExifOrientation,
+                FilePondPluginFileValidateSize,
+                FilePondPluginFileValidateType,
+                FilePondPluginFileRename,
+                FilePondPluginFileMetadata
+            );
+
+            mapboxgl.accessToken = 'pk.eyJ1IjoiYWxkaWt1cnciLCJhIjoiY2t1ZTRkZm9jMDh4bjJwbnZvZTZ6OG93MiJ9.c6lXJbri6dbYO0p0t8u8Rw';
+
+
+            initCalonPelanggan();
+        }
+    })();
 </script>

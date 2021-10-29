@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     ];
 
     if ($data->jenis_layanan == "Home") {
-        $values["id_paket_home_wifi"] = $data->id_paket_home_wifi;
+        $values["id_paket_home_wifi"] = $data->paket_home_wifi;
     }
 
     if ($data->alamat == "_alamat_lain") {
