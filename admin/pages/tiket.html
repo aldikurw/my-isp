@@ -349,13 +349,13 @@
                         </div>
                         <div class="col-12 col-lg-4 mb-3">
                             <div class="form-floating">
-                                <input type="date" class="form-control" name="tanggal_pemasangan">
+                                <input type="date" class="form-control" name="tanggal_pemasangan" required>
                                 <label for="tanggal_pemasangan">Tanggal pemasangan</label>
                             </div>
                         </div>
                         <div class="col-12 col-lg-4 mb-3">
                             <div class="form-floating">
-                                <select class="form-select" name="bulan_awal_penagihan">
+                                <select class="form-select" name="bulan_awal_penagihan" required>
                                     <option value="Bulan ini" selected>Bulan ini</option>
                                     <option value="Bulan depan">Bulan depan</option>
                                     <option value="Sesuai tanggal pemasangan">Sesuai tanggal pemasangan</option>
@@ -395,10 +395,18 @@
 
 <script>
     (() => {
+        function refreshPage() {
+            document.querySelector(".sidebar-item.active a").click();
+        }
         function initCalonPelanggan() {
             const form = document.forms["form-calon-pelanggan"];
             const modal = new bootstrap.Modal(document.getElementById('modal-calon-pelanggan'));
-
+            
+            function hideModal() {
+                modal.hide();
+                form.reset();
+            }
+            
             // init datatables calon-pelanggan
             const options = {
                 dom: "tipr",
@@ -622,30 +630,53 @@
             });
 
             function showModal(id_calon_pelanggan) {
-                form.reset();
-                modal.show();
-                return;
-                fetch(server + "api/tiket/calon-pelanggan.php?id_calon_pelanggan=" + id_calon_pelanggan)
+                idCalonPelanggan = id_calon_pelanggan;
+                fetch(server + "api/tiket/calon-pelanggan.php?action=get&id_calon_pelanggan=" + id_calon_pelanggan)
                     .then(response => response.json())
                     .then(result => {
-                        const data = result.data;
+                        const data = result.data[0];
 
                         form.username_akun.value = data.username_akun;
                         form.password_akun.value = data.password_akun;
                         form.nama.value = data.nama;
-                        form.paket.value = data.id_paket_home_wifi;
-                        form.jenis_koneksi.value = data.jenis_koneksi;
-                        form.ip_static.value = data.ip_static;
-                        form.username_pppoe.value = data.username_pppoe;
-                        form.password_pppoe.value = data.password_pppoe;
-                        form.nik.value = data.nik;
                         form.jenis_kelamin.value = data.jenis_kelamin;
+                        form.jenis_layanan.value = data.jenis_layanan;
+                        form.paket_home_wifi.value = data.id_paket_home_wifi;
+                        form.nik.value = data.nik;
                         form.kontak.value = data.kontak;
-                        form.alamat.value = data.id_alamat;
-                        form.jenis_pemasangan.value = data.jenis_pemasangan;
-                        form.tanggal_pemasangan.value = data.tanggal_pemasangan;
                         form.lng.value = data.lng;
                         form.lat.value = data.lat;
+                        form.keterangan.value = data.keterangan;
+                        if (data.id_alamat != null && data.id_alamat != "") {
+                            form.alamat.value = data.id_alamat;
+                        } else {
+                            form.alamat.value = "_buat_baru";
+                        }
+                        cekAlamat();
+                        form.alamat_baru.value = data.alamat_lain;
+
+                        cekJenisLayanan();
+
+                        document.getElementById("terima-calon-pelanggan").classList.remove("d-none");
+                        document.getElementById("tolak-calon-pelanggan").classList.remove("d-none");
+
+                        if (data.status != "Pending") {
+                            document.getElementById("terima-calon-pelanggan").classList.add("d-none");
+                            document.getElementById("tolak-calon-pelanggan").classList.add("d-none");
+                        }
+
+                        if (data.lng != "" && data.lat != "" && data.lng != null && data.lat != null) {
+                            const coordinate = { lng: data.lng, lat: data.lat };
+                            marker = new mapboxgl.Marker()
+                                .setLngLat(coordinate)
+                                .addTo(map);
+                            map.flyTo({
+                                center: coordinate
+                            });
+                        }
+                        if (data.url_foto_ktp !== "" && data.url_foto_ktp !== null) {
+                            fotoKtp.addFile("../assets/images/foto-ktp/calon-pelanggan/" + data.url_foto_ktp);
+                        }
                     });
                 modal.show();
             }
@@ -657,21 +688,68 @@
 
                 cekJenisLayanan();
                 cekAlamat();
-                // form.jenis_koneksi.value = "";
-                // cekJenisKoneksi();
 
-                // form.alamat.value = "";
-                // cekAlamat();
+                form.jenis_koneksi.value = "";
+                cekJenisKoneksi();
 
-                // form.bulan_awal_penagihan.value = "";
-                // cekBulanAwalPenagihan();
+                form.alamat.value = "";
+                cekAlamat();
 
-                // if (marker) {
-                //     marker.remove();
-                // }
-                // fotoKtp.removeFile(0);
+                if (marker) {
+                    marker.remove();
+                }
+                fotoKtp.removeFile(0);
             };
 
+
+            let idCalonPelanggan;
+            document.getElementById("tolak-calon-pelanggan").onclick = () => {
+                fetch(server + "api/tiket/calon-pelanggan.php?action=tolak&id_calon_pelanggan=" + idCalonPelanggan).then(response => response.json()).then(result => {
+                    showToast(result.success, result.message);
+                    if (result.success) {
+                        hideModal();
+                        refreshPage();
+                    }
+                });
+            }
+
+            document.getElementById("terima-calon-pelanggan").onclick = () => {
+                form.btn_submit.click();
+            }
+            form.onsubmit = evt => {
+                evt.preventDefault();
+                submitForm();
+            }
+            function submitForm() {
+                const formData = new FormData(form);
+                let data = Object.fromEntries(formData);
+                data = JSON.stringify(data);
+
+                fetch(server + "api/tiket/calon-pelanggan.php?action=terima&id_calon_pelanggan=" + idCalonPelanggan,
+                    {
+                        method: "POST",
+                        body: data
+                    }
+                ).then(response => response.json()).then(result => {
+                    const length = fotoKtp.getFiles().length;
+                    if (length > 0) {
+                        fotoKtp.getFile(0).setMetadata("id_pelanggan", result.data.id_pelanggan);
+                        fotoKtp.processFiles().then(file => {
+                            showToast(result.success, result.message);
+                            if (result.success) {
+                                hideModal();
+                                refreshPage();
+                            }
+                        });
+                    } else {
+                        showToast(result.success, result.message);
+                        if (result.success) {
+                            hideModal();
+                        }
+                        refreshPage();
+                    }
+                });
+            }
         }
 
         const scripts = [
