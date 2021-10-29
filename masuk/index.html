@@ -6,11 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
     <title>Login - Mazer Admin Dashboard</title>
+    <script src="../assets/js/cookie.js"></script>
+    <script>
+        if (getCookie("accountLevel") === "admin") {
+            location.href = "../admin";
+        } else if (getCookie("accountLevel") === "pelanggan") {
+            location.href = "../pelanggan";
+        }
+    </script>
+    <script src="../assets/js/server.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
     <link rel="stylesheet" href="../assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="../assets/css/app.css">
     <link rel="stylesheet" href="../assets/css/pages/auth.css">
+    <link rel="stylesheet" href="../assets/vendors/toastify/toastify.css">
+    <script src="../assets/vendors/toastify/toastify.js"></script>
+
+    <script>
+        function showToast(success, message) {
+            let backgroundColor;
+            if (success) {
+                backgroundColor = "linear-gradient(135deg, #73a5ff, #5477f5)";
+            } else {
+                backgroundColor = "linear-gradient(to right, rgb(255, 95, 109), rgb(255, 195, 113))";
+            }
+
+            Toastify({
+                text: message,
+                duration: 3000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                backgroundColor: backgroundColor,
+                stopOnFocus: true,
+            }).showToast();
+        }
+    </script>
 </head>
 
 <body>
@@ -25,15 +57,17 @@
                     <h1 class="auth-title">Log in.</h1>
                     <p class="auth-subtitle mb-5">Masukkan username dan password yang anda buat ketika mendaftar</p>
 
-                    <form>
+                    <form id="form-masuk">
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="Username">
+                            <input type="text" class="form-control form-control-xl" placeholder="Username"
+                                name="username_akun">
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>
                         </div>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="password" class="form-control form-control-xl" placeholder="Password">
+                            <input type="password" class="form-control form-control-xl" placeholder="Password"
+                                name="password_akun">
                             <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
                             </div>
@@ -41,8 +75,8 @@
                         <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Masuk</button>
                     </form>
                     <div class="text-center mt-5 text-lg fs-4">
-                        <p class="text-gray-600">Belum mempunyai akun? <a href="../daftar"
-                                class="font-bold">Daftar</a>.</p>
+                        <p class="text-gray-600">Belum mempunyai akun? <a href="../daftar" class="font-bold">Daftar</a>.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -54,6 +88,36 @@
         </div>
 
     </div>
+
+    <script>
+        const form = document.forms["form-masuk"];
+        form.onsubmit = evt => {
+            evt.preventDefault();
+            if (form.username_akun.value === "admin" && form.password_akun.value === "admin") {
+                setCookie("accountLevel", "admin", 1);
+                location.href = "../admin";
+            } else {
+                const formData = new FormData(form);
+                let data = Object.fromEntries(formData);
+                data = JSON.stringify(data);
+
+                fetch(server + "api/login.php", {
+                    method: "POST",
+                    body: data
+                })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            setCookie("accountLevel", "pelanggan", 1);
+                            setCookie("idPelanggan", result.id, 1);
+                            location.href = "../pelanggan";
+                        } else {
+                            showToast(result.success, result.message);
+                        }
+                    });
+            }
+        }
+    </script>
 </body>
 
 </html>

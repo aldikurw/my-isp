@@ -9,6 +9,7 @@
   <meta content="" name="description">
 
   <meta content="" name="keywords">
+  <script src="assets/js/cookie.js"></script>
 
   <!-- Favicons -->
   <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
@@ -36,7 +37,8 @@
   <script src="assets/vendors/dayjs/plugin/timezone.js"></script>
   <script src="assets/vendors/filepond/filepond.min.js"></script>
   <script src="assets/vendors/filepond/plugin/image-preview/filepond-plugin-image-preview.min.js"></script>
-  <script src="assets/vendors/filepond/plugin/image-exif-orientation/filepond-plugin-image-exif-orientation.min.js"></script>
+  <script
+    src="assets/vendors/filepond/plugin/image-exif-orientation/filepond-plugin-image-exif-orientation.min.js"></script>
   <script src="assets/vendors/filepond/plugin/file-validate-size/filepond-plugin-file-validate-size.min.js"></script>
   <script src="assets/vendors/filepond/plugin/file-rename/filepond-plugin-file-rename.min.js"></script>
   <script src="assets/vendors/filepond/plugin/file-validate-type/filepond-plugin-file-validate-type.min.js"></script>
@@ -67,9 +69,19 @@
         <ul>
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="#pricing">Harga</a></li>
-          <li><a class="nav-link scrollto" href="masuk/">Masuk</a></li>
-          <li><a class="nav-link scrollto" href="daftar/">Daftar</a></li>
+          <li><a class="nav-link scrollto" href="masuk/" id="btn-masuk">Masuk</a></li>
+          <li><a class="nav-link scrollto" href="daftar/" id="btn-daftar">Daftar</a></li>
+          <li><a class="nav-link scrollto" href="#" id="btn-dashboard">Dashboard</a></li>
         </ul>
+        <script>
+          if (getCookie("accountLevel") === "") {
+            document.getElementById("btn-dashboard").classList.add("d-none");
+          } else {
+            document.getElementById("btn-masuk").classList.add("d-none");
+            document.getElementById("btn-daftar").classList.add("d-none");
+
+          }
+        </script>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
@@ -191,6 +203,18 @@
 
   <!-- Template Main JS File -->
   <script src="home/assets/js/main.js"></script>
+
+
+  <script>
+
+    document.getElementById("btn-dashboard").onclick = evt => {
+      if (getCookie("accountLevel") === "admin") {
+        location.href = "admin";
+      } else if (getCookie("accountLevel") === "pelanggan") {
+        location.href = "pelanggan";
+      }
+    }
+  </script>
 </body>
 
 </html>

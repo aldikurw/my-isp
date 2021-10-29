@@ -392,7 +392,7 @@ function showToast(success, message) {
   } else {
     backgroundColor = "linear-gradient(to right, rgb(255, 95, 109), rgb(255, 195, 113))";
   }
-  
+
   Toastify({
     text: message,
     duration: 3000,
