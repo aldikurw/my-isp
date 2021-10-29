@@ -1,0 +1,48 @@
+<div class="page-heading">
+    <h3>Dashboard</h3>
+</div>
+
+<div class="page-content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Informasi Akun</h3>
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Nama Lengkap</th>
+                            <td>:</td>
+                            <td id="nama-calon-pelanggan-2"></td>
+                        </tr>
+                        <tr>
+                            <th>Alamat</th>
+                            <td>:</td>
+                            <td id="alamat"></td>
+                        </tr>
+                        <tr>
+                            <th>Paket</th>
+                            <td>:</td>
+                            <td id="paket">Home Plus</td>
+                        </tr>
+                        <tr>
+                            <th>Kecepatan</th>
+                            <td>:</td>
+                            <td id="kecepatan">4Mbps/4Mbps</td>
+                        </tr>
+                        <tr>
+                            <th>Status pemasangan</th>
+                            <td>:</td>
+                            <td id="status">Pending</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    fetch(server + "api/calon-pelanggan").then(response => response.json()).then(result => {
+
+    });
+</script>

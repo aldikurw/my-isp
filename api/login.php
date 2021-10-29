@@ -4,15 +4,19 @@ require_once "config/config.php";
 
 $data = json_decode(file_get_contents("php://input"));
 
-$id = $db->select("calon_pelanggan", "id_calon_pelanggan", ["username_akun" => $data->username_akun, "password_akun" =>$data->password_akun]);
-if (count($id)) {
-    $response["id"] = $id[0]["id_calon_pelanggan"];
+$result = $db->select("calon_pelanggan", "id_calon_pelanggan", ["username_akun" => $data->username_akun, "password_akun" =>$data->password_akun]);
+if (count($result)) {
+    setcookie("id", $result[0], time() + (86400 * 30), "/");
+    setcookie("accountLevel", "calon_pelanggan", time() + (86400 * 30), "/");
+
     $response["success"] = true;
     $response["message"] = "Berhasil login";
 } else {
-    $id = $db->select("pelanggan", "id_pelanggan", ["username_akun" => $data->username_akun, "password_akun" =>$data->password_akun]);
-    if (count($id)) {
-        $response["id"] = $id[0]["id_pelanggan"];
+    $result = $db->select("pelanggan", "id_pelanggan", ["username_akun" => $data->username_akun, "password_akun" =>$data->password_akun]);
+    if (count($result)) {
+        setcookie("id", $result[0], time() + (86400 * 30), "/");
+        setcookie("accountLevel", "pelanggan", time() + (86400 * 30), "/");
+        
         $response["success"] = true;
         $response["message"] = "Berhasil login";   
     } else {

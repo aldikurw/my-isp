@@ -13,7 +13,7 @@
     <script src="../assets/js/server.js"></script>
     <script src="../assets/js/cookie.js"></script>
     <script>
-        if (getCookie("accountLevel") !== "pelanggan") {
+        if (getCookie("accountLevel") !== "calon_pelanggan") {
             location.href = "..";
         }
         const routes = [
@@ -73,20 +73,6 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item">
-                            <a href="?riwayat-tagihan" class='sidebar-link' data-link>
-                                <i class="bi bi-cash-stack"></i>
-                                <span>Riwayat Tagihan</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="?lapor-gangguan" class='sidebar-link' data-link>
-                                <i class="bi bi-bookmarks-fill"></i>
-                                <span>Lapor Gangguan</span>
-                            </a>
-                        </li>
-
                         <li class="sidebar-item  ">
                             <a href="?pengaturan" class='sidebar-link' data-link>
                                 <i class="bi bi-gear-fill"></i>
@@ -118,8 +104,8 @@
                                 <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="user-menu d-flex">
                                         <div class="user-name text-end me-3">
-                                            <h6 class="mb-0 text-gray-600" id="nama-pelanggan"></h6>
-                                            <p class="mb-0 text-sm text-gray-600">Pelanggan</p>
+                                            <h6 class="mb-0 text-gray-600" id="nama-calon-pelanggan-1"></h6>
+                                            <p class="mb-0 text-sm text-gray-600">Calon pelanggan</p>
                                         </div>
                                         <div class="user-img d-flex align-items-center">
                                             <div class="avatar avatar-md">
@@ -170,8 +156,8 @@
             location.href = "../";
         }
 
-        fetch(server + "api-pelanggan/index.php").then(response => response.json()).then(result => {
-            document.getElementById("nama-pelanggan").textContent = result.data.nama;
+        fetch(server + "api/calon-pelanggan/index.php").then(response => response.json()).then(result => {
+            document.getElementById("nama-calon-pelanggan-1").textContent = result.data.nama;
         });
     </script>
 </body>

@@ -12,6 +12,8 @@
             location.href = "../admin";
         } else if (getCookie("accountLevel") === "pelanggan") {
             location.href = "../pelanggan";
+        } else if (getCookie("accountLevel") === "calon_pelanggan") {
+            location.href = "../calon-pelanggan";
         }
     </script>
     <script src="../assets/js/server.js"></script>
@@ -108,9 +110,7 @@
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
-                            setCookie("accountLevel", "pelanggan", 1);
-                            setCookie("idPelanggan", result.id, 1);
-                            location.href = "../pelanggan";
+                            location.href = "..";
                         } else {
                             showToast(result.success, result.message);
                         }
