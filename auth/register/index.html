@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Mazer Admin Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="../../assets/css/bootstrap.css">
     <link rel="stylesheet" href="../../assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="../../assets/css/app.css">
@@ -15,35 +16,26 @@
 
     <link rel="stylesheet" href="../../assets/vendors/toastify/toastify.css">
     <script src="../../assets/vendors/toastify/toastify.js"></script>
+    <script src="../../assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
 
     <script src="../../assets/vendors/filepond/filepond.min.js"></script>
     <script src="../../assets/vendors/filepond/plugin/image-preview/filepond-plugin-image-preview.min.js"></script>
-    <script src="../../assets/vendors/filepond/plugin/image-exif-orientation/filepond-plugin-image-exif-orientation.min.js"></script>
-    <script src="../../assets/vendors/filepond/plugin/file-validate-size/filepond-plugin-file-validate-size.min.js"></script>
+    <script
+        src="../../assets/vendors/filepond/plugin/image-exif-orientation/filepond-plugin-image-exif-orientation.min.js"></script>
+    <script
+        src="../../assets/vendors/filepond/plugin/file-validate-size/filepond-plugin-file-validate-size.min.js"></script>
     <script src="../../assets/vendors/filepond/plugin/file-rename/filepond-plugin-file-rename.min.js"></script>
-    <script src="../../assets/vendors/filepond/plugin/file-validate-type/filepond-plugin-file-validate-type.min.js"></script>
+    <script
+        src="../../assets/vendors/filepond/plugin/file-validate-type/filepond-plugin-file-validate-type.min.js"></script>
     <script src="../../assets/vendors/filepond/plugin/file-rename/filepond-plugin-file-rename.min.js"></script>
     <script src="../../assets/vendors/filepond/plugin/file-metadata/filepond-plugin-file-metadata.min.js"></script>
 
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js"></script>
 
     <link rel="stylesheet" href="../../assets/vendors/filepond/filepond.min.css">
-    <link rel="stylesheet" href="../../assets/vendors/filepond/plugin/image-preview/filepond-plugin-image-preview.min.css">
+    <link rel="stylesheet"
+        href="../../assets/vendors/filepond/plugin/image-preview/filepond-plugin-image-preview.min.css">
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css'>
-
-    <style>
-        #locate-position {
-        display: flex;
-        padding: 0;
-        border-radius: 50%;
-        position: absolute;
-        right: 2.5rem;
-        bottom: 2.3rem;
-        z-index: 999;
-        width: 35px;
-        height: 35px;
-    }
-    </style>
 
     <script>
         FilePond.registerPlugin(
@@ -96,17 +88,19 @@
                             <div class="form-floating">
                                 <select class="form-select" name="jenis_layanan" required>
                                     <option value="" selected disabled hidden>Pilih</option>
+                                    <option value="Home wifi">Home</option>
+                                    <option value="Hotspot voucher">Hotspot voucher</option>
                                 </select>
-                                <label for="jenis_layanan">Jenis Layanan</label>
+                                <label for="jenis_layanan">Jenis layanan</label>
                             </div>
                         </div>
 
-                        <div class="col-12 col-lg-6 mb-3">
+                        <div class="col-12 col-lg-6 mb-3 d-none">
                             <div class="form-floating">
-                                <select class="form-select" name="paket-home-wifi" required>
+                                <select class="form-select" name="paket_home_wifi" required>
                                     <option value="" selected disabled hidden>Pilih</option>
                                 </select>
-                                <label for="paket-home-wifi">Paket home wifi</label>
+                                <label for="paket_home_wifi">Paket home wifi</label>
                             </div>
                         </div>
 
@@ -140,7 +134,7 @@
                         </div>
                         <div class="col-12 col-lg-4 mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" name="kontak" placeholder="Kontak"  required>
+                                <input type="text" class="form-control" name="kontak" placeholder="Kontak" required>
                                 <label for="kontak">Kontak</label>
                             </div>
                         </div>
@@ -161,14 +155,9 @@
                         </div>
                         <div class="col-12 position-relative mb-3">
                             <label>Pin alamat</label>
-                            <input type="hidden" name="lng"  required>
-                            <input type="hidden" name="lat"  required>
-                            <div class="position-relative">
-                                <div class="map" id="daftar-map"></div>
-                                <button type="button" class="btn btn-primary" id="locate-position">
-                                    <i class="bi bi-record-circle m-auto"></i>
-                                </button>
-                            </div>
+                            <input type="hidden" name="lng" required>
+                            <input type="hidden" name="lat" required>
+                            <div class="map" id="daftar-map"></div>
                         </div>
                         <div class="col-12">
                             <label>Foto KTP</label>
@@ -197,6 +186,39 @@
     <script>
         const form = document.forms["form-daftar"];
 
+        form.jenis_layanan.onchange = cekJenisLayanan;
+        function cekJenisLayanan() {
+            form.paket_home_wifi.closest(".col-12").classList.add("d-none");
+            form.paket_home_wifi.required = false;
+
+            if (form.jenis_layanan.value == "Home wifi") {
+                form.paket_home_wifi.closest(".col-12").classList.remove("d-none");
+                form.paket_home_wifi.required = true;
+            }
+        }
+
+        fetch(server + "api/home-wifi/paket-home-wifi.php")
+            .then(response => response.json())
+            .then(result => {
+                result.data.forEach(el => {
+                    const option = document.createElement("option");
+                    option.value = el.id_paket_home_wifi;
+                    option.textContent = el.nama + " (" + el.kecepatan + ")";
+                    form.paket_home_wifi.appendChild(option);
+                })
+            });
+
+        fetch(server + "api/pelanggan/alamat.php")
+            .then(response => response.json())
+            .then(result => {
+                result.data.forEach(el => {
+                    const option = document.createElement("option");
+                    option.value = el.id_alamat;
+                    option.textContent = el.nama;
+                    form.alamat.appendChild(option);
+                })
+            });
+
         form.alamat.onchange = cekAlamat;
         function cekAlamat() {
             form.alamat_lain.closest(".col-12").classList.add("d-none");
@@ -208,7 +230,15 @@
             }
         }
 
+        form.show_password.onchange = showPassword;
+        function showPassword() {
+            form.password_akun.type = form.show_password.checked ? "text" : "password";
+        }
+
         form.onreset = evt => {
+            form.show_password.checked = false;
+            showPassword();
+
             form.alamat.value = "";
             cekAlamat();
 
@@ -254,13 +284,34 @@
             form.lat.value = coordinate.lat;
         });
 
+        map.addControl(
+            new mapboxgl.GeolocateControl({
+                positionOptions: {
+                    enableHighAccuracy: true
+                },
+                // When active the map will receive updates to the device's location as it changes.
+                trackUserLocation: true,
+                // Draw an arrow next to the location dot to indicate which direction the device is heading.
+                showUserHeading: true
+            })
+        );
+
         map.on('idle', function () {
             map.resize();
         });
 
         form.onsubmit = evt => {
             evt.preventDefault();
-            alert("wkwk");
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil mendaftar',
+                text: "Silahkan masuk untuk melihat status pendaftaran",
+                showConfirmButton: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.href = "../login";
+                }
+            })
         }
     </script>
 </body>
