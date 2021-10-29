@@ -31,6 +31,20 @@
     <link rel="stylesheet" href="../assets/vendors/filepond/plugin/image-preview/filepond-plugin-image-preview.min.css">
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css'>
 
+    <style>
+        #locate-position {
+        display: flex;
+        padding: 0;
+        border-radius: 50%;
+        position: absolute;
+        right: 2.5rem;
+        bottom: 2.3rem;
+        z-index: 999;
+        width: 35px;
+        height: 35px;
+    }
+    </style>
+
     <script>
         FilePond.registerPlugin(
             FilePondPluginImagePreview,
@@ -109,13 +123,13 @@
 
                         <div class="col-12 col-lg-6 mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" name="nik" placeholder="NIK">
+                                <input type="text" class="form-control" name="nik" placeholder="NIK" required>
                                 <label for="nik">NIK</label>
                             </div>
                         </div>
                         <div class="col-12 col-lg-4 mb-3">
                             <div class="form-floating">
-                                <select class="form-select" name="jenis_kelamin">
+                                <select class="form-select" name="jenis_kelamin" required>
                                     <option value="" selected disabled hidden>Pilih</option>
                                     <option value="Laki-Laki">Laki-Laki</option>
                                     <option value="Perempuan">Perempuan</option>
@@ -126,7 +140,7 @@
                         </div>
                         <div class="col-12 col-lg-4 mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" name="kontak" placeholder="Kontak">
+                                <input type="text" class="form-control" name="kontak" placeholder="Kontak"  required>
                                 <label for="kontak">Kontak</label>
                             </div>
                         </div>
@@ -147,9 +161,14 @@
                         </div>
                         <div class="col-12 position-relative mb-3">
                             <label>Pin alamat</label>
-                            <input type="hidden" name="lng">
-                            <input type="hidden" name="lat">
-                            <div class="map" id="daftar-map"></div>
+                            <input type="hidden" name="lng"  required>
+                            <input type="hidden" name="lat"  required>
+                            <div class="position-relative">
+                                <div class="map" id="daftar-map"></div>
+                                <button type="button" class="btn btn-primary" id="locate-position">
+                                    <i class="bi bi-record-circle m-auto"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="col-12">
                             <label>Foto KTP</label>
@@ -202,7 +221,7 @@
 
         fotoKtp = FilePond.create(form.foto_ktp, {
             acceptedFileTypes: ['image/*'],
-            required: false,
+            required: true,
             instantUpload: false,
             allowRevert: false,
             allowProcess: false,
@@ -218,7 +237,8 @@
             container: 'daftar-map',
             style: 'mapbox://styles/mapbox/streets-v11',
             center: [112.253302, -7.640462],
-            zoom: 15
+            zoom: 15,
+            attributionControl: false
         });
         let marker;
 
