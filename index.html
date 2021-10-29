@@ -27,15 +27,30 @@
   <link href="home/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
   <link href="home/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
 
+  <link rel="stylesheet" href="assets/vendors/toastify/toastify.css">
+  <script src="assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
+  <script src="assets/vendors/toastify/toastify.js"></script>
+  <script src="assets/vendors/dayjs/dayjs.min.js"></script>
+  <script src="assets/vendors/dayjs/plugin/relativeTime.js"></script>
+  <script src="assets/vendors/dayjs/plugin/utc.js"></script>
+  <script src="assets/vendors/dayjs/plugin/timezone.js"></script>
+  <script src="assets/vendors/filepond/filepond.min.js"></script>
+  <script src="assets/vendors/filepond/plugin/image-preview/filepond-plugin-image-preview.min.js"></script>
+  <script src="assets/vendors/filepond/plugin/image-exif-orientation/filepond-plugin-image-exif-orientation.min.js"></script>
+  <script src="assets/vendors/filepond/plugin/file-validate-size/filepond-plugin-file-validate-size.min.js"></script>
+  <script src="assets/vendors/filepond/plugin/file-rename/filepond-plugin-file-rename.min.js"></script>
+  <script src="assets/vendors/filepond/plugin/file-validate-type/filepond-plugin-file-validate-type.min.js"></script>
+  <script src="assets/vendors/filepond/plugin/file-rename/filepond-plugin-file-rename.min.js"></script>
+  <script src="assets/vendors/filepond/plugin/file-metadata/filepond-plugin-file-metadata.min.js"></script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js"></script>
+
+  <link rel="stylesheet" href="assets/vendors/filepond/filepond.min.css">
+  <link rel="stylesheet" href="assets/vendors/filepond/plugin/image-preview/filepond-plugin-image-preview.min.css">
+  <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css'>
+
   <!-- Template Main CSS File -->
   <link href="home/assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: FlexStart - v1.6.0
-  * Template URL: https://bootstrapmade.com/flexstart-bootstrap-startup-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -53,7 +68,7 @@
         <ul>
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="#pricing">Harga</a></li>
-          <li><a class="nav-link scrollto" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a></li>
+          <li><a class="nav-link scrollto" href="auth/login.html">Login</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -72,7 +87,7 @@
           </h2>
           <div data-aos="fade-up" data-aos-delay="600">
             <div class="text-center text-lg-start">
-              <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal"
+              <a href="auth/register.html"
                 class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
                 <span>Daftar Sekarang</span>
                 <i class="bi bi-arrow-right"></i>
@@ -150,7 +165,8 @@
             <form id="registerForm">
               <label>Nama Lengkap</label>
               <div class="form-group position-relative has-icon-left mb-3">
-                <input type="text" class="form-control form-control-xl" name="fullName" placeholder="Nama Lengkap" required>
+                <input type="text" class="form-control form-control-xl" name="fullName" placeholder="Nama Lengkap"
+                  required>
               </div>
 
               <label>Username</label>
@@ -160,7 +176,8 @@
 
               <label>Password</label>
               <div class="form-group position-relative has-icon-left mb-3">
-                <input type="password" class="form-control form-control-xl" name="password" placeholder="Password" required>
+                <input type="password" class="form-control form-control-xl" name="password" placeholder="Password"
+                  required>
               </div>
 
               <label>Jenis Kelamin</label>
@@ -190,7 +207,8 @@
 
               <div class="col-12 d-flex justify-content-between">
                 <div class="d-flex my-auto">
-                  <span>Sudah mempunyai akun? <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">Masuk</a></span>
+                  <span>Sudah mempunyai akun? <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal"
+                      data-bs-dismiss="modal">Masuk</a></span>
                 </div>
                 <div class="d-flex">
                   <button class="btn btn-primary btn-block shadow-lg">Daftar</button>
@@ -289,7 +307,6 @@
 
   <!-- Template Main JS File -->
   <script src="home/assets/js/main.js"></script>
-
 </body>
 
 </html>

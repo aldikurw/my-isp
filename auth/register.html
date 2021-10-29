@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Mazer Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="../assets/css/app.css">
+    <link rel="stylesheet" href="../assets/css/pages/auth.css">
+
+    <script src="../assets/js/server.js"></script>
+
+    <link rel="stylesheet" href="../assets/vendors/toastify/toastify.css">
+    <script src="../assets/vendors/toastify/toastify.js"></script>
+
+    <script src="../assets/vendors/filepond/filepond.min.js"></script>
+    <script src="../assets/vendors/filepond/plugin/image-preview/filepond-plugin-image-preview.min.js"></script>
+    <script src="../assets/vendors/filepond/plugin/image-exif-orientation/filepond-plugin-image-exif-orientation.min.js"></script>
+    <script src="../assets/vendors/filepond/plugin/file-validate-size/filepond-plugin-file-validate-size.min.js"></script>
+    <script src="../assets/vendors/filepond/plugin/file-rename/filepond-plugin-file-rename.min.js"></script>
+    <script src="../assets/vendors/filepond/plugin/file-validate-type/filepond-plugin-file-validate-type.min.js"></script>
+    <script src="../assets/vendors/filepond/plugin/file-rename/filepond-plugin-file-rename.min.js"></script>
+    <script src="../assets/vendors/filepond/plugin/file-metadata/filepond-plugin-file-metadata.min.js"></script>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js"></script>
+
+    <link rel="stylesheet" href="../assets/vendors/filepond/filepond.min.css">
+    <link rel="stylesheet" href="../assets/vendors/filepond/plugin/image-preview/filepond-plugin-image-preview.min.css">
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css'>
+
+    <script>
+        FilePond.registerPlugin(
+            FilePondPluginImagePreview,
+            FilePondPluginImageExifOrientation,
+            FilePondPluginFileValidateSize,
+            FilePondPluginFileValidateType,
+            FilePondPluginFileRename,
+            FilePondPluginFileMetadata
+        );
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYWxkaWt1cnciLCJhIjoiY2t1ZTRkZm9jMDh4bjJwbnZvZTZ6OG93MiJ9.c6lXJbri6dbYO0p0t8u8Rw';
+    </script>
+</head>
+
+<body>
+    <div id="auth">
+
+        <div class="row h-100">
+            <div class="col-lg-8 col-12">
+                <div id="auth-left">
+                    <div class="auth-logo mb-4">
+                        <a href="index.html"><img src="../assets/images/logo/logo.png" style="height:6rem;"
+                                alt="Logo"></a>
+                    </div>
+                    <h1 class="auth-title">Sign Up</h1>
+                    <p class="auth-subtitle mb-5">Daftar untuk dapat mengakses layanan kami.</p>
+
+                    <form class="row" id="form-daftar" enctype='multipart/form-data'>
+                        <div class="col-12 col-lg-6 mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" name="username_akun" placeholder="Username akun"
+                                    required>
+                                <label for="username_akun">Username</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 mb-3">
+                            <div class="form-floating input-group">
+                                <input type="password" class="form-control" name="password_akun"
+                                    placeholder="Password akun" required>
+                                <div class="input-group-text" style="font-size: 0.8em">
+                                    <input class="form-check-input me-2" type="checkbox" name="show_password"> Show
+                                </div>
+                                <label for="password_akun">Password</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 mb-3">
+                            <div class="form-floating">
+                                <select class="form-select" name="jenis_layanan" required>
+                                    <option value="" selected disabled hidden>Pilih</option>
+                                </select>
+                                <label for="jenis_layanan">Jenis Layanan</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 mb-3">
+                            <div class="form-floating">
+                                <select class="form-select" name="paket-home-wifi" required>
+                                    <option value="" selected disabled hidden>Pilih</option>
+                                </select>
+                                <label for="paket-home-wifi">Paket home wifi</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <hr>
+                        </div>
+
+                        <div class="col-12 col-lg-6 mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" name="nama" placeholder="Nama Lengkap" required>
+                                <label for="nama">Nama Lengkap</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" name="nik" placeholder="NIK">
+                                <label for="nik">NIK</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4 mb-3">
+                            <div class="form-floating">
+                                <select class="form-select" name="jenis_kelamin">
+                                    <option value="" selected disabled hidden>Pilih</option>
+                                    <option value="Laki-Laki">Laki-Laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                                <label for="jenis_kelamin">Jenis Kelamin</label>
+                            </div>
+
+                        </div>
+                        <div class="col-12 col-lg-4 mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" name="kontak" placeholder="Kontak">
+                                <label for="kontak">Kontak</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4 mb-3">
+                            <div class="input-group form-floating">
+                                <select class="form-select" name="alamat" required>
+                                    <option value="" selected disabled hidden>Pilih</option>
+                                    <option value="_alamat_lain">Lainnya</option>
+                                </select>
+                                <label for="alamat">Alamat</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4 mb-3 d-none">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" name="alamat_lain" placeholder="Alamat lain">
+                                <label for="alamat_lain">Alamat lain</label>
+                            </div>
+                        </div>
+                        <div class="col-12 position-relative mb-3">
+                            <label>Pin alamat</label>
+                            <input type="hidden" name="lng">
+                            <input type="hidden" name="lat">
+                            <div class="map" id="daftar-map"></div>
+                        </div>
+                        <div class="col-12">
+                            <label>Foto KTP</label>
+                            <input type="file" class="filepond" name="foto_ktp" data-max-file-size="3MB">
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Sign Up</button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-5 text-lg fs-4">
+                        <p class='text-gray-600'>Sudah mempunyai akun? <a href="login.html" class="font-bold">Masuk</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 d-none d-lg-block">
+                <div id="auth-right">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+        const form = document.forms["form-daftar"];
+
+        form.alamat.onchange = cekAlamat;
+        function cekAlamat() {
+            form.alamat_lain.closest(".col-12").classList.add("d-none");
+            form.alamat_lain.required = false;
+
+            if (form.alamat.value == "_alamat_lain") {
+                form.alamat_lain.closest(".col-12").classList.remove("d-none");
+                form.alamat_lain.required = true;
+            }
+        }
+
+        form.onreset = evt => {
+            form.alamat.value = "";
+            cekAlamat();
+
+            let marker;
+            if (marker) {
+                marker.remove();
+            }
+            fotoKtp.removeFile(0);
+        };
+
+        fotoKtp = FilePond.create(form.foto_ktp, {
+            acceptedFileTypes: ['image/*'],
+            required: false,
+            instantUpload: false,
+            allowRevert: false,
+            allowProcess: false,
+            labelIdle: "Drag & Drop your files or Browse",
+            maxParallelUploads: 1,
+            server: {
+                process: server + "api/pelanggan/upload-foto-ktp.php"
+            },
+        });
+
+        // Mapbox pin alamat
+        map = new mapboxgl.Map({
+            container: 'daftar-map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [112.253302, -7.640462],
+            zoom: 15
+        });
+        let marker;
+
+        map.on("click", e => {
+            if (marker) {
+                marker.remove();
+            }
+            const coordinate = e.lngLat;
+            marker = new mapboxgl.Marker()
+                .setLngLat(coordinate)
+                .addTo(map);
+            form.lng.value = coordinate.lng;
+            form.lat.value = coordinate.lat;
+        });
+
+        map.on('idle', function () {
+            map.resize();
+        });
+
+        form.onsubmit = evt => {
+            evt.preventDefault();
+            alert("wkwk");
+        }
+    </script>
+</body>
+
+</html>
