@@ -11,9 +11,9 @@ require_once "Medoo.php";
 
 use Medoo\Medoo;
 
-$config["host"] = "mysql";
+$config["host"] = "localhost";
 $config["username"] = "root";
-$config["password"] = "root";
+$config["password"] = "";
 $config["db"] = "my-isp";
 
 

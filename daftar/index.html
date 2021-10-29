@@ -33,8 +33,7 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js"></script>
 
     <link rel="stylesheet" href="../assets/vendors/filepond/filepond.min.css">
-    <link rel="stylesheet"
-        href="../assets/vendors/filepond/plugin/image-preview/filepond-plugin-image-preview.min.css">
+    <link rel="stylesheet" href="../assets/vendors/filepond/plugin/image-preview/filepond-plugin-image-preview.min.css">
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css'>
 
     <script>
@@ -58,8 +57,7 @@
             <div class="col-lg-8 col-12">
                 <div id="auth-left">
                     <div class="auth-logo mb-4">
-                        <a href=".."><img src="../assets/images/logo/logo.png" style="height:6rem;"
-                                alt="Logo"></a>
+                        <a href=".."><img src="../assets/images/logo/logo.png" style="height:6rem;" alt="Logo"></a>
                     </div>
                     <h1 class="auth-title">Sign Up</h1>
                     <p class="auth-subtitle mb-5">Daftar untuk dapat mengakses layanan kami.</p>
@@ -284,20 +282,30 @@
             form.lat.value = coordinate.lat;
         });
 
-        map.addControl(
-            new mapboxgl.GeolocateControl({
-                positionOptions: {
-                    enableHighAccuracy: true
-                },
-                // When active the map will receive updates to the device's location as it changes.
-                trackUserLocation: true,
-                // Draw an arrow next to the location dot to indicate which direction the device is heading.
-                showUserHeading: true
-            })
-        );
+        const geolocate = new mapboxgl.GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: true
+            },
+            trackUserLocation: true,
+            showUserHeading: true
+        });
+
+        map.addControl(geolocate);
 
         map.on('idle', function () {
             map.resize();
+        });
+
+        geolocate.on('geolocate', function (e) {
+            if (marker) {
+                marker.remove();
+            }
+            const coordinate = {lng: e.coords.longitude, lat: e.coords.latitude};
+            marker = new mapboxgl.Marker()
+                .setLngLat(coordinate)
+                .addTo(map);
+            form.lng.value = coordinate.lng;
+            form.lat.value = coordinate.lat;
         });
 
         form.onsubmit = evt => {
