@@ -157,7 +157,7 @@
         }
 
         fetch(server + "api/calon-pelanggan/index.php").then(response => response.json()).then(result => {
-            document.getElementById("nama-calon-pelanggan-1").textContent = result.data.nama;
+            document.getElementById("nama-calon-pelanggan-1").textContent = result.data.calon_pelanggan.nama;
         });
     </script>
 </body>

@@ -66,27 +66,27 @@
                         <tr>
                             <th>Nama Lengkap</th>
                             <td>:</td>
-                            <td>Febri</td>
+                            <td id="nama_pelanggan_2"></td>
                         </tr>
                         <tr>
                             <th>Alamat</th>
                             <td>:</td>
-                            <td>Sugihwaras</td>
+                            <td id="alamat"></td>
                         </tr>
                         <tr>
                             <th>Paket Terpasang</th>
                             <td>:</td>
-                            <td>Home Plus</td>
+                            <td id="nama_paket"></td>
                         </tr>
                         <tr>
                             <th>Kecepatan</th>
                             <td>:</td>
-                            <td>4Mbps/4Mbps</td>
+                            <td id="kecepatan_paket"></td>
                         </tr>
                         <tr>
                             <th>Tanggal Pemasangan</th>
                             <td>:</td>
-                            <td>20-05-2021</td>
+                            <td id="tanggal_pemasangan"></td>
                         </tr>
                     </table>
                 </div>
@@ -94,3 +94,13 @@
         </div>
     </div>
 </div>
+
+<script>
+    fetch(server + "api-pelanggan/index.php").then(response => response.json()).then(result => {
+        document.getElementById("nama_pelanggan_2").textContent = result.data.pelanggan.nama;
+        document.getElementById("alamat").textContent = result.data.alamat.nama;
+        document.getElementById("nama_paket").textContent = result.data.paket_home_wifi.nama;
+        document.getElementById("kecepatan_paket").textContent = result.data.paket_home_wifi.kecepatan;
+        document.getElementById("tanggal_pemasangan").textContent = result.data.akun_home_wifi.tanggal_pemasangan;
+    });
+</script>

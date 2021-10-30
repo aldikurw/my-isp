@@ -22,12 +22,12 @@
                         <tr>
                             <th>Paket</th>
                             <td>:</td>
-                            <td id="paket">Home Plus</td>
+                            <td id="paket"></td>
                         </tr>
                         <tr>
                             <th>Kecepatan</th>
                             <td>:</td>
-                            <td id="kecepatan">4Mbps/4Mbps</td>
+                            <td id="kecepatan"></td>
                         </tr>
                         <tr>
                             <th>Status pemasangan</th>
@@ -42,7 +42,11 @@
 </div>
 
 <script>
-    fetch(server + "api/calon-pelanggan").then(response => response.json()).then(result => {
-
+    fetch(server + "api/calon-pelanggan/index.php").then(response => response.json()).then(result => {
+        document.getElementById("nama-calon-pelanggan-2").textContent = result.data.calon_pelanggan.nama;
+        document.getElementById("alamat").textContent = result.data.alamat.nama;
+        document.getElementById("paket").textContent = result.data.calon_pelanggan.jenis_layanan;
+        document.getElementById("kecepatan").textContent = result.data.paket_home.kecepatan;
+        document.getElementById("status").textContent = result.data.calon_pelanggan.status;
     });
 </script>

@@ -118,7 +118,7 @@
                                 <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="user-menu d-flex">
                                         <div class="user-name text-end me-3">
-                                            <h6 class="mb-0 text-gray-600" id="nama-pelanggan"></h6>
+                                            <h6 class="mb-0 text-gray-600" id="nama_pelanggan_1"></h6>
                                             <p class="mb-0 text-sm text-gray-600">Pelanggan</p>
                                         </div>
                                         <div class="user-img d-flex align-items-center">
@@ -171,7 +171,7 @@
         }
 
         fetch(server + "api-pelanggan/index.php").then(response => response.json()).then(result => {
-            document.getElementById("nama-pelanggan").textContent = result.data.nama;
+            document.getElementById("nama_pelanggan_1").textContent = result.data.pelanggan.nama;
         });
     </script>
 </body>

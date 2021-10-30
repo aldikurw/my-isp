@@ -7,22 +7,55 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <button type="button" class="btn btn-light-danger">Lapor</button>
+                    <button type="button" class="btn btn-light-danger" data-bs-toggle="modal" data-bs-target="#modal-lapor-gangguan">Lapor</button>
                     <table class="table table-hover">
                         <thead>
                             <th>Waktu</th>
-                            <th>Tipe Laporan</th>
+                            <th>Jenis Gangguan</th>
                             <th>Keterangan</th>
                             <th>Status</th>
                         </thead>
                         <tbody>
-                            <td>2 hours ago</td>
-                            <td>Internet Mati</td>
-                            <td>wifinya mati dari tadi pagi</td>
-                            <td>Selesai</td>
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Paket -->
+<div class="modal fade" id="modal-lapor-gangguan">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kirim Laporan Gangguan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-lapor-gangguan" class="row">
+                    <div class="col-12 mb-3">
+                        <div class="form-floating">
+                            <select class="form-select" name="jenis_gangguan">
+                                <option value="" selected disabled hidden>Pilih</option>
+                                <option value="Laki-Laki">Internet lemot</option>
+                                <option value="Internet mati">Internet mati</option>
+                                <option value="Router atau adaptor mati">Router atau adaptor mati</option>
+                            </select>
+                            <label for="jenis_gangguan">Jenis gangguan</label>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mb-3">
+                        <div class="form-floating">
+                            <textarea name="keterangan" class="form-control" id="keterangan" cols="30" rows="5" placeholder="keterangan"></textarea>
+                            <label for="keterangan">Keterangan</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success btn-submit">Kirim</button>
             </div>
         </div>
     </div>
