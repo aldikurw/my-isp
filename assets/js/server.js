@@ -1,1 +1,1 @@
-const server = "http://localhost/my-isp/";
+const server = "http://67dfd5898bbd57.lhr.domains/";
