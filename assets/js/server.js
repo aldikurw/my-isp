@@ -1,1 +1,1 @@
-const server = "https://67dfd5898bbd57.lhr.domains/my-isp/";
+const server = "https://3732bb3754935f.lhr.domains/my-isp/";
