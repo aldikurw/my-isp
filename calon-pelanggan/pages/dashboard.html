@@ -44,7 +44,7 @@
 <script>
     fetch(server + "api/calon-pelanggan/index.php").then(response => response.json()).then(result => {
         document.getElementById("nama-calon-pelanggan-2").textContent = result.data.calon_pelanggan.nama;
-        document.getElementById("alamat").textContent = result.data.alamat.nama;
+        document.getElementById("alamat").textContent = result.data.alamat;
         document.getElementById("paket").textContent = result.data.calon_pelanggan.jenis_layanan;
         document.getElementById("kecepatan").textContent = result.data.paket_home.kecepatan;
         document.getElementById("status").textContent = result.data.calon_pelanggan.status;

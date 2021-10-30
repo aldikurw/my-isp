@@ -3,7 +3,12 @@
 require_once "../config/config.php";
 
 $calon_pelanggan = $db->select("calon_pelanggan", "*", ["id_calon_pelanggan" => $_COOKIE["id"]])[0];
-$alamat = $db->select("alamat", "*", ["id_alamat" => $calon_pelanggan["id_alamat"]])[0];
+$alamat;
+if ($calon_pelanggan["id_alamat"] == null) {
+    $alamat = $calon_pelanggan["alamat_lain"];
+} else {
+    $alamat = $db->select("alamat", "*", ["id_alamat" => $calon_pelanggan["id_alamat"]])[0];
+}
 
 $response["data"] = [
     "calon_pelanggan" => $calon_pelanggan,

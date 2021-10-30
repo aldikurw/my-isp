@@ -8,7 +8,11 @@ $result = $db->select("pelanggan", "id_pelanggan", ["username_akun" => $data->us
 if (count($result)) {
     setcookie("id", $result[0], time() + (86400 * 30), "/");
     setcookie("accountLevel", "pelanggan", time() + (86400 * 30), "/");
-    
+
+    $response["data"] = [
+        "id" => $result[0],
+        "accountLevel" => "pelanggan"
+    ];
     $response["success"] = true;
     $response["message"] = "Berhasil login";
 } else {
@@ -17,6 +21,10 @@ if (count($result)) {
         setcookie("id", $result[0], time() + (86400 * 30), "/");
         setcookie("accountLevel", "calon_pelanggan", time() + (86400 * 30), "/");
     
+        $response["data"] = [
+            "id" => $result[0],
+            "accountLevel" => "calon_pelanggan"
+        ];
         $response["success"] = true;
         $response["message"] = "Berhasil login";   
     } else {

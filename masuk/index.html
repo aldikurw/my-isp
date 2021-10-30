@@ -111,7 +111,15 @@
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
-                            location.href = "..";
+                            // setCookie("id", result.data.id, 1);
+                            // setCookie("accountLevel", result.data.accountLevel, 1);
+                            if (getCookie("accountLevel") === "admin") {
+                                location.href = "../admin";
+                            } else if (getCookie("accountLevel") === "pelanggan") {
+                                location.href = "../pelanggan";
+                            } else if (getCookie("accountLevel") === "calon_pelanggan") {
+                                location.href = "../calon-pelanggan";
+                            }
                         } else {
                             showToast(result.success, result.message);
                         }
